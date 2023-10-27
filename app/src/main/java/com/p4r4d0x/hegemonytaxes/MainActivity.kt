@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting()
                 }
             }
 
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting() {
     HegemonyTaxesCalculatorTheme{
         Row(
             Modifier
@@ -133,12 +133,3 @@ fun getPolicyData() = listOf(
     )
 
 )
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HegemonyTaxesCalculatorTheme {
-        Greeting("Android")
-    }
-}
