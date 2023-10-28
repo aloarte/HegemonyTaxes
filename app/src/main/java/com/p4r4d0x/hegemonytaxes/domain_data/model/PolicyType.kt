@@ -1,6 +1,4 @@
-package com.p4r4d0x.hegemonytaxes
-
-import androidx.compose.ui.graphics.Color
+package com.p4r4d0x.hegemonytaxes.domain_data.model
 
 enum class PolicyType {
     FiscalPolicy,
@@ -10,5 +8,4 @@ enum class PolicyType {
     WEEducation,
     ForeignTrade,
     Immigration
-
 }
