@@ -55,7 +55,7 @@ fun getPolicyColor(policyType: PolicyType) = when (policyType) {
 @Composable
 fun PolicySliderComponent(
     policyData: PolicyData,
-    onPolicySelected: (PolicyState, PolicyType) -> Unit,
+    onPolicySelected: (PolicyData) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -69,7 +69,7 @@ fun PolicySliderComponent(
         PolicyNumber(policyData.number)
         Column {
             PolicyTitle(policyData.name)
-            PolicySlider(policyData.state, policyData.type, onPolicySelected)
+            PolicySlider(policyData, onPolicySelected)
             PolicySliderLabels()
         }
     }
@@ -78,18 +78,17 @@ fun PolicySliderComponent(
 
 @Composable
 fun PolicySlider(
-    defaultState: PolicyState,
-    type: PolicyType,
-    onPolicySelected: (PolicyState, PolicyType) -> Unit,
+    policyData: PolicyData,
+    onPolicySelected: (PolicyData) -> Unit,
 ) {
     var sliderPosition by remember {
-        mutableStateOf(PolicyState.fromState(defaultState))
+        mutableStateOf(PolicyState.fromState(policyData.state))
     }
     Slider(
         value = sliderPosition,
         onValueChange = { newPolicyValue ->
             sliderPosition = newPolicyValue
-            onPolicySelected(PolicyState.getState(newPolicyValue), type)
+            onPolicySelected(policyData.copy(state = PolicyState.getState(newPolicyValue)))
         },
         colors = SliderDefaults.colors(
             thumbColor = DarkGrey,

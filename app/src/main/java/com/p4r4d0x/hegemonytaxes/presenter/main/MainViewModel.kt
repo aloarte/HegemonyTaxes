@@ -1,11 +1,9 @@
 package com.p4r4d0x.hegemonytaxes.presenter.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
-import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
-import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
-import com.p4r4d0x.hegemonytaxes.domain_data.model.TaxMultiplierData
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.PoliciesRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
@@ -36,6 +34,18 @@ class MainViewModel @Inject constructor(
         _state.update {
             it.copy(taxMultiplier = taxRepository.calculateTaxMultiplier(state.value.policies))
         }
+    }
+
+    fun updatePolicy(updatedPolicy: PolicyData) {
+        _state.value.policies.find { it.type == updatedPolicy.type }?.let { listPolicy ->
+            _state.update { uiState ->
+                val index = uiState.policies.indexOf(listPolicy)
+                uiState.copy(
+                    policies = uiState.policies.toMutableList().also { it[index] = updatedPolicy })
+            }
+        }
+        calculateTaxMultiplier()
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.p4r4d0x.hegemonytaxes.domain_data.utils
 
+import android.util.Log
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.model.TaxMultiplierData

@@ -30,13 +30,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     NavigationComponent(state) { event ->
-//                        when (event) {
-//                            is UiEvent.AddProduct -> {
-//                                viewModel.addItemToCart(
-//                                    product = event.product,
-//                                    quantity = event.quantity
-//                                )
-//                            }
+                        when (event) {
+                            is UiEvent.UpdatePolicy -> {
+                                viewModel.updatePolicy(updatedPolicy = event.policy)
+                            }
+
+                            else -> {}
+                        }
 //
 //                            is UiEvent.ReplaceProductQuantity -> {
 //                                viewModel.addItemToCart(
