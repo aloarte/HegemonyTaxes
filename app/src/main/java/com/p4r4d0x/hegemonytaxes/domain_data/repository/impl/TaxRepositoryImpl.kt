@@ -23,7 +23,7 @@ class TaxRepositoryImpl @Inject constructor(
                 val healthcareTaxIncrement =
                     policiesDatasource.getWelfareIncrement(policies.weHealthcare.state)
                 val educationTaxIncrement =
-                    policiesDatasource.getWelfareIncrement(policies.weEducationPolicyData.state)
+                    policiesDatasource.getWelfareIncrement(policies.weEducation.state)
 
                 taxCalculator.calculateTaxMultiplier(baseTax,welfareTaxMultiplier,healthcareTaxIncrement,educationTaxIncrement)
             } ?: INVALID_TAX_VALUE

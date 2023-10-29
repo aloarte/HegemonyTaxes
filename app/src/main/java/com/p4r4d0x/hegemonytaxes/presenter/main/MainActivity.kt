@@ -37,30 +37,6 @@ class MainActivity : ComponentActivity() {
 
                             else -> {}
                         }
-//
-//                            is UiEvent.ReplaceProductQuantity -> {
-//                                viewModel.addItemToCart(
-//                                    replace = true,
-//                                    product = event.product,
-//                                    quantity = event.quantity
-//                                )
-//                            }
-//
-//                            is UiEvent.RemoveProduct -> {
-//                                viewModel.removeItemFromCart(product = event.product)
-//                            }
-//
-//                            is UiEvent.ChangePayment ->{
-//                                viewModel.changePaymentType(event.type)
-//                            }
-//
-//                            UiEvent.GoResult ->{
-//                                viewModel.clearCartAndState()
-//                            }
-//
-//                            else -> {}
-//
-//                        }
                     }
                 }
             }

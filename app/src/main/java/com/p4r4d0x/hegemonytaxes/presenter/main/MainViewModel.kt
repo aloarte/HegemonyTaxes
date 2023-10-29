@@ -1,6 +1,5 @@
 package com.p4r4d0x.hegemonytaxes.presenter.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
@@ -32,7 +31,7 @@ class MainViewModel @Inject constructor(
 
     fun calculateTaxMultiplier() {
         _state.update {
-            it.copy(taxMultiplier = taxRepository.calculateTaxMultiplier(state.value.policies))
+            it.copy(taxMultiplier = taxRepository.calculateTaxMultiplier(it.policies))
         }
     }
 

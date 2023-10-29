@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreen
 
 @Composable
 fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
@@ -25,53 +26,17 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 
     }
     NavHost(navController = navController, startDestination = Screen.PoliciesScreen.route) {
-//        composable(route = Screen.WelcomeScreen.route) {
-//            Screen.WelcomeScreen(
-//                state = state,
-//                onEventTriggered = onInnerEventTriggered
-//            )
-//        }
-//        composable(
-//            route = Screen.DetailScreen.route + "/{productId}",
-//            arguments = listOf(
-//                navArgument("productId") {
-//                    type = NavType.StringType
-//                    defaultValue = "UNKNOWN"
-//                    nullable = true
-//                })
-//        ) { entry ->
-//            DetailScreen(
-//                productId = entry.arguments?.getString("productId"),
-//                state = state,
-//                onEventTriggered = onInnerEventTriggered
-//            )
-//
-//        }
         composable(route = Screen.PoliciesScreen.route) {
             PoliciesScreen(
                 state = state,
                 onEventTriggered = onInnerEventTriggered
             )
-
         }
-//        composable(
-//            route = Screen.PaymentScreen.route + "/{price}",
-//            arguments = listOf(
-//                navArgument("price") {
-//                    type = NavType.StringType
-//                    defaultValue = "0.0"
-//                })
-//        ) { entry ->
-//            PaymentScreen(
-//                price = entry.arguments?.getString("price")?.toDouble(),
-//                state = state,
-//                onEventTriggered = onInnerEventTriggered
-//            )
-//
-//        }
-//        composable(route = Screen.ResultScreen.route) {
-//            ResultScreen(state = state,
-//                onEventTriggered = onInnerEventTriggered)
-//        }
+        composable(route = Screen.RoleSelectorScreen.route) {
+            RolesScreen(
+                state = state,
+                onEventTriggered = onInnerEventTriggered
+            )
+        }
     }
 }
