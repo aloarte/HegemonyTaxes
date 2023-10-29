@@ -9,6 +9,7 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.impl.TaxRepositoryImpl
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants
+import com.p4r4d0x.hegemonytaxes.utils.TestData.policies
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -29,39 +30,6 @@ class TaxRepositoryTest {
 
     companion object {
         private const val TAX_VALUE = 4
-
-        private val policies = listOf(
-            PolicyData(
-                number = 1,
-                name = PolicyType.FiscalPolicy.name,
-                state = PolicyState.A,
-                type = PolicyType.FiscalPolicy
-            ),
-            PolicyData(
-                number = 1,
-                name = PolicyType.LaborMarket.name,
-                state = PolicyState.A,
-                type = PolicyType.LaborMarket
-            ),
-            PolicyData(
-                number = 1,
-                name = PolicyType.Taxation.name,
-                state = PolicyState.A,
-                type = PolicyType.Taxation
-            ),
-            PolicyData(
-                number = 1,
-                name = PolicyType.WEHealthcare.name,
-                state = PolicyState.B,
-                type = PolicyType.WEHealthcare
-            ),
-            PolicyData(
-                number = 1,
-                name = PolicyType.WEEducation.name,
-                state = PolicyState.C,
-                type = PolicyType.WEEducation
-            )
-        )
 
         private val policiesMissingTaxation = listOf(
             PolicyData(
