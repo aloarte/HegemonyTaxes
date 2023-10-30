@@ -27,9 +27,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.hegemonytaxes.PolicyType
-import com.p4r4d0x.hegemonytaxes.domain.PolicyData
-import com.p4r4d0x.hegemonytaxes.domain.PolicyState
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
 import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.FiscalPolicy
 import com.p4r4d0x.hegemonytaxes.ui.theme.ForeignTrade
@@ -41,7 +41,6 @@ import com.p4r4d0x.hegemonytaxes.ui.theme.WEEducation
 import com.p4r4d0x.hegemonytaxes.ui.theme.WEHealthcare
 import com.p4r4d0x.hegemonytaxes.ui.theme.White
 import java.util.Locale
-
 
 fun getPolicyColor(policyType: PolicyType) = when (policyType) {
     PolicyType.FiscalPolicy -> FiscalPolicy
@@ -56,7 +55,7 @@ fun getPolicyColor(policyType: PolicyType) = when (policyType) {
 @Composable
 fun PolicySliderComponent(
     policyData: PolicyData,
-    onPolicySelected: (PolicyState, PolicyType) -> Unit,
+    onPolicySelected: (PolicyData) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -70,7 +69,7 @@ fun PolicySliderComponent(
         PolicyNumber(policyData.number)
         Column {
             PolicyTitle(policyData.name)
-            PolicySlider(policyData.defaultState, policyData.type, onPolicySelected)
+            PolicySlider(policyData, onPolicySelected)
             PolicySliderLabels()
         }
     }
@@ -79,18 +78,17 @@ fun PolicySliderComponent(
 
 @Composable
 fun PolicySlider(
-    defaultState: PolicyState,
-    type: PolicyType,
-    onPolicySelected: (PolicyState, PolicyType) -> Unit,
+    policyData: PolicyData,
+    onPolicySelected: (PolicyData) -> Unit,
 ) {
     var sliderPosition by remember {
-        mutableStateOf(PolicyState.fromState(defaultState))
+        mutableStateOf(PolicyState.fromState(policyData.state))
     }
     Slider(
         value = sliderPosition,
         onValueChange = { newPolicyValue ->
             sliderPosition = newPolicyValue
-            onPolicySelected(PolicyState.getState(newPolicyValue), type)
+            onPolicySelected(policyData.copy(state = PolicyState.getState(newPolicyValue)))
         },
         colors = SliderDefaults.colors(
             thumbColor = DarkGrey,
