@@ -38,6 +38,12 @@ val typography = Typography(
         fontSize = 15.sp,
         letterSpacing = 1.sp
     ),
+    bodyMedium = TextStyle(
+        fontFamily = NunitoFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        letterSpacing = 0.5.sp
+    ),
     titleMedium = TextStyle(
         fontFamily = NunitoFontFamily,
         fontWeight = FontWeight.Bold,
