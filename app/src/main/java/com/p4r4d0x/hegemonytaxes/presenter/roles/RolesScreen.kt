@@ -71,7 +71,7 @@ fun RolesDescription(state: UiState) {
                 modifier = Modifier.align(Alignment.TopCenter),
                 textInit = "Based on the current policies the tax multiplier is ",
                 coloredText1 = state.taxMultiplier.toString(),
-                textMid = ". The policies stays at ",
+                textMid = ". The taxation and labor market policies stays at ",
                 coloredText2 = policiesSummary,
                 endText = ". This values will be used in the next tax calculations.",
                 highlightColor = Orange,

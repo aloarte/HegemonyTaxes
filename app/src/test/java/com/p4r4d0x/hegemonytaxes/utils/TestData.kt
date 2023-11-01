@@ -14,25 +14,25 @@ object TestData {
             type = PolicyType.FiscalPolicy
         ),
         PolicyData(
-            number = 1,
+            number = 2,
             name = PolicyType.LaborMarket.name,
             state = PolicyState.A,
             type = PolicyType.LaborMarket
         ),
         PolicyData(
-            number = 1,
+            number = 3,
             name = PolicyType.Taxation.name,
             state = PolicyState.A,
             type = PolicyType.Taxation
         ),
         PolicyData(
-            number = 1,
+            number = 4,
             name = PolicyType.WEHealthcare.name,
             state = PolicyState.B,
             type = PolicyType.WEHealthcare
         ),
         PolicyData(
-            number = 1,
+            number = 5,
             name = PolicyType.WEEducation.name,
             state = PolicyState.C,
             type = PolicyType.WEEducation

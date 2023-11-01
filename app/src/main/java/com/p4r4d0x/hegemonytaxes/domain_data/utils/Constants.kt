@@ -8,5 +8,14 @@ object Constants {
     const val WELFARE_TAX_INCREMENT_A = 2
     const val WELFARE_TAX_INCREMENT_B = 1
     const val WELFARE_TAX_INCREMENT_C = 0
+    const val INCOME_TAX_2A_3A = 7
+    const val INCOME_TAX_2A_3B = 6
+    const val INCOME_TAX_2A_3C = 5
+    const val INCOME_TAX_2B_3A = 4
+    const val INCOME_TAX_2B_3B = 4
+    const val INCOME_TAX_2B_3C = 4
+    const val INCOME_TAX_2C_3A = 1
+    const val INCOME_TAX_2C_3B = 2
+    const val INCOME_TAX_2C_3C = 3
 
 }

@@ -6,4 +6,6 @@ interface TaxRepository {
 
     fun calculateTaxMultiplier(policies:List<PolicyData>):Int
 
+    fun calculateIncomeTax(policies:List<PolicyData>,population: Int):Int
+
 }
