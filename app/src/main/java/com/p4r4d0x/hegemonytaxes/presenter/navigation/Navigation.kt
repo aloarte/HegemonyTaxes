@@ -20,6 +20,7 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             UiEvent.GoPolicySelector -> navController.navigate(Screen.PoliciesScreen.route)
             UiEvent.GoPickRole ->  navController.navigate(Screen.RoleSelectorScreen.route)
             is UiEvent.GoRole -> {
+                onEventTriggered(UiEvent.ClearIncomeTax)
                 when(event.role){
                     HegemonyRole.WorkingClass -> navController.navigate(Screen.WorkingClassScreen.route)
                     HegemonyRole.MiddleClass ->navController.navigate(Screen.MiddleClassScreen.route)
@@ -47,7 +48,8 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         }
         composable(route = Screen.WorkingClassScreen.route) {
             WorkingClassScreen(
-                state = state
+                state = state,
+                onEventTriggered = onInnerEventTriggered
             )
         }
 
