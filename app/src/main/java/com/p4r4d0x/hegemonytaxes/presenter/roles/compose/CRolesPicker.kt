@@ -16,13 +16,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getInvolvedTaxPoliciesSummary
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
+import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.ui.theme.White
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
+import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleAvatar
+import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleBackground
+import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleMainColor
 
 @Composable
 fun RolesDescription(state: UiState) {
@@ -36,11 +41,11 @@ fun RolesDescription(state: UiState) {
             MultiStyleText(
                 modifier = Modifier.align(Alignment.TopCenter),
                 textStyleList = listOf(
-                    MultipleText("Based on the current policies the tax multiplier is ",false),
-                    MultipleText(state.taxMultiplier.toString(),true),
-                    MultipleText(". The taxation and labor market policies stays at ",false),
-                    MultipleText(policiesSummary,true),
-                    MultipleText(". This values will be used in the next tax calculations.",false),
+                    MultipleText("Based on the current policies the tax multiplier is ", false),
+                    MultipleText(state.taxMultiplier.toString(), true),
+                    MultipleText(". The taxation and labor market policies stays at ", false),
+                    MultipleText(policiesSummary, true),
+                    MultipleText(". This values will be used in the next tax calculations.", false),
                 ),
                 highlightedStyle = Utils.getHighlightedSpanStyle(18.sp),
                 regularStyle = Utils.getRegularSpanStyle(18.sp)
@@ -58,21 +63,12 @@ fun RolesDescription(state: UiState) {
 
 @Composable
 fun RoleSection(role: HegemonyRole, onRoleSelected: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .padding(horizontal = 20.dp, vertical = 5.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .height(70.dp)
-            .fillMaxWidth()
-            .clickable { onRoleSelected() }
-            .background(Utils.getRoleBackgroundColor(role))
-    ) {
-        Text(
-            color = White,
-            text = role.value.uppercase(),
-            style = MaterialTheme.typography.titleMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
+    HegemonyButton(
+        modifier = Modifier,
+        text = role.value.uppercase(),
+        mainColor = getRoleMainColor(role),
+        backgroundColor = getRoleBackground(role),
+        drawable = getRoleAvatar(role),
+        onClick = onRoleSelected
+    )
 }

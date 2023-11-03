@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,27 +28,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
-import com.p4r4d0x.hegemonytaxes.domain_data.utils.getInvolvedTaxPoliciesSummary
-import com.p4r4d0x.hegemonytaxes.presenter.UiState
-import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
-import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
-import com.p4r4d0x.hegemonytaxes.ui.theme.Blue
-import com.p4r4d0x.hegemonytaxes.ui.theme.Grey
-import com.p4r4d0x.hegemonytaxes.ui.theme.Red
-import com.p4r4d0x.hegemonytaxes.ui.theme.White
-import com.p4r4d0x.hegemonytaxes.ui.theme.Yellow
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getHighlightedSpanStyle
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRegularSpanStyle
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleBackgroundColor
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,6 +50,7 @@ fun RoleInputText(
     maxValue: Int,
     onValueChanged: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -66,15 +59,22 @@ fun RoleInputText(
     ) {
         OutlinedTextField(
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                textColor = roleUi.backgroundColor,
-                focusedLabelColor = roleUi.mainColor,
-                unfocusedLabelColor = roleUi.backgroundColor,
-                focusedBorderColor = roleUi.mainColor,
-                unfocusedBorderColor = roleUi.backgroundColor
+                cursorColor = roleUi.mainColor,
+                selectionColors = TextSelectionColors(roleUi.mainColor, roleUi.mainColor),
+                textColor = White,
+                focusedLabelColor = White,
+                unfocusedLabelColor = White,
+                focusedBorderColor = White,
+                unfocusedBorderColor = White
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    focusManager.clearFocus()
+                }
             ),
             singleLine = true,
             modifier = Modifier
@@ -86,7 +86,14 @@ fun RoleInputText(
                     onValueChanged(newValue)
                 }
             },
-            label = { Text(labelText) }
+            label = {
+                Text(
+                    text = labelText,
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.labelMedium,
+                    textAlign = TextAlign.Center
+                )
+            }
         )
     }
 }
@@ -96,7 +103,6 @@ fun RoleTitleSection(roleUi: RoleUiData) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp)
     ) {
         Divider(thickness = 30.dp, color = Color.Transparent)
         RoleTitleCard(roleUi)

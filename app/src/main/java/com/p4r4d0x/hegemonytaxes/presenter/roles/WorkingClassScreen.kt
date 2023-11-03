@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
+import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
@@ -52,16 +53,18 @@ fun WorkingClassScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .background(DarkGrey),
+                .background(DarkGrey)
+                .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
+            val roleUi = buildRoleUiData(HegemonyRole.WorkingClass)
             RoleTitleSection(roleUi)
             Divider(thickness = 20.dp, color = Color.Transparent)
             PopulationInputDescription()
             RoleInputText(context, roleUi, "Population", population, 10) {
                 it
                 population = it
+
             }
             Divider(thickness = 50.dp, color = Color.Transparent)
             CalculateIncomeTaxButton(context, population, onEventTriggered)
@@ -75,7 +78,7 @@ fun WorkingClassScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 fun IncomeTaxResult(state: UiState) {
     if (state.incomeTax > -1) {
         MultiStyleText(
-            modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
             textStyleList = listOf(
                 MultipleText("The Tax Income calculated is ", false),
                 MultipleText(state.incomeTax.toString(), true),
@@ -91,7 +94,7 @@ fun IncomeTaxResult(state: UiState) {
 @Composable
 fun PopulationInputDescription() {
     MultiStyleText(
-        modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+        modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
         textStyleList = listOf(
             MultipleText(
                 "Add your current population number. Remember that the values may be in the range of ",
@@ -112,26 +115,16 @@ fun CalculateIncomeTaxButton(
     population: String,
     onEventTriggered: (UiEvent) -> Unit
 ) {
-    Button(
-        colors = ButtonDefaults.buttonColors(containerColor = Orange),
-        modifier = Modifier.width(250.dp),
-        onClick = {
-            verifyIntInputSelection(
-                context = context,
-                numberInput = population,
-                intRange = (3..10)
-            ) {
-                onEventTriggered(UiEvent.CalculateIncomeTax(population = it))
-            }
+    HegemonyButton(modifier = Modifier, text = "Calculate income tax") {
+        verifyIntInputSelection(
+            context = context,
+            numberInput = population,
+            intRange = (3..10)
+        ) {
+            onEventTriggered(UiEvent.CalculateIncomeTax(population = it))
         }
-    ) {
-
-        Text(
-            color = DarkGrey,
-            text = "Calculate income tax".uppercase(Locale.ROOT),
-            fontSize = 16.sp,
-            style = MaterialTheme.typography.labelLarge,
-            textAlign = TextAlign.Center
-        )
     }
+
 }
+
+

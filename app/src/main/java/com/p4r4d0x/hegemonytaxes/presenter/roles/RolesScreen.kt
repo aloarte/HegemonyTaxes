@@ -29,6 +29,9 @@ fun RolesScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             Divider(thickness = 50.dp, color = Color.Transparent)
             RolesDescription(state)
             Divider(thickness = 20.dp, color = Color.Transparent)
+
+
+
             RoleSection(HegemonyRole.WorkingClass) {
                 onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.WorkingClass))
             }

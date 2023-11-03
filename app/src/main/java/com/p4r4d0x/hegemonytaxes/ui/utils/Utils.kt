@@ -46,7 +46,7 @@ object Utils {
     )
 
     fun checkValidRange(context: Context, newValue: String, maxValue: Int, isValid: () -> Unit) {
-        if (newValue.isEmpty() || tryNumberParse(context,newValue) in 0..maxValue) {
+        if (newValue.isEmpty() || tryNumberParse(context, newValue) in 0..maxValue) {
             isValid()
         } else {
             Toast.makeText(
@@ -65,12 +65,18 @@ object Utils {
         -1
     }
 
-    fun verifyIntInputSelection(context: Context,numberInput: String, intRange: IntRange, isValid: (Int) -> Unit) {
-        val number = tryNumberParse(context,numberInput)
-        if(number in intRange){
+    fun verifyIntInputSelection(
+        context: Context,
+        numberInput: String,
+        intRange: IntRange,
+        isValid: (Int) -> Unit
+    ) {
+        val number = tryNumberParse(context, numberInput)
+        if (number in intRange) {
             isValid(number)
-        }else{
-            Toast.makeText(context, "Wrong value. It must be in $intRange", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Wrong value. It must be in $intRange", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -79,40 +85,53 @@ object Utils {
             HegemonyRole.WorkingClass -> RoleUiData(
                 title = role.value.uppercase(Locale.ROOT),
                 mainColor = WorkingClass,
-                backgroundColor = LighterRed,
+                backgroundColor = getRoleBackground(role),
                 description = "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population.",
-                avatar = R.drawable.avatar_working_class
+                avatar = getRoleAvatar(role)
             )
-
             HegemonyRole.MiddleClass ->
                 RoleUiData(
                     title = role.value.uppercase(Locale.ROOT),
                     mainColor = MiddleClass,
-                    backgroundColor = LighterYellow,
+                    backgroundColor = getRoleBackground(role),
                     description = "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself.",
-                    avatar = R.drawable.avatar_middle_class
+                    avatar = getRoleAvatar(role)
                 )
 
             HegemonyRole.CapitalistClass ->
                 RoleUiData(
                     title = role.value.uppercase(Locale.ROOT),
                     mainColor = CapitalistClass,
-                    backgroundColor = LighterBlue,
+                    backgroundColor = getRoleBackground(role),
                     description = "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of Companies that you own, and the second one is based on the profit you made from the business activities.",
-                    avatar = R.drawable.avatar_capitalist_class
+                    avatar = getRoleAvatar(role)
                 )
 
             HegemonyRole.State -> RoleUiData(
                 title = role.value.uppercase(Locale.ROOT),
                 mainColor = State,
-                backgroundColor = LighterGrey,
+                backgroundColor = getRoleBackground(role),
                 description = "",
-                avatar = R.drawable.avatar_state
+                avatar = getRoleAvatar(role)
             )
         }
 
+    fun getRoleBackground(role: HegemonyRole) = when (role) {
+        HegemonyRole.WorkingClass -> LighterRed
+        HegemonyRole.MiddleClass -> LighterYellow
+        HegemonyRole.CapitalistClass -> LighterBlue
+        HegemonyRole.State -> LighterGrey
+    }
 
-    fun getRoleBackgroundColor(role: HegemonyRole) = when (role) {
+
+    fun getRoleAvatar(role: HegemonyRole) = when (role) {
+        HegemonyRole.WorkingClass -> R.drawable.avatar_working_class
+        HegemonyRole.MiddleClass -> R.drawable.avatar_middle_class
+        HegemonyRole.CapitalistClass -> R.drawable.avatar_capitalist_class
+        HegemonyRole.State -> R.drawable.avatar_state
+    }
+
+    fun getRoleMainColor(role: HegemonyRole) = when (role) {
         HegemonyRole.WorkingClass -> Red
         HegemonyRole.MiddleClass -> Yellow
         HegemonyRole.CapitalistClass -> Blue
