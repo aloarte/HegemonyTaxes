@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -74,27 +75,11 @@ fun WorkingClassScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     }
 }
 
-@Composable
-fun IncomeTaxResult(state: UiState) {
-    if (state.incomeTax > -1) {
-        MultiStyleText(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
-            textStyleList = listOf(
-                MultipleText("The Tax Income calculated is ", false),
-                MultipleText(state.incomeTax.toString(), true),
-                MultipleText(". Remember that this has to be payed to the State.", false),
-            ),
-            highlightedStyle = Utils.getHighlightedSpanStyle(18.sp),
-            regularStyle = Utils.getRegularSpanStyle(18.sp)
-        )
-    }
-
-}
 
 @Composable
 fun PopulationInputDescription() {
     MultiStyleText(
-        modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
+        modifier = Modifier.height(95.dp).padding(horizontal = 10.dp, vertical = 10.dp),
         textStyleList = listOf(
             MultipleText(
                 "Add your current population number. Remember that the values may be in the range of ",
@@ -124,7 +109,23 @@ fun CalculateIncomeTaxButton(
             onEventTriggered(UiEvent.CalculateIncomeTax(population = it))
         }
     }
-
 }
+
+@Composable
+fun IncomeTaxResult(state: UiState) {
+    if (state.incomeTax > -1) {
+        MultiStyleText(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
+            textStyleList = listOf(
+                MultipleText("The Tax Income calculated is ", false),
+                MultipleText(state.incomeTax.toString(), true),
+                MultipleText(". Remember that this has to be payed to the State.", false),
+            ),
+            highlightedStyle = Utils.getHighlightedSpanStyle(18.sp),
+            regularStyle = Utils.getRegularSpanStyle(18.sp)
+        )
+    }
+}
+
 
 

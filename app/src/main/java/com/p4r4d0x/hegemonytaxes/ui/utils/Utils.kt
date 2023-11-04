@@ -1,14 +1,15 @@
 package com.p4r4d0x.hegemonytaxes.ui.utils
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
+import com.p4r4d0x.hegemonytaxes.domain_data.model.InputValidation
 import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.theme.Blue
 import com.p4r4d0x.hegemonytaxes.ui.theme.CapitalistClass
@@ -45,23 +46,18 @@ object Utils {
         fontWeight = FontWeight.Bold
     )
 
-    fun checkValidRange(context: Context, newValue: String, maxValue: Int, isValid: () -> Unit) {
-        if (newValue.isEmpty() || tryNumberParse(context, newValue) in 0..maxValue) {
-            isValid()
-        } else {
-            Toast.makeText(
-                context,
-                "Wrong value. It must be between 0 and $maxValue",
-                Toast.LENGTH_SHORT
-            ).show()
+    fun checkValidRange(newValue: String, maxValue: Int): InputValidation {
+        val parsedNumber = tryNumberParse(newValue)
+        return when {
+            newValue.isEmpty() || parsedNumber in 0..maxValue -> InputValidation.Valid
+            parsedNumber == -1 -> InputValidation.NotANumber
+            else -> InputValidation.WrongRange
         }
-
     }
 
-    fun tryNumberParse(context: Context, newValue: String) = try {
+    fun tryNumberParse(newValue: String) = try {
         newValue.toInt()
     } catch (e: Exception) {
-        Toast.makeText(context, "Wrong input value.", Toast.LENGTH_SHORT).show()
         -1
     }
 
@@ -71,7 +67,7 @@ object Utils {
         intRange: IntRange,
         isValid: (Int) -> Unit
     ) {
-        val number = tryNumberParse(context, numberInput)
+        val number = tryNumberParse(numberInput)
         if (number in intRange) {
             isValid(number)
         } else {
@@ -89,6 +85,7 @@ object Utils {
                 description = "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population.",
                 avatar = getRoleAvatar(role)
             )
+
             HegemonyRole.MiddleClass ->
                 RoleUiData(
                     title = role.value.uppercase(Locale.ROOT),
