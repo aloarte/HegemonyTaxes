@@ -11,26 +11,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
+import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.policies.compose.PolicySliderComponent
 import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.Grey
 import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.ui.theme.Orange
 import com.p4r4d0x.hegemonytaxes.ui.theme.White
 import java.util.Locale
 
@@ -79,14 +74,13 @@ fun TaxRow(taxMultiplier: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
-            .padding(1.dp),
+            .height(70.dp),
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
             color = White,
-            text = "TAX MULTIPLIER: ",
+            text = "Tax multiplier: ",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(vertical = 10.dp)
@@ -106,24 +100,12 @@ fun TaxRow(taxMultiplier: Int) {
 fun PickRolesRow(onEventTriggered: (UiEvent) -> Unit) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-
-        Button(
-            colors = ButtonDefaults.buttonColors(containerColor = Orange),
-            modifier = Modifier.width(250.dp),
-            onClick = { onEventTriggered(UiEvent.GoPickRole) }
-        ) {
-            Text(
-                color = DarkGrey,
-                text = "Pick Role".uppercase(Locale.ROOT),
-                fontSize = 16.sp,
-                style = MaterialTheme.typography.labelLarge,
-                textAlign = TextAlign.Center
-            )
+        HegemonyButton(modifier = Modifier, text = "Pick roles") {
+            onEventTriggered(UiEvent.GoPickRole)
         }
     }
 }

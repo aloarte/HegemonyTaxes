@@ -1,6 +1,7 @@
 package com.p4r4d0x.hegemonytaxes.components
 
 import com.p4r4d0x.hegemonytaxes.domain_data.components.TaxCalculator
+import com.p4r4d0x.hegemonytaxes.domain_data.exceptions.TaxException
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -16,6 +17,8 @@ class TaxCalculatorTest {
         private const val WELFARE_MULTIPLIER_B = 1
         private const val BASE_TAX_C = 1
         private const val WELFARE_MULTIPLIER_C = 0
+        private const val TAX_INCOME = 6
+        private const val POPULATION = 4
     }
 
     @Before
@@ -117,6 +120,38 @@ class TaxCalculatorTest {
             1,
             taxCalculator.calculateTaxMultiplier(BASE_TAX_C, WELFARE_MULTIPLIER_C, 0, 0)
         )
+    }
+
+    @Test
+    fun `test calculate tax multiplier throws exceptions`() {
+
+        Assert.assertThrows(TaxException::class.java) {
+            taxCalculator.calculateTaxMultiplier(-1, WELFARE_MULTIPLIER_C, 2, 2)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            taxCalculator.calculateTaxMultiplier(BASE_TAX_C, -1, 2, 1)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            taxCalculator.calculateTaxMultiplier(BASE_TAX_C, WELFARE_MULTIPLIER_C, -1, 2)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            taxCalculator.calculateTaxMultiplier(BASE_TAX_C, WELFARE_MULTIPLIER_C, 1, -1)
+        }
+    }
+
+    @Test
+    fun `test calculate tax income`() {
+        Assert.assertEquals(24, taxCalculator.calculateTaxIncome(TAX_INCOME, POPULATION))
+    }
+
+    @Test
+    fun `test calculate tax income throws exceptions`() {
+        Assert.assertThrows(TaxException::class.java) {
+            taxCalculator.calculateTaxIncome(-1, POPULATION)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            taxCalculator.calculateTaxIncome(TAX_INCOME, -1)
+        }
     }
 
 }

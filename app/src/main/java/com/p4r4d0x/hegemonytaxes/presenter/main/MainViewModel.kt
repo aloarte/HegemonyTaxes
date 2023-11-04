@@ -35,6 +35,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun calculateIncomeTax(population:Int) {
+        _state.update {
+            it.copy(incomeTax = taxRepository.calculateIncomeTax(it.policies,population))
+        }
+    }
+
+    fun clearIncomeTax() {
+        _state.update {
+            it.copy(incomeTax = -1)
+        }
+    }
+
     fun updatePolicy(updatedPolicy: PolicyData) {
         _state.value.policies.find { it.type == updatedPolicy.type }?.let { listPolicy ->
             _state.update { uiState ->
@@ -46,5 +58,7 @@ class MainViewModel @Inject constructor(
         calculateTaxMultiplier()
 
     }
+
+
 
 }

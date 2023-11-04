@@ -14,7 +14,11 @@ sealed interface UiEvent {
 
     object GoPickRole : UiEvent
 
-    data class GoRole(val policies:List<PolicyData>, val role: HegemonyRole) : UiEvent
+    data class GoRole(val role: HegemonyRole) : UiEvent
+
+    data class CalculateIncomeTax(val population:Int) : UiEvent
+
+    object ClearIncomeTax : UiEvent
 
 
 }

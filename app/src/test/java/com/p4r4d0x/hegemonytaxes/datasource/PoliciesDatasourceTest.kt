@@ -8,6 +8,15 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.BASE_TAX_INCREMENT_A
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.BASE_TAX_INCREMENT_B
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.BASE_TAX_INCREMENT_C
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2A_3A
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2A_3B
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2A_3C
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2B_3A
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2B_3B
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2B_3C
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2C_3A
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2C_3B
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2C_3C
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WELFARE_TAX_INCREMENT_A
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WELFARE_TAX_INCREMENT_B
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WELFARE_TAX_INCREMENT_C
@@ -54,6 +63,42 @@ class PoliciesDatasourceTest {
         Assert.assertEquals(WELFARE_TAX_INCREMENT_C, datasource.getWelfareIncrement(PolicyState.C))
         Assert.assertThrows(TaxException::class.java) {
             datasource.getWelfareIncrement(PolicyState.Unknown)
+        }
+    }
+
+    @Test
+    fun `test get income tax`() {
+        Assert.assertEquals(INCOME_TAX_2A_3A, datasource.getIncomeTax(PolicyState.A,PolicyState.A))
+        Assert.assertEquals(INCOME_TAX_2A_3B, datasource.getIncomeTax(PolicyState.A,PolicyState.B))
+        Assert.assertEquals(INCOME_TAX_2A_3C, datasource.getIncomeTax(PolicyState.A,PolicyState.C))
+        Assert.assertEquals(INCOME_TAX_2B_3A, datasource.getIncomeTax(PolicyState.B,PolicyState.A))
+        Assert.assertEquals(INCOME_TAX_2B_3B, datasource.getIncomeTax(PolicyState.B,PolicyState.B))
+        Assert.assertEquals(INCOME_TAX_2B_3C, datasource.getIncomeTax(PolicyState.B,PolicyState.C))
+        Assert.assertEquals(INCOME_TAX_2C_3A, datasource.getIncomeTax(PolicyState.C,PolicyState.A))
+        Assert.assertEquals(INCOME_TAX_2C_3B, datasource.getIncomeTax(PolicyState.C,PolicyState.B))
+        Assert.assertEquals(INCOME_TAX_2C_3C, datasource.getIncomeTax(PolicyState.C,PolicyState.C))
+
+    }
+
+    @Test
+    fun `test get income tax unknown states`() {
+        Assert.assertThrows(TaxException::class.java) {
+            datasource.getIncomeTax(PolicyState.A,PolicyState.Unknown)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            datasource.getIncomeTax(PolicyState.B,PolicyState.Unknown)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            datasource.getIncomeTax(PolicyState.C,PolicyState.Unknown)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            datasource.getIncomeTax(PolicyState.Unknown,PolicyState.A)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            datasource.getIncomeTax(PolicyState.Unknown,PolicyState.B)
+        }
+        Assert.assertThrows(TaxException::class.java) {
+            datasource.getIncomeTax(PolicyState.Unknown,PolicyState.C)
         }
     }
 

@@ -60,6 +60,13 @@ val typography = Typography(
         fontFamily = ManropeFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 30.sp,
-        letterSpacing = 1.5.sp
+        letterSpacing = 1.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = NunitoFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        letterSpacing = 0.5.sp
     )
+
 )

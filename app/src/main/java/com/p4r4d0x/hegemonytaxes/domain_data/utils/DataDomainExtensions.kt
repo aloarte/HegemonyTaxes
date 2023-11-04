@@ -2,6 +2,7 @@ package com.p4r4d0x.hegemonytaxes.domain_data.utils
 
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
+import com.p4r4d0x.hegemonytaxes.domain_data.model.TaxIncomeData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.TaxMultiplierData
 
 fun List<PolicyData>.getTaxMultiplierInvolvedPolicies(): TaxMultiplierData? {
@@ -16,9 +17,20 @@ fun List<PolicyData>.getTaxMultiplierInvolvedPolicies(): TaxMultiplierData? {
     }
 }
 
+fun List<PolicyData>.getIncomeTaxInvolvedPolicies(): TaxIncomeData? {
+    val laborMarketPolicy = find { it.type == PolicyType.LaborMarket }
+    val taxationPolicy = find { it.type == PolicyType.Taxation }
+
+    return if (laborMarketPolicy != null && taxationPolicy != null ) {
+        TaxIncomeData(laborMarketPolicy, taxationPolicy)
+    } else {
+        null
+    }
+}
+
 fun List<PolicyData>.getInvolvedTaxPoliciesSummary(): String? =
-    getTaxMultiplierInvolvedPolicies()?.let {
-        "${it.taxation.getSummary()} / ${it.weHealthcare.getSummary()} / ${it.weEducation.getSummary()}"
+    getIncomeTaxInvolvedPolicies()?.let {
+        "${it.laborMarket.getSummary()} / ${it.taxation.getSummary()}"
     }
 
 fun PolicyData.getSummary() = "${number}${state}"

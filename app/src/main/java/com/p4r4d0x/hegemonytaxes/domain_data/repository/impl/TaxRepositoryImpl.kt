@@ -6,6 +6,7 @@ import com.p4r4d0x.hegemonytaxes.domain_data.exceptions.TaxException
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INVALID_TAX_VALUE
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.getIncomeTaxInvolvedPolicies
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getTaxMultiplierInvolvedPolicies
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class TaxRepositoryImpl @Inject constructor(
 ) :
     TaxRepository {
     override fun calculateTaxMultiplier(policies: List<PolicyData>): Int {
-        return try{
+        return try {
             policies.getTaxMultiplierInvolvedPolicies()?.let { policies ->
                 val baseTax = policiesDatasource.getBaseTaxIncrement(policies.taxation.state)
                 val welfareTaxMultiplier =
@@ -25,9 +26,28 @@ class TaxRepositoryImpl @Inject constructor(
                 val educationTaxIncrement =
                     policiesDatasource.getWelfareIncrement(policies.weEducation.state)
 
-                taxCalculator.calculateTaxMultiplier(baseTax,welfareTaxMultiplier,healthcareTaxIncrement,educationTaxIncrement)
+                taxCalculator.calculateTaxMultiplier(
+                    baseTax,
+                    welfareTaxMultiplier,
+                    healthcareTaxIncrement,
+                    educationTaxIncrement
+                )
             } ?: INVALID_TAX_VALUE
-        }catch (ex: TaxException){
+        } catch (ex: TaxException) {
+            INVALID_TAX_VALUE
+        }
+    }
+
+    override fun calculateIncomeTax(policies: List<PolicyData>, population: Int): Int {
+        return try {
+            policies.getIncomeTaxInvolvedPolicies()?.let { policies ->
+                val incomeTax = policiesDatasource.getIncomeTax(
+                    policies.laborMarket.state,
+                    policies.taxation.state
+                )
+                taxCalculator.calculateTaxIncome(incomeTax, population)
+            } ?: INVALID_TAX_VALUE
+        } catch (ex: TaxException) {
             INVALID_TAX_VALUE
         }
     }

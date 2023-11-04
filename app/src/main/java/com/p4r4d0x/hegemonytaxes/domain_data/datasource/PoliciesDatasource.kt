@@ -9,6 +9,8 @@ interface PoliciesDatasource {
 
     fun getWelfareIncrement(policyState: PolicyState):Int
 
+    fun getIncomeTax(laborMarketState:PolicyState, taxationState: PolicyState):Int
+
     fun getPoliciesData():List<PolicyData>
 
 }

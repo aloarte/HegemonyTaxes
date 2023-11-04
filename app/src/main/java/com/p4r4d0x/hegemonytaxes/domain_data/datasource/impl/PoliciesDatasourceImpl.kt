@@ -8,12 +8,21 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.BASE_TAX_INCREMENT_A
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.BASE_TAX_INCREMENT_B
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.BASE_TAX_INCREMENT_C
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2A_3A
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2A_3B
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2A_3C
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2B_3A
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2B_3B
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2B_3C
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2C_3A
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2C_3B
+import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INCOME_TAX_2C_3C
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WELFARE_TAX_INCREMENT_A
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WELFARE_TAX_INCREMENT_B
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WELFARE_TAX_INCREMENT_C
 import javax.inject.Inject
 
-class PoliciesDatasourceImpl @Inject constructor():PoliciesDatasource {
+class PoliciesDatasourceImpl @Inject constructor() : PoliciesDatasource {
 
     override fun getBaseTaxIncrement(policyState: PolicyState) = when (policyState) {
         PolicyState.A -> BASE_TAX_INCREMENT_A
@@ -28,6 +37,32 @@ class PoliciesDatasourceImpl @Inject constructor():PoliciesDatasource {
         PolicyState.C -> WELFARE_TAX_INCREMENT_C
         PolicyState.Unknown -> throw TaxException("getWelfareIncrement Unknown policy state")
     }
+
+    override fun getIncomeTax(laborMarketState: PolicyState, taxationState: PolicyState) =
+        when (laborMarketState) {
+            PolicyState.A -> when (taxationState) {
+                PolicyState.A -> INCOME_TAX_2A_3A
+                PolicyState.B -> INCOME_TAX_2A_3B
+                PolicyState.C -> INCOME_TAX_2A_3C
+                PolicyState.Unknown -> throw TaxException("getIncomeTax labor market B, unknown state")
+            }
+
+            PolicyState.B -> when (taxationState) {
+                PolicyState.A -> INCOME_TAX_2B_3A
+                PolicyState.B -> INCOME_TAX_2B_3B
+                PolicyState.C -> INCOME_TAX_2B_3C
+                PolicyState.Unknown -> throw TaxException("getIncomeTax labor market B, unknown state")
+            }
+
+            PolicyState.C -> when (taxationState) {
+                PolicyState.A -> INCOME_TAX_2C_3A
+                PolicyState.B -> INCOME_TAX_2C_3B
+                PolicyState.C -> INCOME_TAX_2C_3C
+                PolicyState.Unknown -> throw TaxException("getIncomeTax labor market C, unknown state")
+            }
+
+            PolicyState.Unknown -> throw TaxException("getIncomeTax labor market unknown state")
+        }
 
     override fun getPoliciesData(): List<PolicyData> = listOf(
         PolicyData(
