@@ -1,7 +1,6 @@
 package com.p4r4d0x.hegemonytaxes.ui.utils
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -12,19 +11,15 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.InputValidation
 import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.theme.Blue
-import com.p4r4d0x.hegemonytaxes.ui.theme.CapitalistClass
 import com.p4r4d0x.hegemonytaxes.ui.theme.Grey
 import com.p4r4d0x.hegemonytaxes.ui.theme.LighterBlue
 import com.p4r4d0x.hegemonytaxes.ui.theme.LighterGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.LighterRed
 import com.p4r4d0x.hegemonytaxes.ui.theme.LighterYellow
-import com.p4r4d0x.hegemonytaxes.ui.theme.MiddleClass
 import com.p4r4d0x.hegemonytaxes.ui.theme.NunitoFontFamily
 import com.p4r4d0x.hegemonytaxes.ui.theme.Orange
 import com.p4r4d0x.hegemonytaxes.ui.theme.Red
-import com.p4r4d0x.hegemonytaxes.ui.theme.State
 import com.p4r4d0x.hegemonytaxes.ui.theme.White
-import com.p4r4d0x.hegemonytaxes.ui.theme.WorkingClass
 import com.p4r4d0x.hegemonytaxes.ui.theme.Yellow
 import java.util.Locale
 
@@ -76,42 +71,21 @@ object Utils {
         }
     }
 
-    fun buildRoleUiData(role: HegemonyRole) =
-        when (role) {
-            HegemonyRole.WorkingClass -> RoleUiData(
-                title = role.value.uppercase(Locale.ROOT),
-                mainColor = WorkingClass,
-                backgroundColor = getRoleBackground(role),
-                description = "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population.",
-                avatar = getRoleAvatar(role)
-            )
+    fun buildRoleUiData(role: HegemonyRole) = RoleUiData(
+        title = role.value.uppercase(Locale.ROOT),
+        mainColor = getRoleMainColor(role),
+        backgroundColor = getRoleBackground(role),
+        description = getRoleDescription(role),
+        avatar = getRoleAvatar(role)
+    )
 
-            HegemonyRole.MiddleClass ->
-                RoleUiData(
-                    title = role.value.uppercase(Locale.ROOT),
-                    mainColor = MiddleClass,
-                    backgroundColor = getRoleBackground(role),
-                    description = "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself.",
-                    avatar = getRoleAvatar(role)
-                )
 
-            HegemonyRole.CapitalistClass ->
-                RoleUiData(
-                    title = role.value.uppercase(Locale.ROOT),
-                    mainColor = CapitalistClass,
-                    backgroundColor = getRoleBackground(role),
-                    description = "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of Companies that you own, and the second one is based on the profit you made from the business activities.",
-                    avatar = getRoleAvatar(role)
-                )
-
-            HegemonyRole.State -> RoleUiData(
-                title = role.value.uppercase(Locale.ROOT),
-                mainColor = State,
-                backgroundColor = getRoleBackground(role),
-                description = "",
-                avatar = getRoleAvatar(role)
-            )
-        }
+    private fun getRoleDescription(role: HegemonyRole) = when (role) {
+        HegemonyRole.WorkingClass -> "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population."
+        HegemonyRole.MiddleClass -> "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself."
+        HegemonyRole.CapitalistClass -> "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of Companies that you own, and the second one is based on the profit you made from the business activities."
+        HegemonyRole.State -> ""
+    }
 
     fun getRoleBackground(role: HegemonyRole) = when (role) {
         HegemonyRole.WorkingClass -> LighterRed
@@ -133,6 +107,12 @@ object Utils {
         HegemonyRole.MiddleClass -> Yellow
         HegemonyRole.CapitalistClass -> Blue
         HegemonyRole.State -> Grey
+    }
+
+    fun getInputValidationError(inputError: InputValidation) = when (inputError) {
+        InputValidation.NotANumber -> "Symbols not allowed"
+        InputValidation.WrongRange -> "The number is not on the range"
+        InputValidation.Valid -> ""
     }
 
 }

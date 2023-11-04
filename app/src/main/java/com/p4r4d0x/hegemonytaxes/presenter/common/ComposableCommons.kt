@@ -57,9 +57,9 @@ fun HegemonyButton(
     OutlinedButton(
         shape = RoundedCornerShape(5.dp),
         modifier = modifier
-            .height(95.dp)
+            .height(55.dp)
             .fillMaxWidth()
-            .padding(20.dp),
+        ,
         border = BorderStroke(1.dp, mainColor),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = backgroundColor),
         onClick = { onClick() }) {

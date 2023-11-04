@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,22 +26,23 @@ fun RolesScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
+                .padding(20.dp)
         ) {
             Divider(thickness = 50.dp, color = Color.Transparent)
             RolesDescription(state)
             Divider(thickness = 20.dp, color = Color.Transparent)
-
-
-
             RoleSection(HegemonyRole.WorkingClass) {
                 onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.WorkingClass))
             }
+            Divider(thickness = 5.dp, color = Color.Transparent)
             RoleSection(HegemonyRole.MiddleClass) {
                 onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.MiddleClass))
             }
+            Divider(thickness = 5.dp, color = Color.Transparent)
             RoleSection(HegemonyRole.CapitalistClass) {
                 onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.CapitalistClass))
             }
+            Divider(thickness = 5.dp, color = Color.Transparent)
             RoleSection(HegemonyRole.State) {
                 onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.State))
             }

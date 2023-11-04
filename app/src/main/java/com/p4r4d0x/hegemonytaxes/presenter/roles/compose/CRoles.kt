@@ -44,18 +44,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.InputValidation
 import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.theme.Orange
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.checkValidRange
-import java.util.Locale
+import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getInputValidationError
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoleInputText(
-    context: Context,
     roleUi: RoleUiData,
     labelText: String,
     inputText: String,
@@ -131,14 +128,6 @@ fun RoleInputText(
         )
     }
 }
-
-fun getInputValidationError(inputError: InputValidation) = when (inputError) {
-    InputValidation.NotANumber -> "Symbols not allowed"
-    InputValidation.WrongRange -> "The number is not on the range"
-    InputValidation.Valid -> ""
-
-}
-
 
 @Composable
 fun RoleTitleSection(roleUi: RoleUiData) {
