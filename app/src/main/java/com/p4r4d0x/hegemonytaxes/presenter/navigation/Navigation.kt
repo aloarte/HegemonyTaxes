@@ -8,6 +8,7 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.MiddleClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.WorkingClassScreen
 
@@ -20,7 +21,7 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             UiEvent.GoPolicySelector -> navController.navigate(Screen.PoliciesScreen.route)
             UiEvent.GoPickRole ->  navController.navigate(Screen.RoleSelectorScreen.route)
             is UiEvent.GoRole -> {
-                onEventTriggered(UiEvent.ClearIncomeTax)
+                onEventTriggered(UiEvent.ClearTaxes)
                 when(event.role){
                     HegemonyRole.WorkingClass -> navController.navigate(Screen.WorkingClassScreen.route)
                     HegemonyRole.MiddleClass ->navController.navigate(Screen.MiddleClassScreen.route)
@@ -48,6 +49,13 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         }
         composable(route = Screen.WorkingClassScreen.route) {
             WorkingClassScreen(
+                state = state,
+                onEventTriggered = onInnerEventTriggered
+            )
+        }
+
+        composable(route = Screen.MiddleClassScreen.route) {
+            MiddleClassScreen(
                 state = state,
                 onEventTriggered = onInnerEventTriggered
             )

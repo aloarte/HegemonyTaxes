@@ -34,11 +34,11 @@ class MainActivity : ComponentActivity() {
                             is UiEvent.UpdatePolicy -> {
                                 viewModel.updatePolicy(updatedPolicy = event.policy)
                             }
-                            is UiEvent.CalculateIncomeTax ->{
-                                viewModel.calculateIncomeTax(event.population)
+                            is UiEvent.CalculateTaxes ->{
+                                viewModel.calculateTaxesResult(event.roleData)
                             }
-                            is UiEvent.ClearIncomeTax ->{
-                                viewModel.clearIncomeTax()
+                            is UiEvent.ClearTaxes ->{
+                                viewModel.clearTaxesResult()
                             }
                             else -> {}
                         }
