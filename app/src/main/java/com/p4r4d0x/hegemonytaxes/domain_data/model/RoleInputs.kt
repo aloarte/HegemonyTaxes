@@ -12,6 +12,15 @@ class MiddleClassInputs(
 ) : RoleInputs
 
 class CapitalistClassInputs(
-    val ownCompanies: Int,
+    val companies: Int,
     val profit: Int
 ) : RoleInputs
+
+class StateClassInputs(
+    val wcPopulation: Int,
+    val mcExternalCompaniesWithWorkers: Int,
+    val mcOwnCompanies: Int,
+    val ccCompanies: Int,
+    val ccProfit: Int
+) : RoleInputs
+

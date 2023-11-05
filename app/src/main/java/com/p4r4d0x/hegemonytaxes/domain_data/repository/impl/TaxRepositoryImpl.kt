@@ -12,6 +12,8 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.model.ResultTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.RoleInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
@@ -72,8 +74,9 @@ class TaxRepositoryImpl @Inject constructor(
     ): ResultTaxes {
         return when (roleData) {
             is CapitalistClassInputs -> {
-                val employmentTaxR = taxMultiplier * roleData.ownCompanies
-                val corporateTaxR = taxCalculator.calculateCorporateTax(roleData.profit,taxationPolicyState)
+                val employmentTaxR = taxMultiplier * roleData.companies
+                val corporateTaxR =
+                    taxCalculator.calculateCorporateTax(roleData.profit, taxationPolicyState)
                 CapitalistClassTaxes(
                     employmentTaxR,
                     corporateTaxR,
@@ -93,6 +96,18 @@ class TaxRepositoryImpl @Inject constructor(
 
             is WorkingClassInputs -> {
                 WorkingClassTaxes(incomeTax * roleData.population)
+            }
+
+            is StateClassInputs -> {
+                val wcTaxes = incomeTax * roleData.wcPopulation
+                val mcTaxes = incomeTax * roleData.mcExternalCompaniesWithWorkers +
+                        taxMultiplier * roleData.mcOwnCompanies
+                val ccTaxes = incomeTax * taxMultiplier * roleData.ccCompanies +
+                        taxCalculator.calculateCorporateTax(roleData.ccProfit, taxationPolicyState)
+                StateClassTaxes(
+                    wcTaxes = wcTaxes,
+                    mcTaxes = mcTaxes, ccTaxes = ccTaxes, totalTaxes = wcTaxes + mcTaxes + ccTaxes
+                )
             }
         }
     }

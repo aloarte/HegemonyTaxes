@@ -1,11 +1,9 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
@@ -16,17 +14,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
-import com.p4r4d0x.hegemonytaxes.domain_data.model.ResultTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.CAPITALIST_CLASS_MAX_COMPANIES
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.MIDDLE_CLASS_MAX_COMPANIES
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.STATE_MAX_COMPANIES
-import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.WORKING_CLASS_MAX_COMPANIES
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
@@ -38,12 +34,11 @@ import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.verifyIntInputSelection
+import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.verifyIntInputsSelection
 
 @Composable
-fun MiddleClassScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun MiddleClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
-        val context = LocalContext.current
         var companiesWithWorkers by remember { mutableStateOf("0") }
         var ownCompanies by remember { mutableStateOf("0") }
 
@@ -58,12 +53,14 @@ fun MiddleClassScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             val roleUi = buildRoleUiData(HegemonyRole.MiddleClass)
             RoleTitleSection(roleUi)
             Divider(thickness = 20.dp, color = Color.Transparent)
-            IncomeTaxDescription()
+            MiddleClassTaxesDescription()
+            Divider(thickness = 10.dp, color = Color.Transparent)
             RoleInputText(
                 roleUi = roleUi,
                 labelText = "External companies with workers",
                 inputText = companiesWithWorkers,
-                maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES
+                maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
+                ImeAction.Next
             ) {
                 companiesWithWorkers = it
             }
@@ -75,65 +72,66 @@ fun MiddleClassScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             ) {
                 ownCompanies = it
             }
-            Divider(thickness = 50.dp, color = Color.Transparent)
+            Divider(thickness = 20.dp, color = Color.Transparent)
             CalculateIncomeAndEmploymentTaxesButton(
-                context,
                 companiesWithWorkers,
                 ownCompanies,
                 onEventTriggered
             )
-            IncomeAndEmploymentTaxesResult(state)
-
+            IncomeAndEmploymentTaxesResult(uiState)
         }
     }
 }
 
 @Composable
-fun IncomeTaxDescription() {
+fun MiddleClassTaxesDescription() {
     MultiStyleText(
-        modifier = Modifier
-            .height(95.dp)
-            .padding(horizontal = 20.dp, vertical = 10.dp),
+        modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
         textStyleList = listOf(
             MultipleText(
-                "Add your current population number. Remember that the values may be in the range of ",
-                false
+                "Add the companies that aren't yours where you have workers (", false
             ),
-            MultipleText(3.toString(), true),
-            MultipleText(" to ", false),
-            MultipleText(10.toString(), true)
+            MultipleText((CAPITALIST_CLASS_MAX_COMPANIES + STATE_MAX_COMPANIES).toString(), true),
+            MultipleText(" max) and your companies (", false),
+            MultipleText(MIDDLE_CLASS_MAX_COMPANIES.toString(), true),
+            MultipleText(" max).", false)
         ),
-        highlightedStyle = Utils.getHighlightedSpanStyle(18.sp),
-        regularStyle = Utils.getRegularSpanStyle(18.sp)
+        highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
+        regularStyle = Utils.getRegularSpanStyle(16.sp)
     )
 }
 
 @Composable
 fun CalculateIncomeAndEmploymentTaxesButton(
-    context: Context,
     companiesWithWorkers: String,
     ownCompanies: String,
     onEventTriggered: (UiEvent) -> Unit
 ) {
+    val inputs = listOf(
+        companiesWithWorkers to (0..(CAPITALIST_CLASS_MAX_COMPANIES + STATE_MAX_COMPANIES)),
+        ownCompanies to (0..MIDDLE_CLASS_MAX_COMPANIES)
+    )
+
     HegemonyButton(
         modifier = Modifier.padding(horizontal = 20.dp),
         text = "Calculate total taxes"
     ) {
-//        verifyIntInputSelection(
-//            context = context,
-//            numberInput = population,
-//            intRange = (3..10)
-//        ) {
-        onEventTriggered(  //TODO: Add a verification to parse number to int
-            UiEvent.CalculateTaxes(MiddleClassInputs(ownCompanies.toInt(), companiesWithWorkers.toInt()))
-        )
-//        }
+        if (verifyIntInputsSelection(inputs)) {
+            onEventTriggered(
+                UiEvent.CalculateTaxes(
+                    MiddleClassInputs(
+                        externalCompaniesWithWorkers = companiesWithWorkers.toInt(),
+                        ownCompanies = ownCompanies.toInt()
+                    )
+                )
+            )
+        }
     }
 }
 
 @Composable
-fun IncomeAndEmploymentTaxesResult(state: UiState) {
-    (state.resultTaxes as? MiddleClassTaxes)?.let { taxes ->
+fun IncomeAndEmploymentTaxesResult(uiState: UiState) {
+    (uiState.resultTaxes as? MiddleClassTaxes)?.let { taxes ->
         MultiStyleText(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
@@ -145,8 +143,8 @@ fun IncomeAndEmploymentTaxesResult(state: UiState) {
                 MultipleText(taxes.totalTaxes.toString(), true),
                 MultipleText(". Remember that this amount has to be payed to the State.", false)
             ),
-            highlightedStyle = Utils.getHighlightedSpanStyle(18.sp),
-            regularStyle = Utils.getRegularSpanStyle(18.sp)
+            highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
+            regularStyle = Utils.getRegularSpanStyle(16.sp)
         )
     }
 

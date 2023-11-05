@@ -57,6 +57,7 @@ fun RoleInputText(
     labelText: String,
     inputText: String,
     maxValue: Int,
+    imeAction:ImeAction = ImeAction.Done,
     onValueChanged: (String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
@@ -82,7 +83,7 @@ fun RoleInputText(
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done
+                imeAction = imeAction
             ),
             keyboardActions = KeyboardActions(
                 onDone = {

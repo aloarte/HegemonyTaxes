@@ -19,5 +19,12 @@ data class CapitalistClassTaxes(
     val totalTaxes: Int
 ) : ResultTaxes
 
+data class StateClassTaxes(
+    val wcTaxes: Int,
+    val mcTaxes: Int,
+    val ccTaxes: Int,
+    val totalTaxes: Int
+) : ResultTaxes
+
 
 
