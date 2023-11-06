@@ -36,7 +36,7 @@ import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.verifyIntInputsSelection
 @Composable
 fun WorkingClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
-        var population by remember { mutableStateOf("3") }
+        var population by remember { mutableStateOf(uiState.wcSelection.population.toString()) }
         Column(
             modifier = Modifier
                 .fillMaxHeight()

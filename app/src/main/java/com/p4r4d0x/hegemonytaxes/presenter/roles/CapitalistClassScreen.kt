@@ -36,7 +36,7 @@ import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
 @Composable
 fun CapitalistClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
-        var companies by remember { mutableStateOf("0") }
+        var companies by remember { mutableStateOf(uiState.ccSelection.companies.toString()) }
         var profit by remember { mutableStateOf("0") }
 
         Column(

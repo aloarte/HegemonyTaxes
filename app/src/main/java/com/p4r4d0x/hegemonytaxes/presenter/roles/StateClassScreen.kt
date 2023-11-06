@@ -50,11 +50,11 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
         val listState = rememberLazyListState()
         val coroutineScope = rememberCoroutineScope()
         var inputOpened by remember { mutableStateOf(false) }
-        var wcPopulation by remember { mutableStateOf("3") }
-        var mcExternalWorkedCompanies by remember { mutableStateOf("0") }
-        var mcOwnCompanies by remember { mutableStateOf("0") }
-        var ccCompanies by remember { mutableStateOf("0") }
-        var ccProfit by remember { mutableStateOf("0") }
+        var wcPopulation by remember { mutableStateOf(uiState.stateSelection.wcPopulation.toString()) }
+        var mcExternalWorkedCompanies by remember { mutableStateOf(uiState.stateSelection.mcExternalCompaniesWithWorkers.toString()) }
+        var mcOwnCompanies by remember { mutableStateOf(uiState.stateSelection.mcOwnCompanies.toString()) }
+        var ccCompanies by remember { mutableStateOf(uiState.stateSelection.ccCompanies.toString()) }
+        var ccProfit by remember { mutableStateOf(uiState.stateSelection.ccProfit.toString()) }
         LazyColumn(
             state = listState,
             modifier = Modifier

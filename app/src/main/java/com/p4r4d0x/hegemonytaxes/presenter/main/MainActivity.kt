@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
                                 viewModel.updatePolicy(updatedPolicy = event.policy)
                             }
                             is UiEvent.CalculateTaxes ->{
+                                viewModel.updateSelection(event.roleData)
                                 viewModel.calculateTaxesResult(event.roleData)
                             }
                             is UiEvent.ClearTaxes ->{
