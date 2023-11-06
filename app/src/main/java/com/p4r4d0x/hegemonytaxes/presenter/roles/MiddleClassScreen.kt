@@ -60,7 +60,7 @@ fun MiddleClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 labelText = "External companies with workers",
                 inputText = companiesWithWorkers,
                 maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
-                ImeAction.Next
+                imeAction = ImeAction.Next
             ) {
                 companiesWithWorkers = it
             }

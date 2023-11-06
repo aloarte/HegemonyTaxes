@@ -9,6 +9,8 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassTaxes
+import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.impl.TaxRepositoryImpl
@@ -172,7 +174,7 @@ class TaxRepositoryTest {
 
     @Test
     fun `test calculate capitalist class taxes`() {
-        val classInput = CapitalistClassInputs(ownCompanies = 3, profit = 120)
+        val classInput = CapitalistClassInputs(companies = 3, profit = 120)
         every { taxCalculator.calculateCorporateTax(classInput.profit, PolicyState.A) } returns 40
 
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
@@ -198,6 +200,29 @@ class TaxRepositoryTest {
                 employmentTaxResult = 24,
                 incomeTaxResult = 12,
                 totalTaxes = 36
+            )
+        Assert.assertEquals(expectedResult, taxes)
+    }
+
+    @Test
+    fun `test calculate state class taxes`() {
+        val classInput = StateClassInputs(
+            wcPopulation = 3,
+            mcExternalCompaniesWithWorkers = 2,
+            mcOwnCompanies = 2,
+            ccCompanies = 4,
+            ccProfit = 80)
+        every { taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) } returns 40
+
+        val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
+
+        verify{ taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) }
+        val expectedResult =
+            StateClassTaxes(
+                wcTaxes = 12,
+                mcTaxes = 16,
+                ccTaxes = 56,
+                totalTaxes = 84
             )
         Assert.assertEquals(expectedResult, taxes)
     }

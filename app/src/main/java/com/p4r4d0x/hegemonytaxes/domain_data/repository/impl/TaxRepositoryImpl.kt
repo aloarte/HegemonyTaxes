@@ -102,7 +102,7 @@ class TaxRepositoryImpl @Inject constructor(
                 val wcTaxes = incomeTax * roleData.wcPopulation
                 val mcTaxes = incomeTax * roleData.mcExternalCompaniesWithWorkers +
                         taxMultiplier * roleData.mcOwnCompanies
-                val ccTaxes = incomeTax * taxMultiplier * roleData.ccCompanies +
+                val ccTaxes = taxMultiplier * roleData.ccCompanies +
                         taxCalculator.calculateCorporateTax(roleData.ccProfit, taxationPolicyState)
                 StateClassTaxes(
                     wcTaxes = wcTaxes,

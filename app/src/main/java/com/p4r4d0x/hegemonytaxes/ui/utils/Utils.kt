@@ -87,10 +87,10 @@ object Utils {
         HegemonyRole.WorkingClass -> "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population."
         HegemonyRole.MiddleClass -> "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself."
         HegemonyRole.CapitalistClass -> "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of Companies that you own, and the second one is based on the profit you made from the business activities."
-        HegemonyRole.State -> "You receive different taxes from each other class. \n" +
-                " · From the Working Class you get the Income Tax, based on their population. \n " +
-                " · From the Middle Class you get both the Income Tax and Employment Tax, which depends on the number of companies that they don't own with workers and their own companies respectively. \n" +
-                " · From the Capitalist Class you get both the Employment Tax and the Corporate tax, which depends on the number of companies and the profit made by this class respectively."
+        HegemonyRole.State -> "You receive different taxes from each other class: \n" +
+                "Working Class: Income Tax, based on their population. \n" +
+                "Middle Class: Income Tax and Employment Tax. \n" +
+                "Capitalist Class: Employment Tax and Corporate tax."
     }
 
     fun getRoleBackground(role: HegemonyRole) = when (role) {

@@ -1,14 +1,15 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +17,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -37,16 +39,17 @@ import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+
     HegemonyTaxesCalculatorTheme {
         val listState = rememberLazyListState()
         val coroutineScope = rememberCoroutineScope()
-
-
+        var inputOpened by remember { mutableStateOf(false) }
         var wcPopulation by remember { mutableStateOf("3") }
         var mcExternalWorkedCompanies by remember { mutableStateOf("0") }
         var mcOwnCompanies by remember { mutableStateOf("0") }
@@ -68,7 +71,15 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
             item { Divider(thickness = 10.dp, color = Color.Transparent) }
             item {
                 RoleInputText(
-                    roleUi, "Working class population", wcPopulation, 10,
+                    Modifier.onFocusChanged {
+                        if (it.isFocused) {
+                            focusPosition(coroutineScope, listState, 4)
+                            inputOpened = true
+                        } else {
+                            inputOpened = false
+                        }
+                    },
+                    roleUi, "WC population", wcPopulation, 10,
                     ImeAction.Next
                 ) {
                     wcPopulation = it
@@ -76,39 +87,84 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
             }
             item {
                 RoleInputText(
-                    roleUi,
-                    "Middle class external worked companies",
-                    mcExternalWorkedCompanies,
-                    (STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES),
-                    ImeAction.Next
+                    modifier = Modifier.onFocusChanged {
+                        if (it.isFocused) {
+                            focusPosition(coroutineScope, listState, 4)
+                            inputOpened = true
+
+                        } else {
+                            inputOpened = false
+                        }
+
+                    },
+                    roleUi = roleUi,
+                    labelText = "MC external worked companies",
+                    inputText = mcExternalWorkedCompanies,
+                    maxValue = (STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES),
+                    imeAction = ImeAction.Next
                 ) {
                     mcExternalWorkedCompanies = it
                 }
             }
             item {
                 RoleInputText(
-                    roleUi,
-                    "Middle class companies",
-                    mcOwnCompanies,
-                    MIDDLE_CLASS_MAX_COMPANIES,
-                    ImeAction.Next
+                    modifier = Modifier.onFocusChanged {
+                        if (it.isFocused) {
+                            focusPosition(coroutineScope, listState, 4)
+                            inputOpened = true
+
+                        } else {
+                            inputOpened = false
+                        }
+
+                    },
+                    roleUi = roleUi,
+                    labelText = "MC companies",
+                    inputText = mcOwnCompanies,
+                    maxValue = MIDDLE_CLASS_MAX_COMPANIES,
+                    imeAction = ImeAction.Next
                 ) {
                     mcOwnCompanies = it
                 }
             }
             item {
                 RoleInputText(
-                    roleUi,
-                    "Capitalist class companies",
-                    ccCompanies,
-                    CAPITALIST_CLASS_MAX_COMPANIES,
-                    ImeAction.Next
+                    modifier = Modifier.onFocusChanged {
+                        if (it.isFocused) {
+                            focusPosition(coroutineScope, listState, 4)
+                            inputOpened = true
+
+                        } else {
+                            inputOpened = false
+                        }
+
+                    },
+                    roleUi = roleUi,
+                    labelText = "CC companies",
+                    inputText = ccCompanies,
+                    maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
+                    imeAction = ImeAction.Next
                 ) {
                     ccCompanies = it
                 }
             }
             item {
-                RoleInputText(roleUi, "Capitalist profit", ccProfit, Int.MAX_VALUE) {
+                RoleInputText(
+                    modifier = Modifier.onFocusChanged {
+                        if (it.isFocused) {
+                            focusPosition(coroutineScope, listState, 4)
+                            inputOpened = true
+
+                        } else {
+                            inputOpened = false
+                        }
+
+                    },
+                    roleUi = roleUi,
+                    labelText = "CC profit",
+                    inputText = ccProfit,
+                    maxValue = Int.MAX_VALUE
+                ) {
                     ccProfit = it
                 }
             }
@@ -122,12 +178,22 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                     ccProfit,
                     onEventTriggered
                 ) {
-                    coroutineScope.launch { listState.animateScrollToItem(index = 11) }
+                    focusPosition(coroutineScope, listState, 11)
                 }
             }
             item { TotalReceivedTaxes(uiState) }
+            if (inputOpened) {
+                item { Divider(thickness = 150.dp, color = Color.Transparent) }
+            }
+
+
         }
     }
+}
+
+fun focusPosition(coroutineScope: CoroutineScope, listState: LazyListState, index: Int) {
+    Log.d("ALRALR", "trying to focus position $index")
+    coroutineScope.launch { listState.animateScrollToItem(index = index) }
 }
 
 @Composable
@@ -136,11 +202,11 @@ fun StateInputsDescription() {
         modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
         textStyleList = listOf(
             MultipleText("Add the following inputs from other classes: \n", false),
-            MultipleText(" · Working class: Population (", false),
+            MultipleText("Working class: Population (", false),
             MultipleText(3.toString(), true),
             MultipleText(" to ", false),
             MultipleText(10.toString(), true),
-            MultipleText(")\n · Middle class: External worked companies (", false),
+            MultipleText(")\nMiddle class: External worked companies (", false),
             MultipleText(0.toString(), true),
             MultipleText(" to ", false),
             MultipleText((STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES).toString(), true),
@@ -148,7 +214,7 @@ fun StateInputsDescription() {
             MultipleText(0.toString(), true),
             MultipleText(" to ", false),
             MultipleText(MIDDLE_CLASS_MAX_COMPANIES.toString(), true),
-            MultipleText(")\n · Capitalist class: Companies (", false),
+            MultipleText(")\nCapitalist class: Companies (", false),
             MultipleText(0.toString(), true),
             MultipleText(" to ", false),
             MultipleText(CAPITALIST_CLASS_MAX_COMPANIES.toString(), true),
@@ -203,15 +269,15 @@ fun TotalReceivedTaxes(uiState: UiState) {
         MultiStyleText(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
-                MultipleText("The total taxes receives will be ", false),
+                MultipleText("The total taxes received will be ", false),
                 MultipleText(uiState.resultTaxes.totalTaxes.toString(), true),
                 MultipleText(". \n - ", false),
                 MultipleText(uiState.resultTaxes.wcTaxes.toString(), true),
-                MultipleText(" received from the Working Class \n - ", false),
+                MultipleText(" from the Working Class \n - ", false),
                 MultipleText(uiState.resultTaxes.mcTaxes.toString(), true),
-                MultipleText(" received from the Middle Class \n - ", false),
+                MultipleText(" from the Middle Class \n - ", false),
                 MultipleText(uiState.resultTaxes.ccTaxes.toString(), true),
-                MultipleText(" received from the Capitalist Class", false)
+                MultipleText(" from the Capitalist Class", false)
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
             regularStyle = Utils.getRegularSpanStyle(16.sp)

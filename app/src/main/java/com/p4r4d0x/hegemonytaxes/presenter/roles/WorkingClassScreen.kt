@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
@@ -49,7 +50,12 @@ fun WorkingClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
             Divider(thickness = 20.dp, color = Color.Transparent)
             PopulationInputDescription()
             Divider(thickness = 10.dp, color = Color.Transparent)
-            RoleInputText(roleUi, "Population", population, 10) {
+            RoleInputText(
+                roleUi = roleUi,
+                labelText = "Population",
+                inputText = population,
+                maxValue = 10
+            ) {
                 population = it
             }
             Divider(thickness = 20.dp, color = Color.Transparent)
@@ -88,7 +94,7 @@ fun CalculateIncomeTaxButton(
         modifier = Modifier.padding(horizontal = 20.dp),
         text = "Calculate total taxes"
     ) {
-        if(verifyIntInputsSelection(inputs)){
+        if (verifyIntInputsSelection(inputs)) {
             onEventTriggered(UiEvent.CalculateTaxes(WorkingClassInputs(population.toInt())))
         }
 

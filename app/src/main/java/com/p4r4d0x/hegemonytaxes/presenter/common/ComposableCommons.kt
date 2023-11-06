@@ -2,6 +2,8 @@ package com.p4r4d0x.hegemonytaxes.presenter.common
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -42,7 +44,7 @@ fun MultiStyleText(
         textStyleList.forEach {
             withStyle(style = if (it.highlighted) highlightedStyle else regularStyle) { append(it.text) }
         }
-    }, modifier)
+    }, modifier,textAlign = TextAlign.Justify,)
 }
 
 @Composable
@@ -58,8 +60,7 @@ fun HegemonyButton(
         shape = RoundedCornerShape(5.dp),
         modifier = modifier
             .height(55.dp)
-            .fillMaxWidth()
-        ,
+            .fillMaxWidth(),
         border = BorderStroke(1.dp, mainColor),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = backgroundColor),
         onClick = { onClick() }) {
@@ -79,6 +80,4 @@ fun HegemonyButton(
             textAlign = TextAlign.Center
         )
     }
-
-
 }

@@ -57,7 +57,7 @@ fun CapitalistClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit)
                 labelText = "Companies",
                 inputText = companies,
                 maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
-                ImeAction.Next
+                imeAction = ImeAction.Next
             ) {
                 companies = it
             }

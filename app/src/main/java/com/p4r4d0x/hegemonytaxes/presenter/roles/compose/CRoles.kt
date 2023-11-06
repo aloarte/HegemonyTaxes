@@ -53,18 +53,19 @@ import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getInputValidationError
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoleInputText(
+    modifier:Modifier=Modifier,
     roleUi: RoleUiData,
     labelText: String,
     inputText: String,
     maxValue: Int,
-    imeAction:ImeAction = ImeAction.Done,
+    imeAction: ImeAction = ImeAction.Done,
     onValueChanged: (String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     var inputError by rememberSaveable { mutableStateOf(InputValidation.Valid) }
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -96,8 +97,8 @@ fun RoleInputText(
                 .padding(horizontal = 20.dp),
             value = inputText,
             onValueChange = { newValue ->
-                inputError = checkValidRange(newValue, maxValue).also{
-                    if(it ==InputValidation.Valid){
+                inputError = checkValidRange(newValue, maxValue).also {
+                    if (it == InputValidation.Valid) {
                         onValueChanged(newValue)
                     }
                 }
@@ -149,7 +150,7 @@ fun RoleTitleCard(roleUi: RoleUiData) {
             .background(roleUi.backgroundColor)
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(15.dp),
+            .padding(25.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -179,7 +180,7 @@ fun RoleTitleCard(roleUi: RoleUiData) {
                 text = roleUi.description,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Justify,
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
             )
