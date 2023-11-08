@@ -2,7 +2,13 @@ package com.p4r4d0x.hegemonytaxes.presenter.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
+import com.p4r4d0x.hegemonytaxes.domain_data.model.RoleInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.TaxesNotCalculated
+import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.PoliciesRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
@@ -26,25 +32,7 @@ class MainViewModel @Inject constructor(
         _state.update {
             it.copy(policies = policiesRepository.fetchPolicies())
         }
-        calculateTaxMultiplier()
-    }
-
-    fun calculateTaxMultiplier() {
-        _state.update {
-            it.copy(taxMultiplier = taxRepository.calculateTaxMultiplier(it.policies))
-        }
-    }
-
-    fun calculateIncomeTax(population:Int) {
-        _state.update {
-            it.copy(incomeTax = taxRepository.calculateIncomeTax(it.policies,population))
-        }
-    }
-
-    fun clearIncomeTax() {
-        _state.update {
-            it.copy(incomeTax = -1)
-        }
+        updateTaxes()
     }
 
     fun updatePolicy(updatedPolicy: PolicyData) {
@@ -52,13 +40,59 @@ class MainViewModel @Inject constructor(
             _state.update { uiState ->
                 val index = uiState.policies.indexOf(listPolicy)
                 uiState.copy(
-                    policies = uiState.policies.toMutableList().also { it[index] = updatedPolicy })
+                    policies = uiState.policies.toMutableList()
+                        .apply { this[index] = updatedPolicy })
             }
         }
-        calculateTaxMultiplier()
-
+        updateTaxes()
     }
 
+    private fun updateTaxes() {
+        _state.update {
+            it.copy(
+                taxMultiplier = taxRepository.getTaxMultiplier(it.policies),
+                incomeTax = taxRepository.getIncomeTax(it.policies),
+                taxationPolicyState = taxRepository.getTaxationPolicyState(it.policies)
+            )
+        }
+    }
 
+    fun calculateTaxesResult(data: RoleInputs) {
+        _state.update {
+            it.copy(
+                resultTaxes = taxRepository.calculateTaxes(
+                    it.taxMultiplier,
+                    it.incomeTax,
+                    it.taxationPolicyState,
+                    data
+                )
+            )
+        }
+    }
 
+    fun clearTaxesResult() {
+        _state.update {
+            it.copy(resultTaxes = TaxesNotCalculated)
+        }
+    }
+
+    fun updateSelection(roleData: RoleInputs) {
+        when (roleData) {
+            is CapitalistClassInputs -> _state.update {
+                it.copy(ccSelection = roleData)
+            }
+
+            is MiddleClassInputs -> _state.update {
+                it.copy(mcSelection = roleData)
+            }
+
+            is StateClassInputs -> _state.update {
+                it.copy(stateSelection = roleData)
+            }
+
+            is WorkingClassInputs -> _state.update {
+                it.copy(wcSelection = roleData)
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.p4r4d0x.hegemonytaxes.ui.utils
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,20 +57,22 @@ object Utils {
         -1
     }
 
-    fun verifyIntInputSelection(
-        context: Context,
-        numberInput: String,
-        intRange: IntRange,
-        isValid: (Int) -> Unit
-    ) {
-        val number = tryNumberParse(numberInput)
-        if (number in intRange) {
-            isValid(number)
-        } else {
-            Toast.makeText(context, "Wrong value. It must be in $intRange", Toast.LENGTH_SHORT)
-                .show()
+    fun verifyIntInputsSelection(
+         inputsAndRange: List<Pair<String,IntRange>>,
+    ):Boolean {
+        var allInputsValid = true
+        inputsAndRange.forEach {(numberInput,intRange)->
+            allInputsValid = allInputsValid && verifyIntInputSelection(numberInput,intRange)
         }
+        return allInputsValid
     }
+
+    private fun verifyIntInputSelection(
+        numberInput: String,
+        intRange: IntRange
+    ) =    tryNumberParse(numberInput) in intRange
+
+
 
     fun buildRoleUiData(role: HegemonyRole) = RoleUiData(
         title = role.value.uppercase(Locale.ROOT),
@@ -84,7 +87,10 @@ object Utils {
         HegemonyRole.WorkingClass -> "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population."
         HegemonyRole.MiddleClass -> "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself."
         HegemonyRole.CapitalistClass -> "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of Companies that you own, and the second one is based on the profit you made from the business activities."
-        HegemonyRole.State -> ""
+        HegemonyRole.State -> "You receive different taxes from each other class: \n" +
+                "Working Class: Income Tax, based on their population. \n" +
+                "Middle Class: Income Tax and Employment Tax. \n" +
+                "Capitalist Class: Employment Tax and Corporate tax."
     }
 
     fun getRoleBackground(role: HegemonyRole) = when (role) {

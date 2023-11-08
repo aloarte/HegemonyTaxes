@@ -17,5 +17,10 @@ object Constants {
     const val INCOME_TAX_2C_3A = 1
     const val INCOME_TAX_2C_3B = 2
     const val INCOME_TAX_2C_3C = 3
+    const val WORKING_CLASS_MAX_COMPANIES = 2
+    const val MIDDLE_CLASS_MAX_COMPANIES = 8
+    const val CAPITALIST_CLASS_MAX_COMPANIES = 12
+    const val STATE_MAX_COMPANIES = 9
+
 
 }

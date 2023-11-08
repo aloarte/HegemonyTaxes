@@ -8,7 +8,10 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.CapitalistClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.MiddleClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.StateClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.WorkingClassScreen
 
 @Composable
@@ -18,12 +21,12 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         when (event) {
             UiEvent.GoWelcome -> navController.navigate(Screen.WelcomeScreen.route)
             UiEvent.GoPolicySelector -> navController.navigate(Screen.PoliciesScreen.route)
-            UiEvent.GoPickRole ->  navController.navigate(Screen.RoleSelectorScreen.route)
+            UiEvent.GoPickRole -> navController.navigate(Screen.RoleSelectorScreen.route)
             is UiEvent.GoRole -> {
-                onEventTriggered(UiEvent.ClearIncomeTax)
-                when(event.role){
+                onEventTriggered(UiEvent.ClearTaxes)
+                when (event.role) {
                     HegemonyRole.WorkingClass -> navController.navigate(Screen.WorkingClassScreen.route)
-                    HegemonyRole.MiddleClass ->navController.navigate(Screen.MiddleClassScreen.route)
+                    HegemonyRole.MiddleClass -> navController.navigate(Screen.MiddleClassScreen.route)
                     HegemonyRole.CapitalistClass -> navController.navigate(Screen.CapitalistClassScreen.route)
                     HegemonyRole.State -> navController.navigate(Screen.StateScreen.route)
                 }
@@ -48,10 +51,29 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         }
         composable(route = Screen.WorkingClassScreen.route) {
             WorkingClassScreen(
-                state = state,
+                uiState = state,
                 onEventTriggered = onInnerEventTriggered
             )
         }
 
+        composable(route = Screen.MiddleClassScreen.route) {
+            MiddleClassScreen(
+                uiState = state,
+                onEventTriggered = onInnerEventTriggered
+            )
+        }
+
+        composable(route = Screen.CapitalistClassScreen.route) {
+            CapitalistClassScreen(
+                uiState = state,
+                onEventTriggered = onInnerEventTriggered
+            )
+        }
+        composable(route = Screen.StateScreen.route) {
+            StateClassScreen(
+                uiState = state,
+                onEventTriggered = onInnerEventTriggered
+            )
+        }
     }
 }
