@@ -1,22 +1,29 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles.compose
 
-
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getInvolvedTaxPoliciesSummary
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
-import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.ui.theme.White
@@ -59,12 +66,21 @@ fun RolesDescription(state: UiState) {
 
 @Composable
 fun RoleSection(role: HegemonyRole, onRoleSelected: () -> Unit) {
-    HegemonyButton(
-        modifier = Modifier,
-        text = role.value.uppercase(),
-        mainColor = getRoleMainColor(role),
-        backgroundColor = getRoleBackground(role),
-        drawable = getRoleAvatar(role),
+    OutlinedButton(
+        shape = RoundedCornerShape(5.dp),
+        modifier = Modifier
+            .height(120.dp)
+            .width(120.dp),
+        border = BorderStroke(1.dp, getRoleMainColor(role)),
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = getRoleBackground(role)),
         onClick = onRoleSelected
-    )
+    ) {
+
+        Image(
+            painterResource(id = getRoleAvatar(role)),
+            contentDescription = "button image",
+            modifier = Modifier.size(80.dp)
+        )
+
+    }
 }

@@ -1,27 +1,28 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
-import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassTaxes
@@ -35,28 +36,26 @@ import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
 import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
+import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.ui.theme.White
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+    val roleUi = buildRoleUiData(HegemonyRole.State)
 
     HegemonyTaxesCalculatorTheme {
-        val listState = rememberLazyListState()
-        val coroutineScope = rememberCoroutineScope()
-        var inputOpened by remember { mutableStateOf(false) }
-        var wcPopulation by remember { mutableStateOf(uiState.stateSelection.wcPopulation.toString()) }
-        var mcExternalWorkedCompanies by remember { mutableStateOf(uiState.stateSelection.mcExternalCompaniesWithWorkers.toString()) }
-        var mcOwnCompanies by remember { mutableStateOf(uiState.stateSelection.mcOwnCompanies.toString()) }
-        var ccCompanies by remember { mutableStateOf(uiState.stateSelection.ccCompanies.toString()) }
-        var ccProfit by remember { mutableStateOf(uiState.stateSelection.ccProfit.toString()) }
-        LazyColumn(
-            state = listState,
+        var showDialog by remember { mutableStateOf(false) }
+        if (showDialog) {
+            InputsDialog(uiState, roleUi, onEventTriggered) {
+                showDialog = false
+            }
+        }
+
+        Column(
             modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
@@ -64,39 +63,62 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val roleUi = buildRoleUiData(HegemonyRole.State)
-            item { RoleTitleSection(roleUi) }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item { StateInputsDescription() }
-            item { Divider(thickness = 10.dp, color = Color.Transparent) }
-            item {
+            RoleTitleSection(roleUi)
+            Divider(thickness = 20.dp, color = Color.Transparent)
+            StateInputsDescription()
+            Divider(thickness = 10.dp, color = Color.Transparent)
+            HegemonyButton(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                text = "Input data"
+            ) {
+                showDialog = true
+            }
+            TotalReceivedTaxes(uiState)
+        }
+    }
+}
+
+@Composable
+fun InputsDialog(
+    uiState: UiState,
+    roleUi: RoleUiData,
+    onEventTriggered: (UiEvent) -> Unit,
+    onDismissed: () -> Unit
+) {
+    var wcPopulation by remember { mutableStateOf(uiState.stateSelection.wcPopulation.toString()) }
+    var mcExternalWorkedCompanies by remember { mutableStateOf(uiState.stateSelection.mcExternalCompaniesWithWorkers.toString()) }
+    var mcOwnCompanies by remember { mutableStateOf(uiState.stateSelection.mcOwnCompanies.toString()) }
+    var ccCompanies by remember { mutableStateOf(uiState.stateSelection.ccCompanies.toString()) }
+    var ccProfit by remember { mutableStateOf(uiState.stateSelection.ccProfit.toString()) }
+
+    Dialog(
+        onDismissRequest = onDismissed,
+        content = {
+            OutlinedCard(
+                border = BorderStroke(1.dp, White),
+                colors = CardDefaults.outlinedCardColors(
+                    contentColor = DarkGrey,
+                    containerColor = DarkGrey
+                ),
+                modifier = Modifier
+                    .fillMaxHeight(0.80f)
+                    .fillMaxWidth(1f),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+
+                Divider(thickness = 40.dp, color = Color.Transparent)
+
                 RoleInputText(
-                    Modifier.onFocusChanged {
-                        if (it.isFocused) {
-                            focusPosition(coroutineScope, listState, 4)
-                            inputOpened = true
-                        } else {
-                            inputOpened = false
-                        }
-                    },
-                    roleUi, "WC population", wcPopulation, 10,
-                    ImeAction.Next
+                    roleUi = roleUi,
+                    labelText = "WC population",
+                    inputText = wcPopulation,
+                    maxValue = 10,
+                    imeAction = ImeAction.Next
                 ) {
                     wcPopulation = it
                 }
-            }
-            item {
+
                 RoleInputText(
-                    modifier = Modifier.onFocusChanged {
-                        if (it.isFocused) {
-                            focusPosition(coroutineScope, listState, 4)
-                            inputOpened = true
-
-                        } else {
-                            inputOpened = false
-                        }
-
-                    },
                     roleUi = roleUi,
                     labelText = "MC external worked companies",
                     inputText = mcExternalWorkedCompanies,
@@ -105,19 +127,8 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 ) {
                     mcExternalWorkedCompanies = it
                 }
-            }
-            item {
+
                 RoleInputText(
-                    modifier = Modifier.onFocusChanged {
-                        if (it.isFocused) {
-                            focusPosition(coroutineScope, listState, 4)
-                            inputOpened = true
-
-                        } else {
-                            inputOpened = false
-                        }
-
-                    },
                     roleUi = roleUi,
                     labelText = "MC companies",
                     inputText = mcOwnCompanies,
@@ -126,19 +137,8 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 ) {
                     mcOwnCompanies = it
                 }
-            }
-            item {
+
                 RoleInputText(
-                    modifier = Modifier.onFocusChanged {
-                        if (it.isFocused) {
-                            focusPosition(coroutineScope, listState, 4)
-                            inputOpened = true
-
-                        } else {
-                            inputOpened = false
-                        }
-
-                    },
                     roleUi = roleUi,
                     labelText = "CC companies",
                     inputText = ccCompanies,
@@ -147,19 +147,8 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 ) {
                     ccCompanies = it
                 }
-            }
-            item {
+
                 RoleInputText(
-                    modifier = Modifier.onFocusChanged {
-                        if (it.isFocused) {
-                            focusPosition(coroutineScope, listState, 4)
-                            inputOpened = true
-
-                        } else {
-                            inputOpened = false
-                        }
-
-                    },
                     roleUi = roleUi,
                     labelText = "CC profit",
                     inputText = ccProfit,
@@ -167,33 +156,62 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 ) {
                     ccProfit = it
                 }
-            }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item {
+
+                Divider(thickness = 20.dp, color = Color.Transparent)
                 StateCalculateTotalTaxesButton(
                     wcPopulation,
                     mcExternalWorkedCompanies,
                     mcOwnCompanies,
                     ccCompanies,
                     ccProfit,
-                    onEventTriggered
-                ) {
-                    focusPosition(coroutineScope, listState, 11)
-                }
+                    onEventTriggered,
+                    onDismissed
+                )
             }
-            item { TotalReceivedTaxes(uiState) }
-            if (inputOpened) {
-                item { Divider(thickness = 150.dp, color = Color.Transparent) }
-            }
-
-
-        }
-    }
+        },
+        properties = DialogProperties(
+            dismissOnBackPress = false,
+            dismissOnClickOutside = false
+        )
+    )
 }
 
-fun focusPosition(coroutineScope: CoroutineScope, listState: LazyListState, index: Int) {
-    Log.d("ALRALR", "trying to focus position $index")
-    coroutineScope.launch { listState.animateScrollToItem(index = index) }
+@Composable
+fun StateCalculateTotalTaxesButton(
+    wcPopulation: String,
+    mcExternalWorkedCompanies: String,
+    mcOwnCompanies: String,
+    ccCompanies: String,
+    ccProfit: String,
+    onEventTriggered: (UiEvent) -> Unit,
+    onButtonPressed: () -> Unit = {}
+) {
+    val inputs = listOf(
+        wcPopulation to (3..10),
+        mcExternalWorkedCompanies to (0..(CAPITALIST_CLASS_MAX_COMPANIES + STATE_MAX_COMPANIES)),
+        mcOwnCompanies to (0..MIDDLE_CLASS_MAX_COMPANIES),
+        ccCompanies to (0..CAPITALIST_CLASS_MAX_COMPANIES),
+        ccProfit to (0..Int.MAX_VALUE)
+    )
+    HegemonyButton(
+        modifier = Modifier.padding(horizontal = 20.dp),
+        text = "Calculate total taxes"
+    ) {
+        if (Utils.verifyIntInputsSelection(inputs)) {
+            onEventTriggered(
+                UiEvent.CalculateTaxes(
+                    StateClassInputs(
+                        wcPopulation = wcPopulation.toInt(),
+                        mcExternalCompaniesWithWorkers = mcExternalWorkedCompanies.toInt(),
+                        mcOwnCompanies = mcOwnCompanies.toInt(),
+                        ccCompanies = ccCompanies.toInt(),
+                        ccProfit = ccProfit.toInt()
+                    )
+                )
+            )
+            onButtonPressed()
+        }
+    }
 }
 
 @Composable
@@ -223,44 +241,6 @@ fun StateInputsDescription() {
         highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
         regularStyle = Utils.getRegularSpanStyle(16.sp)
     )
-}
-
-@Composable
-fun StateCalculateTotalTaxesButton(
-    wcPopulation: String,
-    mcExternalWorkedCompanies: String,
-    mcOwnCompanies: String,
-    ccCompanies: String,
-    ccProfit: String,
-    onEventTriggered: (UiEvent) -> Unit,
-    onButtonPressed: () -> Unit
-) {
-    val inputs = listOf(
-        wcPopulation to (3..10),
-        mcExternalWorkedCompanies to (0..(CAPITALIST_CLASS_MAX_COMPANIES + STATE_MAX_COMPANIES)),
-        mcOwnCompanies to (0..MIDDLE_CLASS_MAX_COMPANIES),
-        ccCompanies to (0..CAPITALIST_CLASS_MAX_COMPANIES),
-        ccProfit to (0..Int.MAX_VALUE)
-    )
-    HegemonyButton(
-        modifier = Modifier.padding(horizontal = 20.dp),
-        text = "Calculate total taxes"
-    ) {
-        if (Utils.verifyIntInputsSelection(inputs)) {
-            onEventTriggered(
-                UiEvent.CalculateTaxes(
-                    StateClassInputs(
-                        wcPopulation = wcPopulation.toInt(),
-                        mcExternalCompaniesWithWorkers = mcExternalWorkedCompanies.toInt(),
-                        mcOwnCompanies = mcOwnCompanies.toInt(),
-                        ccCompanies = ccCompanies.toInt(),
-                        ccProfit = ccProfit.toInt()
-                    )
-                )
-            )
-            onButtonPressed()
-        }
-    }
 }
 
 @Composable
