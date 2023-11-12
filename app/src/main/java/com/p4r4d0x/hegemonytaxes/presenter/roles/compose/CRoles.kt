@@ -178,7 +178,7 @@ fun RoleTitleCard(roleUi: RoleUiData) {
             Text(
                 color = roleUi.mainColor,
                 text = roleUi.description,
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Justify,
                 modifier = Modifier

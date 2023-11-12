@@ -2,14 +2,20 @@ package com.p4r4d0x.hegemonytaxes.presenter.roles
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -39,7 +46,9 @@ import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.ui.theme.Orange
 import com.p4r4d0x.hegemonytaxes.ui.theme.White
+import com.p4r4d0x.hegemonytaxes.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
 
@@ -106,8 +115,18 @@ fun InputsDialog(
                 shape = RoundedCornerShape(8.dp)
             ) {
 
-                Divider(thickness = 40.dp, color = Color.Transparent)
+                Row(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp), horizontalArrangement = Arrangement.Center){
+                    Text(
+                        color = White,
+                        text = "CLASSES DATA",
+                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.labelMedium,
+                        textAlign = TextAlign.Center
+                    )
+                }
 
+
+                Divider(thickness = 10.dp, color = Color.Transparent)
                 RoleInputText(
                     roleUi = roleUi,
                     labelText = "WC population",
@@ -117,7 +136,6 @@ fun InputsDialog(
                 ) {
                     wcPopulation = it
                 }
-
                 RoleInputText(
                     roleUi = roleUi,
                     labelText = "MC external worked companies",
@@ -238,8 +256,8 @@ fun StateInputsDescription() {
             MultipleText(CAPITALIST_CLASS_MAX_COMPANIES.toString(), true),
             MultipleText(") and profit.", false),
         ),
-        highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-        regularStyle = Utils.getRegularSpanStyle(16.sp)
+        highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
+        regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -250,13 +268,13 @@ fun TotalReceivedTaxes(uiState: UiState) {
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
                 MultipleText("The total taxes received will be ", false),
-                MultipleText(uiState.resultTaxes.totalTaxes.toString(), true),
+                MultipleText("${uiState.resultTaxes.totalTaxes}₳", true),
                 MultipleText(". \n - ", false),
-                MultipleText(uiState.resultTaxes.wcTaxes.toString(), true),
+                MultipleText("${uiState.resultTaxes.wcTaxes}₳", true),
                 MultipleText(" from the Working Class \n - ", false),
-                MultipleText(uiState.resultTaxes.mcTaxes.toString(), true),
+                MultipleText("${uiState.resultTaxes.mcTaxes}₳", true),
                 MultipleText(" from the Middle Class \n - ", false),
-                MultipleText(uiState.resultTaxes.ccTaxes.toString(), true),
+                MultipleText("${uiState.resultTaxes.ccTaxes}₳", true),
                 MultipleText(" from the Capitalist Class", false)
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),

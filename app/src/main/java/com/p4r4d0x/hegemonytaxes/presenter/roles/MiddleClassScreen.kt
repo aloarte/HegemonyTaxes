@@ -32,12 +32,13 @@ import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
 import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.verifyIntInputsSelection
 
 @Composable
-fun MiddleClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun MiddleClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         var companiesWithWorkers by remember { mutableStateOf(uiState.mcSelection.externalCompaniesWithWorkers.toString()) }
         var ownCompanies by remember { mutableStateOf(uiState.mcSelection.ownCompanies.toString()) }
@@ -96,8 +97,8 @@ fun MiddleClassTaxesDescription() {
             MultipleText(MIDDLE_CLASS_MAX_COMPANIES.toString(), true),
             MultipleText(" max).", false)
         ),
-        highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-        regularStyle = Utils.getRegularSpanStyle(16.sp)
+        highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
+        regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -136,16 +137,15 @@ fun IncomeAndEmploymentTaxesResult(uiState: UiState) {
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
                 MultipleText("The Income Tax calculated is ", false),
-                MultipleText(taxes.incomeTaxResult.toString(), true),
+                MultipleText("${taxes.incomeTaxResult}₳", true),
                 MultipleText(", while the Employment Tax is ", false),
-                MultipleText(taxes.employmentTaxResult.toString(), true),
+                MultipleText("${taxes.employmentTaxResult}₳", true),
                 MultipleText(". This is a total of ", false),
-                MultipleText(taxes.totalTaxes.toString(), true),
+                MultipleText("${taxes.totalTaxes}₳", true),
                 MultipleText(". Remember that this amount has to be payed to the State.", false)
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
             regularStyle = Utils.getRegularSpanStyle(16.sp)
         )
     }
-
 }
