@@ -19,12 +19,12 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getInvolvedTaxPoliciesSummary
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
-import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
-import com.p4r4d0x.hegemonytaxes.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleAvatar
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleBackground
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getRoleMainColor
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.getRoleAvatar
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.getRoleBackground
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.getRoleMainColor
 
 @Composable
 fun RolesDescription(state: UiState) {

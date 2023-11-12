@@ -18,8 +18,8 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleSection
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RolesDescription
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
 
 @Composable
 fun RolesScreen(modifier:Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {

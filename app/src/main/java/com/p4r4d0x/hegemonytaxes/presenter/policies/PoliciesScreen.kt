@@ -22,11 +22,11 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.presenter.policies.compose.PolicySliderComponent
-import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.ui.theme.White
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 import java.util.Locale
 
 @Composable

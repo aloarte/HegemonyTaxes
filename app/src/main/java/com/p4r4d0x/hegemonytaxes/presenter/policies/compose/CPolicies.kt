@@ -30,16 +30,16 @@ import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.FiscalPolicy
-import com.p4r4d0x.hegemonytaxes.ui.theme.ForeignTrade
-import com.p4r4d0x.hegemonytaxes.ui.theme.Immigration
-import com.p4r4d0x.hegemonytaxes.ui.theme.LaborMarket
-import com.p4r4d0x.hegemonytaxes.ui.theme.MidDarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.Taxation
-import com.p4r4d0x.hegemonytaxes.ui.theme.WEEducation
-import com.p4r4d0x.hegemonytaxes.ui.theme.WEHealthcare
-import com.p4r4d0x.hegemonytaxes.ui.theme.White
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.FiscalPolicy
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.ForeignTrade
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Immigration
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.LaborMarket
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.MidDarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Taxation
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.WEEducation
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.WEHealthcare
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
 import java.util.Locale
 
 fun getPolicyColor(policyType: PolicyType) = when (policyType) {

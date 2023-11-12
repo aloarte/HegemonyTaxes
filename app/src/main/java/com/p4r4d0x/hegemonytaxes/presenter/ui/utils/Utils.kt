@@ -1,4 +1,4 @@
-package com.p4r4d0x.hegemonytaxes.ui.utils
+package com.p4r4d0x.hegemonytaxes.presenter.ui.utils
 
 import android.content.Context
 import android.util.Log
@@ -10,18 +10,18 @@ import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.InputValidation
-import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
-import com.p4r4d0x.hegemonytaxes.ui.theme.Blue
-import com.p4r4d0x.hegemonytaxes.ui.theme.Grey
-import com.p4r4d0x.hegemonytaxes.ui.theme.LighterBlue
-import com.p4r4d0x.hegemonytaxes.ui.theme.LighterGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.LighterRed
-import com.p4r4d0x.hegemonytaxes.ui.theme.LighterYellow
-import com.p4r4d0x.hegemonytaxes.ui.theme.NunitoFontFamily
-import com.p4r4d0x.hegemonytaxes.ui.theme.Orange
-import com.p4r4d0x.hegemonytaxes.ui.theme.Red
-import com.p4r4d0x.hegemonytaxes.ui.theme.White
-import com.p4r4d0x.hegemonytaxes.ui.theme.Yellow
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.RoleUiData
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Blue
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Grey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.LighterBlue
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.LighterGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.LighterRed
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.LighterYellow
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.NunitoFontFamily
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Orange
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Red
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Yellow
 import java.util.Locale
 
 object Utils {

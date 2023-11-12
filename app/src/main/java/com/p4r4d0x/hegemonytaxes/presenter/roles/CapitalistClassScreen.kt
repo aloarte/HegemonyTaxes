@@ -27,12 +27,12 @@ import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
-import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
 
 @Composable
 fun CapitalistClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
