@@ -49,11 +49,11 @@ fun RolesDescription(state: UiState) {
                     MultipleText(policiesSummary, true),
                     MultipleText(". This values will be used in the next tax calculations.", false),
                 ),
-                highlightedStyle = Utils.getHighlightedSpanStyle(18.sp),
-                regularStyle = Utils.getRegularSpanStyle(18.sp)
+                highlightedStyle = Utils.getHighlightedSpanStyle(14.sp),
+                regularStyle = Utils.getRegularSpanStyle(14.sp)
             )
         }
-        Divider(thickness = 40.dp, color = Color.Transparent)
+        Divider(thickness = 20.dp, color = Color.Transparent)
         Text(
             color = White,
             text = "Pick your role to begin simulating how many taxes you will pay/receive.",

@@ -44,7 +44,7 @@ import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
 
 @Composable
-fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun StateClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     val roleUi = buildRoleUiData(HegemonyRole.State)
 
     HegemonyTaxesCalculatorTheme {
@@ -56,7 +56,7 @@ fun StateClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
         }
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)

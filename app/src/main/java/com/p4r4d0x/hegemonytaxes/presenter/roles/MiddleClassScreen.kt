@@ -37,13 +37,13 @@ import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
 import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.verifyIntInputsSelection
 
 @Composable
-fun MiddleClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun MiddleClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         var companiesWithWorkers by remember { mutableStateOf(uiState.mcSelection.externalCompaniesWithWorkers.toString()) }
         var ownCompanies by remember { mutableStateOf(uiState.mcSelection.ownCompanies.toString()) }
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)

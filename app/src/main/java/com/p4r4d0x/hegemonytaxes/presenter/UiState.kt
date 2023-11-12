@@ -8,8 +8,10 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.ResultTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.TaxesNotCalculated
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen
 
 data class UiState(
+    val displayTitleOnAppBar: Boolean = true,
     val policies: List<PolicyData> = emptyList(),
     val taxMultiplier: Int = 0,
     val incomeTax: Int = 0,
