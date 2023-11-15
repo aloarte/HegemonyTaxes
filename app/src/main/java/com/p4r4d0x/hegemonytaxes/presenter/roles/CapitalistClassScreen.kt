@@ -27,20 +27,21 @@ import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
-import com.p4r4d0x.hegemonytaxes.ui.data.MultipleText
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.buildRoleUiData
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
 
 @Composable
-fun CapitalistClassScreen(uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun CapitalistClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         var companies by remember { mutableStateOf(uiState.ccSelection.companies.toString()) }
         var profit by remember { mutableStateOf("0") }
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
@@ -92,8 +93,8 @@ fun CapitalistClassTaxesDescription() {
             MultipleText(CAPITALIST_CLASS_MAX_COMPANIES.toString(), true),
             MultipleText(" max) and your profit.", false)
         ),
-        highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-        regularStyle = Utils.getRegularSpanStyle(16.sp)
+        highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
+        regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -132,15 +133,15 @@ fun EmploymentAndCorporateTaxesResult(uiState: UiState) {
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
                 MultipleText("The Employment Tax calculated is ", false),
-                MultipleText(taxes.employmentTaxResult.toString(), true),
+                MultipleText("${taxes.employmentTaxResult}₳", true),
                 MultipleText(", while the Corporate Tax is ", false),
-                MultipleText(taxes.corporateTaxResult.toString(), true),
+                MultipleText("${taxes.corporateTaxResult}₳", true),
                 MultipleText(". This is a total of ", false),
-                MultipleText(taxes.totalTaxes.toString(), true),
+                MultipleText("${taxes.totalTaxes}₳", true),
                 MultipleText(". Remember that this amount has to be payed to the State.", false)
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-            regularStyle = Utils.getRegularSpanStyle(16.sp)
+            regularStyle = Utils.getBoldSpanStyle(16.sp)
         )
     }
 

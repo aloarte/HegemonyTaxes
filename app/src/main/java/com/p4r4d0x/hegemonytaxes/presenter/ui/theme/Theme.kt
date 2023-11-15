@@ -1,4 +1,4 @@
-package com.p4r4d0x.hegemonytaxes.ui.theme
+package com.p4r4d0x.hegemonytaxes.presenter.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

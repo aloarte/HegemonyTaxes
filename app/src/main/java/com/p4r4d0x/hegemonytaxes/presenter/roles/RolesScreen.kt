@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,21 +18,21 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleSection
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RolesDescription
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
 
 @Composable
-fun RolesScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun RolesScreen(modifier:Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
                 .padding(20.dp)
         ) {
             Divider(thickness = 50.dp, color = Color.Transparent)
-            RolesDescription(state)
+            RolesDescription(uiState)
             Divider(thickness = 20.dp, color = Color.Transparent)
 
             Column(

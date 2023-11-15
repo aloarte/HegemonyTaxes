@@ -9,19 +9,24 @@ sealed interface UiEvent {
 
     data class UpdatePolicy(val policy: PolicyData) : UiEvent
 
-    object GoWelcome : UiEvent
+    abstract class GoScreen(val displayTitle:Boolean): UiEvent
 
-    object GoPolicySelector : UiEvent
-
-    object GoPickRole : UiEvent
-
-    data class GoRole(val role: HegemonyRole) : UiEvent
-
-    data class CalculateTaxes(val roleData: RoleInputs) : UiEvent
-
-    object ClearTaxes : UiEvent
+    abstract class UiAction: UiEvent
 
 
+    object GoWelcome : GoScreen(true)
+
+    object GoPolicySelector : GoScreen(true)
+
+    object GoPickRole : GoScreen(false)
+
+    class GoRole(val role: HegemonyRole) : GoScreen(false)
+
+    class CalculateTaxes(val roleData: RoleInputs) : UiAction()
+
+    object ClearTaxes : UiAction()
+
+    class UpdateTitleVisibility(val show:Boolean) : UiAction()
 
 
 }

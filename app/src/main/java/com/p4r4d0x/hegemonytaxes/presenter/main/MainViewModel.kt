@@ -95,4 +95,10 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateTitleVisibility(show: Boolean) {
+        _state.update {
+            it.copy(displayTitleOnAppBar =  show)
+        }
+    }
 }

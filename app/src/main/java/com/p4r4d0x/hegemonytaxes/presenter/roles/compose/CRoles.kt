@@ -45,10 +45,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.InputValidation
-import com.p4r4d0x.hegemonytaxes.ui.data.RoleUiData
-import com.p4r4d0x.hegemonytaxes.ui.theme.Orange
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.checkValidRange
-import com.p4r4d0x.hegemonytaxes.ui.utils.Utils.getInputValidationError
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.RoleUiData
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Orange
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.checkValidRange
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.getInputValidationError
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -178,7 +178,7 @@ fun RoleTitleCard(roleUi: RoleUiData) {
             Text(
                 color = roleUi.mainColor,
                 text = roleUi.description,
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Justify,
                 modifier = Modifier

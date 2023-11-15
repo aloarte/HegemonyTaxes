@@ -1,4 +1,4 @@
-package com.p4r4d0x.hegemonytaxes.ui.theme
+package com.p4r4d0x.hegemonytaxes.presenter.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

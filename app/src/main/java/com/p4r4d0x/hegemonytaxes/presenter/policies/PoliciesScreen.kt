@@ -1,6 +1,5 @@
 package com.p4r4d0x.hegemonytaxes.presenter.policies
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,44 +8,42 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
+import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
 import com.p4r4d0x.hegemonytaxes.presenter.policies.compose.PolicySliderComponent
-import com.p4r4d0x.hegemonytaxes.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.ui.theme.White
-import java.util.Locale
+import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
+import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
+import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 
 @Composable
-fun PoliciesScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun PoliciesScreen(modifier:Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         Column(
-            Modifier
+            modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
-                .padding(horizontal = 1.dp, vertical = 10.dp)
+                .padding(horizontal = 2.dp, vertical = 10.dp)
         ) {
-            val callbackcomun: (PolicyData) -> Unit = { data ->
-                Log.d("ALRALR", "Selected: ${data.state} , ${data.type}")
-                onEventTriggered(UiEvent.UpdatePolicy(data))
-            }
 
-            if (state.policies.size > 5) {
-                PoliciesRows(state.policies, callbackcomun)
-                TaxRow(state.taxMultiplier)
+            if (uiState.policies.size > 5) {
+                Divider(thickness = 20.dp, color = Color.Transparent)
+                PoliciesRows(uiState.policies){data->
+                    onEventTriggered(UiEvent.UpdatePolicy(data))
+                }
+                TaxRow(uiState)
                 PickRolesRow(onEventTriggered)
             }
         }
@@ -70,28 +67,26 @@ fun PoliciesRows(policies: List<PolicyData>, sliderCallback: (PolicyData) -> Uni
 }
 
 @Composable
-fun TaxRow(taxMultiplier: Int) {
-    Row(
+fun TaxRow(uiState: UiState) {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp),
-        verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            color = White,
-            text = "Tax multiplier: ",
-            style = MaterialTheme.typography.titleMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = 10.dp)
-        )
-        Text(
-            color = White,
-            text = taxMultiplier.toString().uppercase(Locale.ROOT),
-            fontSize = 50.sp,
-            style = MaterialTheme.typography.labelLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.width(50.dp)
+
+        MultiStyleText(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
+            textStyleList = listOf(
+                MultipleText("Tax Multiplier: ", false),
+                MultipleText("${uiState.taxMultiplier}", true),
+                MultipleText("      Income Tax: ", false),
+                MultipleText("${uiState.incomeTax}", true)
+
+            ),
+            highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
+            regularStyle = Utils.getBoldSpanStyle(16.sp)
         )
     }
 }
@@ -100,7 +95,7 @@ fun TaxRow(taxMultiplier: Int) {
 fun PickRolesRow(onEventTriggered: (UiEvent) -> Unit) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth().padding(horizontal = 40.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
