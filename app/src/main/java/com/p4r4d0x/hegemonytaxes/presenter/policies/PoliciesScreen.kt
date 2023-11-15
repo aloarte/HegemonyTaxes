@@ -25,9 +25,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.policies.compose.PolicySliderComponen
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
-import java.util.Locale
 
 @Composable
 fun PoliciesScreen(modifier:Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
@@ -88,7 +86,7 @@ fun TaxRow(uiState: UiState) {
 
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-            regularStyle = Utils.getRegularSpanStyle(16.sp)
+            regularStyle = Utils.getBoldSpanStyle(16.sp)
         )
     }
 }

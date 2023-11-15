@@ -94,7 +94,7 @@ fun CapitalistClassTaxesDescription() {
             MultipleText(" max) and your profit.", false)
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
-        regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
+        regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -141,7 +141,7 @@ fun EmploymentAndCorporateTaxesResult(uiState: UiState) {
                 MultipleText(". Remember that this amount has to be payed to the State.", false)
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-            regularStyle = Utils.getRegularSpanStyle(16.sp)
+            regularStyle = Utils.getBoldSpanStyle(16.sp)
         )
     }
 

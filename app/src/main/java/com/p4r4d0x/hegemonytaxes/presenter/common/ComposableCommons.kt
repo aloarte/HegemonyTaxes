@@ -44,7 +44,7 @@ fun MultiStyleText(
         textStyleList.forEach {
             withStyle(style = if (it.highlighted) highlightedStyle else regularStyle) { append(it.text) }
         }
-    }, modifier,textAlign = TextAlign.Justify,)
+    }, modifier,textAlign = TextAlign.Justify)
 }
 
 @Composable

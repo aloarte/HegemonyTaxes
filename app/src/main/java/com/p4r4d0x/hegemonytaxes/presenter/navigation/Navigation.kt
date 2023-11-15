@@ -98,7 +98,7 @@ fun NavigationComponent(
 }
 
 fun getStartDestination(preferences: SharedPreferences) =
-    if (false/*preferences.getBoolean(PREFERENCE_WELCOME, false)*/) {
+    if (preferences.getBoolean(PREFERENCE_WELCOME, false)) {
         Screen.PoliciesScreen.route
     } else {
         Screen.WelcomeScreen.route

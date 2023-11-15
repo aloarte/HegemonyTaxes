@@ -14,9 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassTaxes
@@ -81,7 +79,7 @@ fun PopulationInputDescription() {
             MultipleText(10.toString(), true)
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
-        regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
+        regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -112,8 +110,8 @@ fun IncomeTaxResult(uiState: UiState) {
                 MultipleText("${uiState.resultTaxes.incomeTaxResult}₳", true),
                 MultipleText(". Remember that this amount has to be payed to the State.", false),
             ),
-            highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-            regularStyle = Utils.getRegularSpanStyle(16.sp)
+            highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
+            regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
         )
     }
 

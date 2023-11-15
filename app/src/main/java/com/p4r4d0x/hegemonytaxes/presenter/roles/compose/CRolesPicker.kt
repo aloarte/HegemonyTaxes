@@ -46,7 +46,7 @@ fun RolesDescription(state: UiState) {
 
                 ),
                 highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
-                regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
+                regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
             )
         }
 

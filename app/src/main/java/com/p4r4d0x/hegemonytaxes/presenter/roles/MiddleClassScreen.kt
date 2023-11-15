@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
@@ -98,7 +97,7 @@ fun MiddleClassTaxesDescription() {
             MultipleText(" max).", false)
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
-        regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
+        regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -144,8 +143,8 @@ fun IncomeAndEmploymentTaxesResult(uiState: UiState) {
                 MultipleText("${taxes.totalTaxes}₳", true),
                 MultipleText(". Remember that this amount has to be payed to the State.", false)
             ),
-            highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-            regularStyle = Utils.getRegularSpanStyle(16.sp)
+            highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
+            regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
         )
     }
 }

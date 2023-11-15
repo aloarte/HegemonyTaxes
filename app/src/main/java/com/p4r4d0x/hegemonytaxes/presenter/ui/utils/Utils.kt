@@ -1,8 +1,5 @@
 package com.p4r4d0x.hegemonytaxes.presenter.ui.utils
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
@@ -34,13 +31,14 @@ object Utils {
         fontWeight = FontWeight.Bold
     )
 
-    fun getRegularSpanStyle(textSize: TextUnit) = SpanStyle(
+    fun getBoldSpanStyle(textSize: TextUnit) = SpanStyle(
         letterSpacing = 0.5.sp,
         fontSize = textSize,
         color = White,
         fontFamily = NunitoFontFamily,
         fontWeight = FontWeight.Bold
     )
+
 
     fun checkValidRange(newValue: String, maxValue: Int): InputValidation {
         val parsedNumber = tryNumberParse(newValue)

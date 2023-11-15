@@ -46,7 +46,6 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.RoleUiData
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
-import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Orange
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
@@ -257,7 +256,7 @@ fun StateInputsDescription() {
             MultipleText(") and profit.", false),
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
-        regularStyle = Utils.getRegularSpanStyle(DESCRIPTION_TEXT_SIZE)
+        regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
 }
 
@@ -277,8 +276,8 @@ fun TotalReceivedTaxes(uiState: UiState) {
                 MultipleText("${uiState.resultTaxes.ccTaxes}₳", true),
                 MultipleText(" from the Capitalist Class", false)
             ),
-            highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
-            regularStyle = Utils.getRegularSpanStyle(16.sp)
+            highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
+            regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
         )
     }
 
