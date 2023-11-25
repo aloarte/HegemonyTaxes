@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -7,9 +7,29 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+
+val keystoreProperties: Properties = if (keystorePropertiesFile.exists()) {
+    Properties().apply {
+        load(keystorePropertiesFile.inputStream())
+    }
+} else {
+    throw GradleException("keystore.properties not found.")
+}
+
 android {
     namespace = "com.p4r4d0x.hegemonytaxes"
     compileSdk = 34
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+        }
+    }
 
     defaultConfig {
         applicationId = "com.p4r4d0x.hegemonytaxes"
@@ -31,6 +51,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+
         }
     }
     compileOptions {
@@ -69,8 +91,6 @@ dependencies {
     implementation( "com.google.dagger:hilt-android:2.48")
     kapt ("com.google.dagger:hilt-android-compiler:2.48")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
-
-
 
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     testImplementation ("org.robolectric:robolectric:4.7.3")
