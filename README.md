@@ -3,7 +3,8 @@
 <img src="/captures/banner.png" width="800" align="left">
 
 <br>
-Hegemony Taxes its an app for Android devices developed to help people that is playing the Hegemony 
+
+Hegemony Taxes it's an app for Android devices developed to help people that is playing the Hegemony 
 board game. With this app you can rid off calculating the taxes manually, saving some time and helping you
 in planning for the production phase.
 
@@ -11,10 +12,11 @@ in planning for the production phase.
 
 - 100% Kotlin
 - 100% Jetpack Compose
+- Dagger-Hilt
 - Clean architecture
 - Unit tests + mocks
 
-This project is built in **Kotlin** and uses **Koin** as an injection framework, building its views
+This project is built in **Kotlin** and uses **Dagger-Hilt** as an injection framework, building its views
 with **Jetpack Compose**. 
 
 ## ✅ Available Features
@@ -26,6 +28,6 @@ with **Jetpack Compose**.
 
 ## :iphone: Screenshots & demo
 
-<img src="/captures/select_policies_screen.png" width="200"><img src="/captures/pick_roles_screen.png" width="200">
+<img src="/captures/select_policies_screen.png" width="200"> <img src="/captures/pick_roles_screen.png" width="200">
 
-<br><img src="/captures/working_class_screen.png" width="200"><img src="/captures/middle_class_screen.png" width="200"><img src="/captures/capitalist_class_screen.png" width="200"><img src="/captures/state_class_screen.png" width="200">
+<br><img src="/captures/working_class_screen.png" width="200"> <img src="/captures/middle_class_screen.png" width="200"> <img src="/captures/capitalist_class_screen.png" width="200"> <img src="/captures/state_class_screen.png" width="200">
