@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Hegemony Taxes Calculator"
+rootProject.name = "Hegemony Taxes"
 include(":app")
  
