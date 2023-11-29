@@ -31,3 +31,9 @@ with **Jetpack Compose**.
 <img src="/captures/select_policies_screen.png" width="200"> <img src="/captures/pick_roles_screen.png" width="200">
 
 <br><img src="/captures/working_class_screen.png" width="200"> <img src="/captures/middle_class_screen.png" width="200"> <img src="/captures/capitalist_class_screen.png" width="200"> <img src="/captures/state_class_screen.png" width="200">
+
+## :link: App download
+
+You can download the app from the playstore following this link:
+
+https://play.google.com/store/apps/details?id=com.p4r4d0x.hegemonytaxes
