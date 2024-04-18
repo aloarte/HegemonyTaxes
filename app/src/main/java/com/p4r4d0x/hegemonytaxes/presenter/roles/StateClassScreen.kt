@@ -362,8 +362,8 @@ fun InputsDialogScrollable(
             }
         },
         properties = DialogProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
         )
     )
 }
