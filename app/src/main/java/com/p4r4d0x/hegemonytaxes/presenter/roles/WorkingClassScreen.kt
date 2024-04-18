@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,7 +34,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.verifyIntInputsSelection
 
 @Composable
-fun WorkingClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun WorkingClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         var population by remember { mutableStateOf(uiState.wcSelection.population.toString()) }
         Column(
@@ -64,6 +65,47 @@ fun WorkingClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (Ui
         }
     }
 }
+
+@Composable
+fun WorkingClassScreenScrollable(
+    modifier: Modifier,
+    uiState: UiState,
+    onEventTriggered: (UiEvent) -> Unit
+) {
+    HegemonyTaxesCalculatorTheme {
+        var population by remember { mutableStateOf(uiState.wcSelection.population.toString()) }
+        LazyColumn(
+            modifier = modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .background(DarkGrey)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val roleUi = buildRoleUiData(HegemonyRole.WorkingClass)
+
+            item { RoleTitleSection(roleUi) }
+            item { Divider(thickness = 20.dp, color = Color.Transparent) }
+            item { PopulationInputDescription() }
+            item { Divider(thickness = 10.dp, color = Color.Transparent) }
+            item {
+                RoleInputText(
+                    roleUi = roleUi,
+                    labelText = "Population",
+                    inputText = population,
+                    maxValue = 10
+                ) {
+                    population = it
+                }
+            }
+            item { Divider(thickness = 20.dp, color = Color.Transparent) }
+            item { CalculateIncomeTaxButton(population, onEventTriggered) }
+            item { IncomeTaxResult(uiState) }
+
+        }
+    }
+}
+
 
 @Composable
 fun PopulationInputDescription() {

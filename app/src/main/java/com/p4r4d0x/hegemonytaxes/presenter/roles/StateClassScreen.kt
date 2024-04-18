@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.material3.CardDefaults
@@ -87,6 +88,47 @@ fun StateClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (Ui
 }
 
 @Composable
+fun StateClassScreenScrollable(
+    modifier: Modifier,
+    uiState: UiState,
+    onEventTriggered: (UiEvent) -> Unit
+) {
+    val roleUi = buildRoleUiData(HegemonyRole.State)
+
+    HegemonyTaxesCalculatorTheme {
+        var showDialog by remember { mutableStateOf(false) }
+        if (showDialog) {
+            InputsDialogScrollable(uiState, roleUi, onEventTriggered) {
+                showDialog = false
+            }
+        }
+
+        LazyColumn(
+            modifier = modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .background(DarkGrey)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item { RoleTitleSection(roleUi) }
+            item { Divider(thickness = 20.dp, color = Color.Transparent) }
+            item { StateInputsDescription() }
+            item { Divider(thickness = 10.dp, color = Color.Transparent) }
+            item {
+                HegemonyButton(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    text = "Input data"
+                ) {
+                    showDialog = true
+                }
+            }
+            item { TotalReceivedTaxes(uiState) }
+        }
+    }
+}
+
+@Composable
 fun InputsDialog(
     uiState: UiState,
     roleUi: RoleUiData,
@@ -114,7 +156,12 @@ fun InputsDialog(
                 shape = RoundedCornerShape(8.dp)
             ) {
 
-                Row(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp), horizontalArrangement = Arrangement.Center){
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     Text(
                         color = White,
                         text = "CLASSES DATA",
@@ -184,6 +231,134 @@ fun InputsDialog(
                     onEventTriggered,
                     onDismissed
                 )
+            }
+        },
+        properties = DialogProperties(
+            dismissOnBackPress = false,
+            dismissOnClickOutside = false
+        )
+    )
+}
+
+@Composable
+fun InputsDialogScrollable(
+    uiState: UiState,
+    roleUi: RoleUiData,
+    onEventTriggered: (UiEvent) -> Unit,
+    onDismissed: () -> Unit
+) {
+    var wcPopulation by remember { mutableStateOf(uiState.stateSelection.wcPopulation.toString()) }
+    var mcExternalWorkedCompanies by remember { mutableStateOf(uiState.stateSelection.mcExternalCompaniesWithWorkers.toString()) }
+    var mcOwnCompanies by remember { mutableStateOf(uiState.stateSelection.mcOwnCompanies.toString()) }
+    var ccCompanies by remember { mutableStateOf(uiState.stateSelection.ccCompanies.toString()) }
+    var ccProfit by remember { mutableStateOf(uiState.stateSelection.ccProfit.toString()) }
+
+    Dialog(
+        onDismissRequest = onDismissed,
+        content = {
+            OutlinedCard(
+                border = BorderStroke(1.dp, White),
+                colors = CardDefaults.outlinedCardColors(
+                    contentColor = DarkGrey,
+                    containerColor = DarkGrey
+                ),
+                modifier = Modifier
+                    .fillMaxHeight(0.80f)
+                    .fillMaxWidth(1f),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                LazyColumn {
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                color = White,
+                                text = "CLASSES DATA",
+                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.labelMedium,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+
+                    item { Divider(thickness = 10.dp, color = Color.Transparent) }
+                    item {
+                        RoleInputText(
+                            roleUi = roleUi,
+                            labelText = "WC population",
+                            inputText = wcPopulation,
+                            maxValue = 10,
+                            imeAction = ImeAction.Next
+                        ) {
+                            wcPopulation = it
+                        }
+                    }
+                    item {
+                        RoleInputText(
+                            roleUi = roleUi,
+                            labelText = "MC external worked companies",
+                            inputText = mcExternalWorkedCompanies,
+                            maxValue = (STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES),
+                            imeAction = ImeAction.Next
+                        ) {
+                            mcExternalWorkedCompanies = it
+                        }
+                    }
+
+                    item {
+                        RoleInputText(
+                            roleUi = roleUi,
+                            labelText = "MC companies",
+                            inputText = mcOwnCompanies,
+                            maxValue = MIDDLE_CLASS_MAX_COMPANIES,
+                            imeAction = ImeAction.Next
+                        ) {
+                            mcOwnCompanies = it
+                        }
+                    }
+
+                    item {
+                        RoleInputText(
+                            roleUi = roleUi,
+                            labelText = "CC companies",
+                            inputText = ccCompanies,
+                            maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
+                            imeAction = ImeAction.Next
+                        ) {
+                            ccCompanies = it
+                        }
+                    }
+
+                    item {
+                        RoleInputText(
+                            roleUi = roleUi,
+                            labelText = "CC profit",
+                            inputText = ccProfit,
+                            maxValue = Int.MAX_VALUE
+                        ) {
+                            ccProfit = it
+                        }
+                    }
+
+                    item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                    item {
+                        StateCalculateTotalTaxesButton(
+                            wcPopulation,
+                            mcExternalWorkedCompanies,
+                            mcOwnCompanies,
+                            ccCompanies,
+                            ccProfit,
+                            onEventTriggered,
+                            onDismissed
+                        )
+                    }
+                }
+
+
             }
         },
         properties = DialogProperties(

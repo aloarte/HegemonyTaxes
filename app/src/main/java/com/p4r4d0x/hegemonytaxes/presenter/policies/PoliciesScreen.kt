@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +29,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 
 @Composable
-fun PoliciesScreen(modifier:Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun PoliciesScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
     HegemonyTaxesCalculatorTheme {
         Column(
             modifier
@@ -40,11 +41,39 @@ fun PoliciesScreen(modifier:Modifier, uiState: UiState, onEventTriggered: (UiEve
 
             if (uiState.policies.size > 5) {
                 Divider(thickness = 20.dp, color = Color.Transparent)
-                PoliciesRows(uiState.policies){data->
+                PoliciesRows(uiState.policies) { data ->
                     onEventTriggered(UiEvent.UpdatePolicy(data))
                 }
                 TaxRow(uiState)
                 PickRolesRow(onEventTriggered)
+            }
+        }
+    }
+}
+
+@Composable
+fun PoliciesScreenScrollable(
+    modifier: Modifier,
+    uiState: UiState,
+    onEventTriggered: (UiEvent) -> Unit
+) {
+    HegemonyTaxesCalculatorTheme {
+        LazyColumn(
+            modifier = modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .background(DarkGrey)
+                .padding(horizontal = 2.dp, vertical = 10.dp)
+        ) {
+            if (uiState.policies.size > 5) {
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item {
+                    PoliciesRows(uiState.policies) { data ->
+                        onEventTriggered(UiEvent.UpdatePolicy(data))
+                    }
+                }
+                item { TaxRow(uiState) }
+                item { PickRolesRow(onEventTriggered) }
             }
         }
     }
@@ -95,7 +124,8 @@ fun TaxRow(uiState: UiState) {
 fun PickRolesRow(onEventTriggered: (UiEvent) -> Unit) {
     Row(
         modifier = Modifier
-            .fillMaxWidth().padding(horizontal = 40.dp),
+            .fillMaxWidth()
+            .padding(horizontal = 40.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {

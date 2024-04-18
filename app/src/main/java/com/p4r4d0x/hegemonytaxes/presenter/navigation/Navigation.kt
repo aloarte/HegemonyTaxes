@@ -12,12 +12,17 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.navigation.compose.HegemonyTopAppBar
-import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.roles.CapitalistClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.CapitalistClassScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.roles.MiddleClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.MiddleClassScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.roles.StateClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.StateClassScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.roles.WorkingClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.roles.WorkingClassScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.PREFERENCE_WELCOME
 import com.p4r4d0x.hegemonytaxes.presenter.welcome.WelcomeScreen
 
@@ -50,21 +55,21 @@ fun NavigationComponent(
                 )
             }
             composable(route = Screen.PoliciesScreen.route) {
-                PoliciesScreen(
+                PoliciesScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
             composable(route = Screen.RoleSelectorScreen.route) {
-                RolesScreen(
+                RolesScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
             composable(route = Screen.WorkingClassScreen.route) {
-                WorkingClassScreen(
+                WorkingClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
@@ -72,7 +77,7 @@ fun NavigationComponent(
             }
 
             composable(route = Screen.MiddleClassScreen.route) {
-                MiddleClassScreen(
+                MiddleClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
@@ -80,14 +85,14 @@ fun NavigationComponent(
             }
 
             composable(route = Screen.CapitalistClassScreen.route) {
-                CapitalistClassScreen(
+                CapitalistClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
             composable(route = Screen.StateScreen.route) {
-                StateClassScreen(
+                StateClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
