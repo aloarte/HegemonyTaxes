@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,7 +36,11 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
 
 @Composable
-fun CapitalistClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun CapitalistClassScreen(
+    modifier: Modifier,
+    uiState: UiState,
+    onEventTriggered: (UiEvent) -> Unit
+) {
     HegemonyTaxesCalculatorTheme {
         var companies by remember { mutableStateOf(uiState.ccSelection.companies.toString()) }
         var profit by remember { mutableStateOf("0") }
@@ -81,6 +86,65 @@ fun CapitalistClassScreen(modifier:Modifier,uiState: UiState, onEventTriggered: 
         }
     }
 }
+
+@Composable
+fun CapitalistClassScreenScrollable(
+    modifier: Modifier,
+    uiState: UiState,
+    onEventTriggered: (UiEvent) -> Unit
+) {
+    HegemonyTaxesCalculatorTheme {
+        var companies by remember { mutableStateOf(uiState.ccSelection.companies.toString()) }
+        var profit by remember { mutableStateOf("0") }
+
+        LazyColumn(
+            modifier = modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .background(DarkGrey)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
+            item { RoleTitleSection(roleUi) }
+            item { Divider(thickness = 20.dp, color = Color.Transparent) }
+            item { CapitalistClassTaxesDescription() }
+            item { Divider(thickness = 10.dp, color = Color.Transparent) }
+            item {
+                RoleInputText(
+                    roleUi = roleUi,
+                    labelText = "Companies",
+                    inputText = companies,
+                    maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
+                    imeAction = ImeAction.Next
+                ) {
+                    companies = it
+                }
+            }
+            item {
+                RoleInputText(
+                    roleUi = roleUi,
+                    labelText = "Profit",
+                    inputText = profit,
+                    maxValue = Integer.MAX_VALUE
+                ) {
+                    profit = it
+                }
+            }
+            item { Divider(thickness = 20.dp, color = Color.Transparent) }
+            item {
+                CalculateEmploymentAndCorporateTaxesButton(
+                    companies,
+                    profit,
+                    onEventTriggered
+                )
+            }
+            item { EmploymentAndCorporateTaxesResult(uiState) }
+
+        }
+    }
+}
+
 
 @Composable
 fun CapitalistClassTaxesDescription() {
