@@ -1,5 +1,7 @@
 import java.util.Properties
 
+apply(from = "$rootDir/jacoco.gradle")
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -19,6 +21,8 @@ val keystoreProperties: Properties = if (keystorePropertiesFile.exists()) {
 }
 
 android {
+
+
     namespace = "com.p4r4d0x.hegemonytaxes"
     compileSdk = 34
 
@@ -73,6 +77,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -86,11 +91,15 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
-
     //Dagger-hilt
     implementation( "com.google.dagger:hilt-android:2.48")
     kapt ("com.google.dagger:hilt-android-compiler:2.48")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    //JaCoCo
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
+    implementation("org.jacoco:org.jacoco.core:0.8.7")
 
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     testImplementation ("org.robolectric:robolectric:4.7.3")

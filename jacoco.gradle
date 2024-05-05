@@ -1,0 +1,24 @@
+apply plugin: 'jacoco'
+
+task jacocoReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+    reports {
+        csv { enabled true } // change if needed
+        xml { enabled true } // change if needed
+        html {
+            enabled true
+            destination file("${buildDir}/coverage-report")
+        }
+    }
+
+    final fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', 'android/**/*.*']
+
+    final kotlinTree = fileTree(dir: "${project.buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+    final javacTree = fileTree(dir: "${project.buildDir}/intermediates/javac/debug", excludes: fileFilter)
+    final mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom files([mainSrc])
+    classDirectories.setFrom files([kotlinTree, javacTree])
+    executionData.setFrom fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}
