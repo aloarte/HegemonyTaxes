@@ -56,7 +56,6 @@ android {
                 "proguard-rules.pro"
             )
 //            signingConfig = signingConfigs.getByName("release")
-
         }
     }
     compileOptions {
@@ -77,7 +76,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
 }
 
 dependencies {
