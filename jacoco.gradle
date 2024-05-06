@@ -1,13 +1,24 @@
 apply plugin: 'jacoco'
 
 task jacocoReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+
     reports {
-        csv { enabled true } // change if needed
-        xml { enabled true } // change if needed
+        xml.required = true
+        csv.required = true
+        html.required = true
+    }
+
+    reports {
         html {
             enabled true
-            destination file("${buildDir}/coverage-report")
         }
+        csv {
+            enabled true
+        }
+        xml {
+            enabled true
+        }
+
     }
 
     final fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', 'android/**/*.*']
