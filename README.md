@@ -1,7 +1,7 @@
 # Hegemony Taxes
 
 [![Playstore Downloads](https://playbadges.pavi2410.me/badge/downloads?id=com.p4r4d0x.hegemonytaxes)]([https://app.codecov.io/gh/aloarte/HegemonyTaxes](https://playbadges.pavi2410.me/badge/downloads?id=com.p4r4d0x.hegemonytaxes))
-[![Tests](https://github.com/aloarte/HegemonyTaxes/actions/workflows/ci.yml/badge.svg)](https://github.com/aloarte/skintkvault/actions/workflows/ci.yml)
+[![Tests](https://github.com/aloarte/HegemonyTaxes/actions/workflows/ci.yml/badge.svg)](https://github.com/aloarte/HegemonyTaxes/actions/workflows/ci.yml)
 [![Coverage Status](https://codecov.io/github/aloarte/HegemonyTaxes/coverage.svg?branch=master)](https://app.codecov.io/gh/aloarte/HegemonyTaxes)
 
 <img src="/captures/banner.png" width="800" align="left">
