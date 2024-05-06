@@ -47,14 +47,17 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.4.2
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
       - name: Unit Tests
         run: ./gradlew :app:testDebugUnitTest
 
       - name: Unit Tests Report
         uses: asadmansr/android-test-report-action@v1.2.0
         if: ${{ always() }}
+
+      - name: Generate Jacoco Report
+        run: ./gradlew :app:jacocoReport
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
