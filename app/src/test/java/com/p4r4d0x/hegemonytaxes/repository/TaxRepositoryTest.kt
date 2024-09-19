@@ -173,18 +173,54 @@ class TaxRepositoryTest {
     }
 
     @Test
-    fun `test calculate capitalist class taxes`() {
+    fun `test calculate capitalist class taxes, final income above 0`() {
         val classInput = CapitalistClassInputs(companies = 3, profit = 120)
-        every { taxCalculator.calculateCorporateTax(classInput.profit, PolicyState.A) } returns 40
+        every {
+            taxCalculator.calculateCorporateTax(
+                108, // classInput.profit - employmentTax
+                PolicyState.A
+            )
+        } returns 40
 
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
 
-        verify { taxCalculator.calculateCorporateTax(classInput.profit, PolicyState.A) }
-        val expectedResult =CapitalistClassTaxes(
-                employmentTaxResult = 12,
-                corporateTaxResult = 40,
-                totalTaxes = 52
+        verify {
+            taxCalculator.calculateCorporateTax(
+                108, // classInput.profit - employmentTax = 120 - 12 = 108
+                PolicyState.A
             )
+        }
+        val expectedResult = CapitalistClassTaxes(
+            employmentTaxResult = 12,
+            corporateTaxResult = 40,
+            totalTaxes = 52
+        )
+        Assert.assertEquals(expectedResult, taxes)
+    }
+
+    @Test
+    fun `test calculate capitalist class taxes, final income below 0`() {
+        val classInput = CapitalistClassInputs(companies = 3, profit = 11)
+        every {
+            taxCalculator.calculateCorporateTax(
+                0, // classInput.profit - employmentTax = 11 - 12 = -1
+                PolicyState.A
+            )
+        } returns 0
+
+        val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
+
+        every {
+            taxCalculator.calculateCorporateTax(
+                0, // classInput.profit - employmentTax = 11 - 12 = -1
+                PolicyState.A
+            )
+        }
+        val expectedResult = CapitalistClassTaxes(
+            employmentTaxResult = 12,
+            corporateTaxResult = 0,
+            totalTaxes = 12
+        )
         Assert.assertEquals(expectedResult, taxes)
     }
 
@@ -211,12 +247,13 @@ class TaxRepositoryTest {
             mcExternalCompaniesWithWorkers = 2,
             mcOwnCompanies = 2,
             ccCompanies = 4,
-            ccProfit = 80)
+            ccProfit = 80
+        )
         every { taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) } returns 40
 
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
 
-        verify{ taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) }
+        verify { taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) }
         val expectedResult =
             StateClassTaxes(
                 wcTaxes = 12,

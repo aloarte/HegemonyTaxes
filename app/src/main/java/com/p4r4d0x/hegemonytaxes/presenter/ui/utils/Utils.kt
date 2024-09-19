@@ -84,7 +84,7 @@ object Utils {
     private fun getRoleDescription(role: HegemonyRole) = when (role) {
         HegemonyRole.WorkingClass -> "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population."
         HegemonyRole.MiddleClass -> "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself."
-        HegemonyRole.CapitalistClass -> "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of Companies that you own, and the second one is based on the profit you made from the business activities."
+        HegemonyRole.CapitalistClass -> "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of operational Companies that you own, and the second one is based on the profit you made from the business activities."
         HegemonyRole.State -> "You receive different taxes from each other class: \n" +
                 "Working Class: Income Tax, based on their population. \n" +
                 "Middle Class: Income Tax and Employment Tax. \n" +

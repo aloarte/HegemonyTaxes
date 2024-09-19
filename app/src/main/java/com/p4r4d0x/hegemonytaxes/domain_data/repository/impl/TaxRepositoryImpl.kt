@@ -20,6 +20,7 @@ import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants.INVALID_TAX_VALUE
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getIncomeTaxInvolvedPolicies
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getTaxMultiplierInvolvedPolicies
+import java.lang.Integer.max
 import javax.inject.Inject
 
 class TaxRepositoryImpl @Inject constructor(
@@ -29,14 +30,14 @@ class TaxRepositoryImpl @Inject constructor(
     TaxRepository {
     override fun getTaxMultiplier(policies: List<PolicyData>): Int {
         return try {
-            policies.getTaxMultiplierInvolvedPolicies()?.let { policies ->
-                val baseTax = policiesDatasource.getBaseTaxIncrement(policies.taxation.state)
+            policies.getTaxMultiplierInvolvedPolicies()?.let { involvedPolicies ->
+                val baseTax = policiesDatasource.getBaseTaxIncrement(involvedPolicies.taxation.state)
                 val welfareTaxMultiplier =
-                    policiesDatasource.getWelfareIncrement(policies.taxation.state)
+                    policiesDatasource.getWelfareIncrement(involvedPolicies.taxation.state)
                 val healthcareTaxIncrement =
-                    policiesDatasource.getWelfareIncrement(policies.weHealthcare.state)
+                    policiesDatasource.getWelfareIncrement(involvedPolicies.weHealthcare.state)
                 val educationTaxIncrement =
-                    policiesDatasource.getWelfareIncrement(policies.weEducation.state)
+                    policiesDatasource.getWelfareIncrement(involvedPolicies.weEducation.state)
 
                 taxCalculator.calculateTaxMultiplier(
                     baseTax,
@@ -55,10 +56,10 @@ class TaxRepositoryImpl @Inject constructor(
 
     override fun getIncomeTax(policies: List<PolicyData>): Int {
         return try {
-            policies.getIncomeTaxInvolvedPolicies()?.let { policies ->
+            policies.getIncomeTaxInvolvedPolicies()?.let { involvedPolicies ->
                 policiesDatasource.getIncomeTax(
-                    policies.laborMarket.state,
-                    policies.taxation.state
+                    involvedPolicies.laborMarket.state,
+                    involvedPolicies.taxation.state
                 )
             } ?: INVALID_TAX_VALUE
         } catch (ex: TaxException) {
@@ -76,7 +77,10 @@ class TaxRepositoryImpl @Inject constructor(
             is CapitalistClassInputs -> {
                 val employmentTaxR = taxMultiplier * roleData.companies
                 val corporateTaxR =
-                    taxCalculator.calculateCorporateTax(roleData.profit, taxationPolicyState)
+                    taxCalculator.calculateCorporateTax(
+                        max(roleData.profit - employmentTaxR, 0),
+                        taxationPolicyState
+                    )
                 CapitalistClassTaxes(
                     employmentTaxR,
                     corporateTaxR,
