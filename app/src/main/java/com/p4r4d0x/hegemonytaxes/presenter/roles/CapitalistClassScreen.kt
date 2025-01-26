@@ -124,7 +124,7 @@ fun CapitalistClassScreenScrollable(
             item {
                 RoleInputText(
                     roleUi = roleUi,
-                    labelText = "Profit",
+                    labelText = "Revenue",
                     inputText = profit,
                     maxValue = Integer.MAX_VALUE
                 ) {
@@ -155,8 +155,10 @@ fun CapitalistClassTaxesDescription() {
                 "Add your companies (", false
             ),
             MultipleText(CAPITALIST_CLASS_MAX_COMPANIES.toString(), true),
-            MultipleText(" max) and your profit.", false)
-        ),
+            MultipleText(" max) and your revenue. This tool will calculate the Employment Tax and then, with the remaining revenue, the Corporate Tax. Just add here your", false),
+            MultipleText(" current revenue before both tax payments", true),
+            MultipleText(".", false)
+            ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
         regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
     )
