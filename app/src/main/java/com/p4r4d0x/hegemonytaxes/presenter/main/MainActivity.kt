@@ -66,9 +66,4 @@ class MainActivity : ComponentActivity() {
     override fun onBackPressed() {
         //Avoid the on back pressed to force use the appbar button
     }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.fetchPolicies()
-    }
 }

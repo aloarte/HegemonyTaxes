@@ -15,6 +15,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -26,7 +27,9 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
-    val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
+    val state = _state
+        .onStart { fetchPolicies() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
 
     fun fetchPolicies() {
         _state.update {
@@ -98,7 +101,7 @@ class MainViewModel @Inject constructor(
 
     fun updateTitleVisibility(show: Boolean) {
         _state.update {
-            it.copy(displayTitleOnAppBar =  show)
+            it.copy(displayTitleOnAppBar = show)
         }
     }
 }

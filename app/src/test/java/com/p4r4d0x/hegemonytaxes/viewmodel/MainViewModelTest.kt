@@ -48,7 +48,8 @@ class MainViewModelTest {
         every { policiesRepository.fetchPolicies() } returns policies
         mockGetTaxes(1, 4, PolicyState.A)
 
-        viewModel.fetchPolicies()
+        val state =
+            viewModel.state.first() //This forces the fetchPolicies call that is on the onStart method
 
         verify { policiesRepository.fetchPolicies() }
         verifyGetTaxes()
@@ -58,14 +59,14 @@ class MainViewModelTest {
             incomeTax = 4,
             taxationPolicyState = PolicyState.A
         )
-        Assert.assertEquals(expectedState, viewModel.state.first())
+        Assert.assertEquals(expectedState, state)
     }
 
     @Test
     fun `test update policy`() = coroutinesTestRule.runBlockingTest {
         mockAndCallFetchPolicies()
+        viewModel.state.first() //This forces the fetchPolicies call that is on the onStart method
         val updatedPolicy = policies[2].copy(state = PolicyState.B)
-
         viewModel.updatePolicy(updatedPolicy)
 
         verifyGetTaxes()
@@ -73,31 +74,30 @@ class MainViewModelTest {
         Assert.assertEquals(updatedPolicies, viewModel.state.first().policies)
     }
 
-    @Ignore("This is failing at the mocking of the calculateTaxes function from the taxRepository")
+    @Ignore("")
     @Test
     fun `test calculate tax result`() = coroutinesTestRule.runBlockingTest {
         mockAndCallFetchPolicies()
+        viewModel.state.first() //This forces the fetchPolicies call that is on the onStart method
         val inputData = WorkingClassInputs(population = 3)
-        val taxesResult:ResultTaxes = WorkingClassTaxes(12)
-        every{ taxRepository.calculateTaxes(1,4,PolicyState.A,inputData) } returns taxesResult
+        val taxesResult: ResultTaxes = WorkingClassTaxes(12)
+        every { taxRepository.calculateTaxes(1, 4, PolicyState.A, inputData) } returns taxesResult
 
         viewModel.calculateTaxesResult(inputData)
 
         verifyGetTaxes()
-        verify { taxRepository.calculateTaxes(1,4,PolicyState.A,inputData) }
+        verify { taxRepository.calculateTaxes(1, 4, PolicyState.A, inputData) }
         Assert.assertEquals(taxesResult, viewModel.state.first().resultTaxes)
     }
 
-    private fun mockAndCallFetchPolicies(){
+    private fun mockAndCallFetchPolicies() {
         every { policiesRepository.fetchPolicies() } returns policies
         mockGetTaxes(1, 4, PolicyState.A)
         viewModel.fetchPolicies()
     }
 
     private fun mockGetTaxes(
-        taxMultiplier: Int,
-        taxIncome: Int,
-        taxationState: PolicyState
+        taxMultiplier: Int, taxIncome: Int, taxationState: PolicyState
     ) {
         every { taxRepository.getTaxMultiplier(any()) } returns taxMultiplier
         every { taxRepository.getIncomeTax(any()) } returns taxIncome
