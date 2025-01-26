@@ -214,7 +214,7 @@ fun InputsDialog(
 
                 RoleInputText(
                     roleUi = roleUi,
-                    labelText = "CC profit",
+                    labelText = "CC Revenue",
                     inputText = ccProfit,
                     maxValue = Int.MAX_VALUE
                 ) {
@@ -336,7 +336,7 @@ fun InputsDialogScrollable(
                     item {
                         RoleInputText(
                             roleUi = roleUi,
-                            labelText = "CC profit",
+                            labelText = "CC Revenue",
                             inputText = ccProfit,
                             maxValue = Int.MAX_VALUE
                         ) {
