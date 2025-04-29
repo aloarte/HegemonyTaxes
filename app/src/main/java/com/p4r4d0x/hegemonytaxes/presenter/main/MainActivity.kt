@@ -1,8 +1,6 @@
 package com.p4r4d0x.hegemonytaxes.presenter.main
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -62,8 +60,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @SuppressLint("MissingSuperCall")
-    override fun onBackPressed() {
-        //Avoid the on back pressed to force use the appbar button
-    }
 }
