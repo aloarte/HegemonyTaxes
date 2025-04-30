@@ -31,7 +31,8 @@ class TaxRepositoryImpl @Inject constructor(
     override fun getTaxMultiplier(policies: List<PolicyData>): Int {
         return try {
             policies.getTaxMultiplierInvolvedPolicies()?.let { involvedPolicies ->
-                val baseTax = policiesDatasource.getBaseTaxIncrement(involvedPolicies.taxation.state)
+                val baseTax =
+                    policiesDatasource.getBaseTaxIncrement(involvedPolicies.taxation.state)
                 val welfareTaxMultiplier =
                     policiesDatasource.getWelfareIncrement(involvedPolicies.taxation.state)
                 val healthcareTaxIncrement =
@@ -75,22 +76,27 @@ class TaxRepositoryImpl @Inject constructor(
     ): ResultTaxes {
         return when (roleData) {
             is CapitalistClassInputs -> {
-                val employmentTaxR = taxMultiplier * roleData.companies
-                val corporateTaxR =
-                    taxCalculator.calculateCorporateTax(
-                        max(roleData.profit - employmentTaxR, 0),
-                        taxationPolicyState
-                    )
+                val (employmentTax, corporateTax) = calculateCCTax(
+                    taxationPolicyState = taxationPolicyState,
+                    taxMultiplier = taxMultiplier,
+                    companies = roleData.companies,
+                    profit = roleData.profit
+                )
                 CapitalistClassTaxes(
-                    employmentTaxR,
-                    corporateTaxR,
-                    employmentTaxR + corporateTaxR
+                    employmentTax,
+                    corporateTax,
+                    employmentTax + corporateTax
                 )
             }
 
             is MiddleClassInputs -> {
-                val incomeTaxR = incomeTax * roleData.externalCompaniesWithWorkers
-                val employmentTaxR = taxMultiplier * roleData.ownCompanies
+                val (incomeTaxR, employmentTaxR) = calculateMCTax(
+                    taxMultiplier = taxMultiplier,
+                    incomeTax = incomeTax,
+                    externalCompaniesWithWorkers = roleData.externalCompaniesWithWorkers,
+                    ownCompanies = roleData.ownCompanies
+                )
+
                 MiddleClassTaxes(
                     incomeTaxR,
                     employmentTaxR,
@@ -99,21 +105,74 @@ class TaxRepositoryImpl @Inject constructor(
             }
 
             is WorkingClassInputs -> {
-                WorkingClassTaxes(incomeTax * roleData.population)
+                WorkingClassTaxes(
+                    calculateWCTax(
+                        incomeTax = incomeTax,
+                        population = roleData.population
+                    )
+                )
             }
 
             is StateClassInputs -> {
-                val wcTaxes = incomeTax * roleData.wcPopulation
-                val mcTaxes = incomeTax * roleData.mcExternalCompaniesWithWorkers +
-                        taxMultiplier * roleData.mcOwnCompanies
-                val ccTaxes = taxMultiplier * roleData.ccCompanies +
-                        taxCalculator.calculateCorporateTax(roleData.ccProfit, taxationPolicyState)
+                val wcTaxes = calculateWCTax(
+                    incomeTax = incomeTax,
+                    population = roleData.wcPopulation
+                )
+                val (incomeTaxR, employmentTaxR) = calculateMCTax(
+                    taxMultiplier = taxMultiplier,
+                    incomeTax = incomeTax,
+                    externalCompaniesWithWorkers = roleData.mcExternalCompaniesWithWorkers,
+                    ownCompanies = roleData.mcOwnCompanies
+                )
+                val mcTaxes = incomeTaxR + employmentTaxR
+
+                val (ccEmploymentTax, ccCorporateTax) = calculateCCTax(
+                    taxationPolicyState = taxationPolicyState,
+                    taxMultiplier = taxMultiplier,
+                    companies = roleData.ccCompanies,
+                    profit = roleData.ccProfit
+                )
+                val ccTaxes = ccEmploymentTax + ccCorporateTax
                 StateClassTaxes(
                     wcTaxes = wcTaxes,
-                    mcTaxes = mcTaxes, ccTaxes = ccTaxes, totalTaxes = wcTaxes + mcTaxes + ccTaxes
+                    mcTaxes = mcTaxes,
+                    ccTaxes = ccTaxes,
+                    totalTaxes = wcTaxes + mcTaxes + ccTaxes
                 )
             }
         }
     }
+
+    private fun calculateWCTax(
+        incomeTax: Int,
+        population: Int
+    ) = incomeTax * population
+
+    private fun calculateMCTax(
+        taxMultiplier: Int,
+        incomeTax: Int,
+        externalCompaniesWithWorkers: Int,
+        ownCompanies: Int
+    ): Pair<Int, Int> {
+        val incomeTaxM = incomeTax * externalCompaniesWithWorkers
+        val employmentTax = taxMultiplier * ownCompanies
+        return incomeTaxM to employmentTax
+    }
+
+    private fun calculateCCTax(
+        taxationPolicyState: PolicyState,
+        taxMultiplier: Int,
+        companies: Int,
+        profit: Int
+    ): Pair<Int, Int> {
+        val employmentTax = taxMultiplier * companies
+        val corporateTaxR =
+            taxCalculator.calculateCorporateTax(
+                max(profit - employmentTax, 0),
+                taxationPolicyState
+            )
+        return employmentTax to corporateTaxR
+    }
+
 
 }

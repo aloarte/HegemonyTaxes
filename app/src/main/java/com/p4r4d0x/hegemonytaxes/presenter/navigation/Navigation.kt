@@ -1,27 +1,25 @@
 package com.p4r4d0x.hegemonytaxes.presenter.navigation
 
 import android.content.SharedPreferences
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.navigation.compose.HegemonyTopAppBar
 import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreenScrollable
-import com.p4r4d0x.hegemonytaxes.presenter.roles.CapitalistClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.CapitalistClassScreenScrollable
-import com.p4r4d0x.hegemonytaxes.presenter.roles.MiddleClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.MiddleClassScreenScrollable
-import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.RolesScreenScrollable
-import com.p4r4d0x.hegemonytaxes.presenter.roles.StateClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.StateClassScreenScrollable
-import com.p4r4d0x.hegemonytaxes.presenter.roles.WorkingClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.roles.WorkingClassScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.PREFERENCE_WELCOME
 import com.p4r4d0x.hegemonytaxes.presenter.welcome.WelcomeScreen
@@ -36,6 +34,7 @@ fun NavigationComponent(
     //The the events that require any screen navigation are handled here
     val onInnerEventTriggered: (UiEvent) -> Unit =
         { manageNavigationEvent(it, navController, onEventTriggered) }
+
     HegemonyTopAppBar(
         uiState = uiState,
         onBackPressed = {
@@ -43,6 +42,22 @@ fun NavigationComponent(
             navController.navigate(Screen.PoliciesScreen.route)
         }
     ) { paddingValues ->
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        BackHandler {
+            when (navBackStackEntry?.destination?.route) {
+                Screen.PoliciesScreen.route -> {
+                }
+
+                Screen.RoleSelectorScreen.route -> {
+                    onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(true))
+                    navController.popBackStack()
+                }
+
+                else -> {
+                    navController.popBackStack()
+                }
+            }
+        }
         NavHost(
             navController = navController,
             startDestination = getStartDestination(preferences)

@@ -1,10 +1,12 @@
 package com.p4r4d0x.hegemonytaxes.presenter.navigation.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,6 +35,9 @@ fun HegemonyTopAppBar(
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
+        modifier = Modifier
+            .statusBarsPadding()
+            .background(Orange),
         topBar = {
             androidx.compose.material3.CenterAlignedTopAppBar(
                 modifier = Modifier.height(45.dp),

@@ -4,14 +4,14 @@ import com.p4r4d0x.hegemonytaxes.domain_data.components.TaxCalculator
 import com.p4r4d0x.hegemonytaxes.domain_data.datasource.PoliciesDatasource
 import com.p4r4d0x.hegemonytaxes.domain_data.exceptions.TaxException
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassInputs
-import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
-import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
-import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
-import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassTaxes
+import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.impl.TaxRepositoryImpl
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.Constants
@@ -245,21 +245,31 @@ class TaxRepositoryTest {
         val classInput = StateClassInputs(
             wcPopulation = 3,
             mcExternalCompaniesWithWorkers = 2,
-            mcOwnCompanies = 2,
-            ccCompanies = 4,
-            ccProfit = 80
+            mcOwnCompanies = 3,
+            ccCompanies = 8,
+            ccProfit = 100
         )
-        every { taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) } returns 40
+        every {
+            taxCalculator.calculateCorporateTax(
+                classInput.ccProfit - TAX_MULTIPLIER * classInput.ccCompanies,
+                PolicyState.B
+            )
+        } returns 15
 
-        val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
+        val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.B, classInput)
 
-        verify { taxCalculator.calculateCorporateTax(classInput.ccProfit, PolicyState.A) }
+        verify {
+            taxCalculator.calculateCorporateTax(
+                classInput.ccProfit - TAX_MULTIPLIER * classInput.ccCompanies,
+                PolicyState.B
+            )
+        }
         val expectedResult =
             StateClassTaxes(
                 wcTaxes = 12,
-                mcTaxes = 16,
-                ccTaxes = 56,
-                totalTaxes = 84
+                mcTaxes = 20,
+                ccTaxes = 47,
+                totalTaxes = 79
             )
         Assert.assertEquals(expectedResult, taxes)
     }
