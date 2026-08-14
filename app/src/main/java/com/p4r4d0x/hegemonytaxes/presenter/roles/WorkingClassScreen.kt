@@ -1,7 +1,6 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,39 +31,6 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.verifyIntInputsSelection
-
-@Composable
-fun WorkingClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    HegemonyTaxesCalculatorTheme {
-        var population by remember { mutableStateOf(uiState.wcSelection.population.toString()) }
-        Column(
-            modifier = modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            val roleUi = buildRoleUiData(HegemonyRole.WorkingClass)
-            RoleTitleSection(roleUi)
-            Divider(thickness = 20.dp, color = Color.Transparent)
-            PopulationInputDescription()
-            Divider(thickness = 10.dp, color = Color.Transparent)
-            RoleInputText(
-                roleUi = roleUi,
-                labelText = "Population",
-                inputText = population,
-                maxValue = 10
-            ) {
-                population = it
-            }
-            Divider(thickness = 20.dp, color = Color.Transparent)
-            CalculateIncomeTaxButton(population, onEventTriggered)
-            IncomeTaxResult(uiState)
-
-        }
-    }
-}
 
 @Composable
 fun WorkingClassScreenScrollable(

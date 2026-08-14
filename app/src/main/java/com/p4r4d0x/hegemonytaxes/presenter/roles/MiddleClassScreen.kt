@@ -1,7 +1,6 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,53 +35,6 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.verifyIntInputsSelection
-
-@Composable
-fun MiddleClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    HegemonyTaxesCalculatorTheme {
-        var companiesWithWorkers by remember { mutableStateOf(uiState.mcSelection.externalCompaniesWithWorkers.toString()) }
-        var ownCompanies by remember { mutableStateOf(uiState.mcSelection.ownCompanies.toString()) }
-
-        Column(
-            modifier = modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            val roleUi = buildRoleUiData(HegemonyRole.MiddleClass)
-            RoleTitleSection(roleUi)
-            Divider(thickness = 20.dp, color = Color.Transparent)
-            MiddleClassTaxesDescription()
-            Divider(thickness = 10.dp, color = Color.Transparent)
-            RoleInputText(
-                roleUi = roleUi,
-                labelText = "External companies with workers",
-                inputText = companiesWithWorkers,
-                maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
-                imeAction = ImeAction.Next
-            ) {
-                companiesWithWorkers = it
-            }
-            RoleInputText(
-                roleUi = roleUi,
-                labelText = "Own Companies",
-                inputText = ownCompanies,
-                maxValue = MIDDLE_CLASS_MAX_COMPANIES
-            ) {
-                ownCompanies = it
-            }
-            Divider(thickness = 20.dp, color = Color.Transparent)
-            CalculateIncomeAndEmploymentTaxesButton(
-                companiesWithWorkers,
-                ownCompanies,
-                onEventTriggered
-            )
-            IncomeAndEmploymentTaxesResult(uiState)
-        }
-    }
-}
 
 @Composable
 fun MiddleClassScreenScrollable(

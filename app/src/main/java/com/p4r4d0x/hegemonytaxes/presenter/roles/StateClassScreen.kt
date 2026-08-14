@@ -3,17 +3,14 @@ package com.p4r4d0x.hegemonytaxes.presenter.roles
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -51,41 +48,6 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.UiConstants.DESCRIPTION_TEXT_SIZE
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils.buildRoleUiData
-
-@Composable
-fun StateClassScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    val roleUi = buildRoleUiData(HegemonyRole.State)
-
-    HegemonyTaxesCalculatorTheme {
-        var showDialog by remember { mutableStateOf(false) }
-        if (showDialog) {
-            InputsDialog(uiState, roleUi, onEventTriggered) {
-                showDialog = false
-            }
-        }
-
-        Column(
-            modifier = modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            RoleTitleSection(roleUi)
-            Divider(thickness = 20.dp, color = Color.Transparent)
-            StateInputsDescription()
-            Divider(thickness = 10.dp, color = Color.Transparent)
-            HegemonyButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                text = "Input data"
-            ) {
-                showDialog = true
-            }
-            TotalReceivedTaxes(uiState)
-        }
-    }
-}
 
 @Composable
 fun StateClassScreenScrollable(
