@@ -5,8 +5,9 @@ apply(from = "$rootDir/jacoco.gradle")
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 
@@ -21,10 +22,8 @@ val keystoreProperties: Properties = if (keystorePropertiesFile.exists()) {
 }
 
 android {
-
-
     namespace = "com.p4r4d0x.hegemonytaxes"
-    compileSdk = 35
+    compileSdk = 36
 
     signingConfigs {
         create("release") {
@@ -38,9 +37,9 @@ android {
     defaultConfig {
         applicationId = "com.p4r4d0x.hegemonytaxes"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 5
-        versionName = "1.4"
+        targetSdk = 36
+        versionCode = 6
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -59,18 +58,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_18
-        targetCompatibility = JavaVersion.VERSION_18
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "18"
-    }
+
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -103,5 +98,5 @@ dependencies {
     testImplementation ("org.robolectric:robolectric:4.7.3")
     implementation ("androidx.test.ext:junit-ktx:1.1.5")
     testImplementation ("junit:junit:4.13.2")
-    testImplementation ("io.mockk:mockk:1.12.2")
+    testImplementation("io.mockk:mockk:1.13.12")
 }

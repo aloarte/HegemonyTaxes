@@ -4,6 +4,7 @@ import com.p4r4d0x.hegemonytaxes.domain_data.components.TaxCalculator
 import com.p4r4d0x.hegemonytaxes.domain_data.datasource.PoliciesDatasource
 import com.p4r4d0x.hegemonytaxes.domain_data.exceptions.TaxException
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassInputs
+import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassTaxData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
@@ -76,16 +77,17 @@ class TaxRepositoryImpl @Inject constructor(
     ): ResultTaxes {
         return when (roleData) {
             is CapitalistClassInputs -> {
-                val (employmentTax, corporateTax) = calculateCCTax(
+                val capitalistClassTaxes = calculateCCTax(
                     taxationPolicyState = taxationPolicyState,
                     taxMultiplier = taxMultiplier,
                     companies = roleData.companies,
                     profit = roleData.profit
                 )
                 CapitalistClassTaxes(
-                    employmentTax,
-                    corporateTax,
-                    employmentTax + corporateTax
+                    employmentTaxResult = capitalistClassTaxes.employmentTax,
+                    corporateTaxResult = capitalistClassTaxes.corporateTax,
+                    reducedFromRevenue = capitalistClassTaxes.deducedFromRevenue,
+                    totalTaxes = capitalistClassTaxes.employmentTax + capitalistClassTaxes.corporateTax
                 )
             }
 
@@ -164,15 +166,19 @@ class TaxRepositoryImpl @Inject constructor(
         taxMultiplier: Int,
         companies: Int,
         profit: Int
-    ): Pair<Int, Int> {
+    ): CapitalistClassTaxData {
         val employmentTax = taxMultiplier * companies
+        val deducedFromRevenue = max(profit - employmentTax, 0)
         val corporateTaxR =
             taxCalculator.calculateCorporateTax(
-                max(profit - employmentTax, 0),
+                deducedFromRevenue,
                 taxationPolicyState
             )
-        return employmentTax to corporateTaxR
+        return CapitalistClassTaxData(
+            employmentTax = employmentTax,
+            corporateTax = corporateTaxR,
+            deducedFromRevenue = deducedFromRevenue
+        )
     }
-
 
 }

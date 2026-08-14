@@ -193,6 +193,7 @@ class TaxRepositoryTest {
         val expectedResult = CapitalistClassTaxes(
             employmentTaxResult = 12,
             corporateTaxResult = 40,
+            reducedFromRevenue = 108,
             totalTaxes = 52
         )
         Assert.assertEquals(expectedResult, taxes)

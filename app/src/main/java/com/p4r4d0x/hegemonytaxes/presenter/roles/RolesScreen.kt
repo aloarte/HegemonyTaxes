@@ -23,56 +23,6 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.HegemonyTaxesCalculatorTheme
 
 @Composable
-fun RolesScreen(modifier: Modifier, uiState: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    HegemonyTaxesCalculatorTheme {
-        Column(
-            modifier = modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp)
-        ) {
-            Divider(thickness = 50.dp, color = Color.Transparent)
-            RolesDescription(uiState)
-            Divider(thickness = 20.dp, color = Color.Transparent)
-
-            Column(
-                Modifier
-                    .fillMaxHeight()
-                    .fillMaxWidth()
-                    .padding(30.dp)
-            ) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                    RoleSection(HegemonyRole.WorkingClass) {
-                        onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.WorkingClass))
-                    }
-
-                    Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
-                    RoleSection(HegemonyRole.MiddleClass) {
-                        onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.MiddleClass))
-                    }
-                }
-                Divider(thickness = 20.dp, color = Color.Transparent)
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                    RoleSection(HegemonyRole.CapitalistClass) {
-                        onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.CapitalistClass))
-                    }
-                    Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
-
-                    RoleSection(HegemonyRole.State) {
-                        onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.State))
-                    }
-                }
-            }
-
-            Divider(thickness = 5.dp, color = Color.Transparent)
-
-
-        }
-    }
-}
-
-@Composable
 fun RolesScreenScrollable(
     modifier: Modifier,
     uiState: UiState,

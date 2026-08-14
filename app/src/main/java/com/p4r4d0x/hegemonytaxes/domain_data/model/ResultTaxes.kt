@@ -16,6 +16,7 @@ data class MiddleClassTaxes(
 data class CapitalistClassTaxes(
     val employmentTaxResult: Int,
     val corporateTaxResult: Int,
+    val reducedFromRevenue:Int = 0,
     val totalTaxes: Int
 ) : ResultTaxes
 
