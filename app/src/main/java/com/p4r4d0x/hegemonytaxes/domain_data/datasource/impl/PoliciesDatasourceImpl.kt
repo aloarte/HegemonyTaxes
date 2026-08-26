@@ -67,43 +67,35 @@ class PoliciesDatasourceImpl @Inject constructor() : PoliciesDatasource {
     override fun getPoliciesData(): List<PolicyData> = listOf(
         PolicyData(
             1,
-            "Fiscal Policy",
             PolicyType.FiscalPolicy,
             PolicyState.A
         ),
         PolicyData(
             2,
-            "Labor Market",
             PolicyType.LaborMarket,
             PolicyState.A
         ),
         PolicyData(
             3,
-            "Taxation",
             PolicyType.Taxation,
             PolicyState.A
         ),
         PolicyData(
             4,
-            "Welfare State: Healthcare & benefits",
             PolicyType.WEHealthcare,
             PolicyState.A
         ),
         PolicyData(
             5,
-            "Welfare State: Education",
             PolicyType.WEEducation,
             PolicyState.A
         ),
         PolicyData(
-            6,
-            "Foreign Trade",
-            PolicyType.ForeignTrade,
+            6, PolicyType.ForeignTrade,
             PolicyState.A
         ),
         PolicyData(
             7,
-            "Immigration",
             PolicyType.Immigration,
             PolicyState.A
         )
