@@ -25,17 +25,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
-import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.MidDarkGrey
-import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Orange
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.White
 import java.util.Locale
 
 @Composable
 fun MultiStyleText(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     highlightedStyle: SpanStyle,
     regularStyle: SpanStyle,
     textStyleList: List<MultipleText>

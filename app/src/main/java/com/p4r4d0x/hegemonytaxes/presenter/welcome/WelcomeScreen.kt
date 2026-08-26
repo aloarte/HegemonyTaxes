@@ -64,7 +64,7 @@ fun WelcomeScreen(
                     modifier = Modifier,
                     textStyleList = listOf(
                         MultipleText(stringResource(R.string.welcome_screen_1), false),
-                        MultipleText(stringResource(R.string.welcome_screen_1), true),
+                        MultipleText(stringResource(R.string.welcome_screen_2), true),
                         MultipleText(stringResource(R.string.welcome_screen_3), false)
                     ),
                     highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),

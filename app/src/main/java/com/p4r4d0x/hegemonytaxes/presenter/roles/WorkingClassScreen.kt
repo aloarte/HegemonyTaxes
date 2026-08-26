@@ -42,6 +42,7 @@ fun WorkingClassScreenScrollable(
 ) {
     HegemonyTaxesCalculatorTheme {
         var population by remember { mutableStateOf(uiState.wcSelection.population.toString()) }
+        val roleUi = buildRoleUiData(HegemonyRole.WorkingClass)
         LazyColumn(
             modifier = modifier
                 .fillMaxHeight()
@@ -50,8 +51,6 @@ fun WorkingClassScreenScrollable(
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val roleUi = buildRoleUiData(HegemonyRole.WorkingClass)
-
             item { RoleTitleSection(roleUi) }
             item { Divider(thickness = 20.dp, color = Color.Transparent) }
             item { PopulationInputDescription() }
@@ -62,14 +61,11 @@ fun WorkingClassScreenScrollable(
                     labelText = stringResource(R.string.working_class_population_title),
                     inputText = population,
                     maxValue = 10
-                ) {
-                    population = it
-                }
+                ) { population = it }
             }
             item { Divider(thickness = 20.dp, color = Color.Transparent) }
             item { CalculateIncomeTaxButton(population, onEventTriggered) }
             item { IncomeTaxResult(uiState) }
-
         }
     }
 }

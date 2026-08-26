@@ -31,15 +31,15 @@
     <string name="state_class_screen_middle_class_own_companies">) and own companies (</string>
     <string name="state_class_screen_capitalist_class_companies">)\nCapitalist class: Companies (</string>
     <string name="state_class_screen_capitalist_class_profit">) and profit.</string>
-    <string name="state_class_screen_total_taxes_received">The total taxes received will be </string>
+    <string name="state_class_screen_total_taxes_received">The total taxes received will be&#160;</string>
     <string name="state_class_screen_total_taxes">%.0f₳</string>
     <string name="state_class_screen_tax_separator">. \n - </string>
     <string name="state_class_screen_working_class_taxes">%.0f₳</string>
-    <string name="state_class_screen_from_working_class"> from the Working Class \n - </string>
+    <string name="state_class_screen_from_working_class">&#160;from the Working Class \n - </string>
     <string name="state_class_screen_middle_class_taxes">%.0f₳</string>
     <string name="state_class_screen_from_middle_class">&#160;from the Middle Class \n - </string>
     <string name="state_class_screen_capitalist_class_taxes">%.0f₳</string>
-    <string name="state_class_screen_from_capitalist_class"> from the Capitalist Class</string>
+    <string name="state_class_screen_from_capitalist_class">&#160;from the Capitalist Class</string>
 
     <!-- middle class screen -->
     <string name="middle_class_screen_external_companies_with_workers">External companies with workers</string>
@@ -75,7 +75,9 @@
     <string name="roles_description_button_image">button image</string>
 
     <string name="tax_row_tax_multiplier">Tax Multiplier:&#160;</string>
-    <string name="tax_row_income_tax">&#160;&#160;&#160;&#160;&#160;&#160;Income Tax:&#160;</string>
+    <string name="tax_row_income_tax">Income Tax:&#160;</string>
+    <string name="tax_multiplier_income_tax">Tax Multiplier: %d - Income Tax: %d</string>
+
     <string name="pick_roles_row_pick_roles">Pick roles</string>
     <string name="btn_continue">Continue</string>
 
@@ -86,6 +88,15 @@
     <string name="label_policy_5">Education</string>
     <string name="label_policy_6">Foreign Trade</string>
     <string name="label_policy_7">Immigration</string>
+    <string name="description_working_class">You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population.</string>
+    <string name="description_capitalist_class">You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of operational Companies that you own, and the second one is based on the profit you made from the business activities.</string>
+    <string name="description_middle_class">You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself.</string>
+    <string name="description_state">You receive different taxes from each other class: \nWorking Class: Income Tax, based on their population. \n"Middle Class: Income Tax and Employment Tax. \nCapitalist Class: Employment Tax and Corporate tax.</string>
+    <string name="name_working_class">WORKING CLASS</string>
+    <string name="name_capitalist_class">CAPITALIST CLASS</string>
+    <string name="name_middle_class">MIDDLE CLASS</string>
+    <string name="name_state">STATE</string>
+
 
 
 </resources>

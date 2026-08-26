@@ -18,10 +18,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Orange
@@ -96,7 +98,7 @@ fun AppBarTaxes(uiState: UiState) {
     ) {
         Text(
             maxLines = 1,
-            text = "Tax Multiplier: ${uiState.taxMultiplier}        Income Tax: ${uiState.incomeTax}",
+            text = stringResource(R.string.tax_multiplier_income_tax,uiState.taxMultiplier,uiState.incomeTax),
             fontSize = 14.sp,
             style = MaterialTheme.typography.labelLarge,
             textAlign = TextAlign.Center,

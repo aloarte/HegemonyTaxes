@@ -45,6 +45,7 @@ fun CapitalistClassScreenScrollable(
     HegemonyTaxesCalculatorTheme {
         var companies by remember { mutableStateOf(uiState.ccSelection.companies.toString()) }
         var profit by remember { mutableStateOf("0") }
+        val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
 
         LazyColumn(
             modifier = modifier
@@ -54,7 +55,6 @@ fun CapitalistClassScreenScrollable(
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
             item { RoleTitleSection(roleUi) }
             item { Divider(thickness = 20.dp, color = Color.Transparent) }
             item { CapitalistClassTaxesDescription() }

@@ -30,7 +30,7 @@ class PoliciesRepositoryTest {
 
     @Test
     fun `test fetch policies`() {
-        val policies = listOf(PolicyData(1,"TestPolicy",PolicyType.Immigration,PolicyState.B))
+        val policies = listOf(PolicyData(1,PolicyType.Immigration,PolicyState.B))
         coEvery { datasource.getPoliciesData() } returns policies
 
         val detailResult = repository.fetchPolicies()

@@ -47,7 +47,7 @@ fun MiddleClassScreenScrollable(
     HegemonyTaxesCalculatorTheme {
         var companiesWithWorkers by remember { mutableStateOf(uiState.mcSelection.externalCompaniesWithWorkers.toString()) }
         var ownCompanies by remember { mutableStateOf(uiState.mcSelection.ownCompanies.toString()) }
-
+        val roleUi = buildRoleUiData(HegemonyRole.MiddleClass)
         LazyColumn(
             modifier = modifier
                 .fillMaxHeight()
@@ -56,7 +56,6 @@ fun MiddleClassScreenScrollable(
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val roleUi = buildRoleUiData(HegemonyRole.MiddleClass)
             item { RoleTitleSection(roleUi) }
             item { Divider(thickness = 20.dp, color = Color.Transparent) }
             item { MiddleClassTaxesDescription() }
@@ -70,9 +69,7 @@ fun MiddleClassScreenScrollable(
                     inputText = companiesWithWorkers,
                     maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
                     imeAction = ImeAction.Next
-                ) {
-                    companiesWithWorkers = it
-                }
+                ) { companiesWithWorkers = it }
             }
             item {
                 RoleInputText(
@@ -82,11 +79,8 @@ fun MiddleClassScreenScrollable(
                     ),
                     inputText = ownCompanies,
                     maxValue = MIDDLE_CLASS_MAX_COMPANIES
-                ) {
-                    ownCompanies = it
-                }
+                ) { ownCompanies = it }
             }
-
             item { Divider(thickness = 20.dp, color = Color.Transparent) }
             item {
                 CalculateIncomeAndEmploymentTaxesButton(

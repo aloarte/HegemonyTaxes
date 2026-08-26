@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,7 +31,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.ui.utils.Utils
 
 @Composable
 fun PoliciesScreenScrollable(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     uiState: UiState,
     onEventTriggered: (UiEvent) -> Unit
 ) {
@@ -73,30 +72,35 @@ private fun PoliciesRows(policies: List<PolicyData>, sliderCallback: (PolicyData
         PolicySliderComponent(policies[4], sliderCallback)
     }
 }
+
 @Composable
 private fun TaxRow(uiState: UiState) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp),
+            .padding(horizontal = 20.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         MultiStyleText(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
                 MultipleText(
                     stringResource(R.string.tax_row_tax_multiplier),
                     false
                 ),
                 MultipleText("${uiState.taxMultiplier}", true),
+            ),
+            highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
+            regularStyle = Utils.getBoldSpanStyle(16.sp)
+        )
+        MultiStyleText(
+            textStyleList = listOf(
                 MultipleText(
                     stringResource(R.string.tax_row_income_tax),
                     false
                 ),
                 MultipleText("${uiState.incomeTax}", true)
-
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(16.sp),
             regularStyle = Utils.getBoldSpanStyle(16.sp)
@@ -105,7 +109,7 @@ private fun TaxRow(uiState: UiState) {
 }
 
 @Composable
-fun PickRolesRow(onEventTriggered: (UiEvent) -> Unit) {
+private fun PickRolesRow(onEventTriggered: (UiEvent) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
