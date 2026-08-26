@@ -24,12 +24,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.FiscalPolicy
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.ForeignTrade
@@ -68,7 +70,7 @@ fun PolicySliderComponent(
     ) {
         PolicyNumber(policyData.number)
         Column {
-            PolicyTitle(policyData.name)
+            PolicyTitle(getPolicyName(policyData.number))
             PolicySlider(policyData, onPolicySelected)
             PolicySliderLabels()
         }
@@ -162,4 +164,16 @@ fun PolicySlideLabelText(text: String, align: TextAlign, modifier: Modifier) {
         modifier = modifier
     )
 
+}
+
+@Composable
+private fun getPolicyName(policyNumber: Int) = when (policyNumber) {
+    1 -> stringResource(R.string.label_policy_1)
+    2 -> stringResource(R.string.label_policy_2)
+    3 -> stringResource(R.string.label_policy_3)
+    4 -> stringResource(R.string.label_policy_4)
+    5 -> stringResource(R.string.label_policy_5)
+    6 -> stringResource(R.string.label_policy_6)
+    7 -> stringResource(R.string.label_policy_7)
+    else -> ""
 }

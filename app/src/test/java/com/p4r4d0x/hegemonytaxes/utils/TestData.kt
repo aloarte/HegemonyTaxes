@@ -9,31 +9,26 @@ object TestData {
     val policies = listOf(
         PolicyData(
             number = 1,
-            name = PolicyType.FiscalPolicy.name,
             state = PolicyState.A,
             type = PolicyType.FiscalPolicy
         ),
         PolicyData(
             number = 2,
-            name = PolicyType.LaborMarket.name,
             state = PolicyState.A,
             type = PolicyType.LaborMarket
         ),
         PolicyData(
             number = 3,
-            name = PolicyType.Taxation.name,
             state = PolicyState.A,
             type = PolicyType.Taxation
         ),
         PolicyData(
             number = 4,
-            name = PolicyType.WEHealthcare.name,
             state = PolicyState.B,
             type = PolicyType.WEHealthcare
         ),
         PolicyData(
             number = 5,
-            name = PolicyType.WEEducation.name,
             state = PolicyState.C,
             type = PolicyType.WEEducation
         )

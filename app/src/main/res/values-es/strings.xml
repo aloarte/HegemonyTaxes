@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">Impuestos de Hegemony</string>
+
+    <string name="welcome_screen_1">Esta aplicación está pensada para utilizarse mientras juegas a&#160;</string>
+    <string name="welcome_screen_2">Hegemony</string>
+    <string name="welcome_screen_3">&#160;el juego de mesa. Está diseñada para ayudarte a calcular todos los impuestos que cada clase debe pagar o recibir. No soy propietario de ningún derecho sobre los recursos utilizados y esta aplicación solo pretende mejorar tu experiencia de juego.</string>
+    <string name="working_class_population_title">Población</string>
+    <string name="working_class_population_descr_1">Introduce tu población actual. Recuerda que el valor debe estar entre&#160;</string>
+    <string name="working_class_population_descr_2">&#160;y&#160;</string>
+    <string name="working_class_calculate_btn">Calcular impuestos totales</string>
+    <string name="working_class_screen_tax_result1">El Impuesto sobre la Renta calculado es de&#160;</string>
+    <string name="working_class_screen_tax_result2">. Recuerda que esta cantidad debe pagarse al Estado.</string>
+    <string name="state_class_screen_input_data">Datos de entrada</string>
+    <string name="state_class_screen_classes_data">DATOS DE LAS CLASES</string>
+    <string name="state_class_screen_wc_population">Población de la clase obrera</string>
+    <string name="state_class_screen_mc_external_worked_companies">Empresas externas de la clase media con trabajadores</string>
+    <string name="state_class_screen_mc_companies">Empresas de la clase media</string>
+    <string name="state_class_screen_cc_companies">Empresas de la clase capitalista</string>
+    <string name="state_class_screen_cc_revenue">Rentas de la clase capitalista</string>
+    <string name="state_class_screen_calculate_total_taxes">Calcular impuestos totales</string>
+    <string name="state_class_screen_inputs_description_start">Añade los siguientes datos de las otras clases: \n</string>
+    <string name="state_class_screen_working_class_population">Clase obrera: Población (</string>
+    <string name="state_class_screen_to">&#160;a&#160;</string>
+    <string name="state_class_screen_middle_class_external_worked_companies">)\nClase media: Empresas externas con trabajadores (</string>
+    <string name="state_class_screen_middle_class_own_companies">) y empresas propias (</string>
+    <string name="state_class_screen_capitalist_class_companies">)\nClase capitalista: Empresas (</string>
+    <string name="state_class_screen_capitalist_class_profit">) y rentas.</string>
+    <string name="state_class_screen_total_taxes_received">El total de impuestos recibidos será de&#160;</string>
+    <string name="state_class_screen_total_taxes">%.0f₳</string>
+    <string name="state_class_screen_tax_separator">. \n - </string>
+    <string name="state_class_screen_working_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_working_class">&#160;de la clase obrera \n - </string>
+    <string name="state_class_screen_middle_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_middle_class">&#160;de la clase media \n - </string>
+    <string name="state_class_screen_capitalist_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_capitalist_class">&#160;de la clase capitalista</string>
+
+    <!-- pantalla de la clase media -->
+    <string name="middle_class_screen_external_companies_with_workers">Empresas externas con trabajadores</string>
+    <string name="middle_class_screen_own_companies">Empresas propias</string>
+    <string name="middle_class_screen_description_start">Añade las empresas que no son tuyas en las que tienes trabajadores (</string>
+    <string name="middle_class_screen_max">&#160;máx.)</string>
+    <string name="middle_class_screen_and_your_companies">&#160;y tus empresas (</string>
+    <string name="middle_class_screen_calculate_total_taxes">Calcular impuestos totales</string>
+    <string name="middle_class_screen_income_tax_calculated">El Impuesto sobre la Renta calculado es de&#160;</string>
+    <string name="middle_class_screen_while_employment_tax">, mientras que el Impuesto al Empleo es de&#160;</string>
+    <string name="middle_class_screen_total_of">. Esto supone un total de&#160;</string>
+    <string name="middle_class_screen_remember_state_payment">. Recuerda que esta cantidad debe pagarse al Estado.</string>
+
+    <!-- pantalla de la clase capitalista -->
+    <string name="capitalist_class_screen_companies">Empresas</string>
+    <string name="capitalist_class_screen_revenue">Rentas</string>
+    <string name="capitalist_class_screen_description_start">Añade tus empresas (</string>
+    <string name="capitalist_class_screen_description_max">&#160;máx.) y tus rentas. Esta herramienta calculará primero el Impuesto al Empleo y, después, el Impuesto Corporativo utilizando las rentas restantes. Introduce tus</string>
+    <string name="capitalist_class_screen_current_revenue_before_taxes">&#160;rentas actuales antes de pagar cualquiera de los dos impuestos</string>
+    <string name="capitalist_class_screen_period">.</string>
+    <string name="capitalist_class_screen_calculate_total_taxes">Calcular impuestos totales</string>
+    <string name="capitalist_class_screen_employment_tax_first">Primero pagas el Impuesto al Empleo:&#160;</string>
+    <string name="capitalist_class_screen_leaving">, quedando&#160;</string>
+    <string name="capitalist_class_screen_of_revenue">&#160;de rentas. A continuación, se calcula el impuesto corporativo sobre esta cantidad restante, que asciende a&#160;</string>
+    <string name="capitalist_class_screen_total_taxes">. Impuestos totales:&#160;</string>
+    <string name="capitalist_class_screen_combined_payment">. Ambos impuestos se combinan en un único pago para mayor comodidad.</string>
+
+    <!-- selector de roles -->
+    <string name="roles_description_tax_multiplier">Según las políticas actuales, el multiplicador de impuestos es&#160;</string>
+    <string name="roles_description_taxation_labor_policies">. Las políticas fiscales y del mercado laboral están actualmente establecidas en&#160;</string>
+    <string name="roles_description_next_tax_calculations">. Estos valores se utilizarán en los próximos cálculos de impuestos.\n\n</string>
+    <string name="roles_description_pick_role">Elige tu rol para empezar a simular cuánto pagarás o recibirás en impuestos:</string>
+    <string name="roles_description_button_image">imagen del botón</string>
+
+    <string name="tax_row_tax_multiplier">Multiplicador Impositivo:&#160;</string>
+    <string name="tax_row_income_tax">Impuesto sobre la Renta:&#160;</string>
+    <string name="tax_multiplier_income_tax">M. Impositivo: %d - Imp. sobre la Renta: %d</string>
+
+    <string name="pick_roles_row_pick_roles">Selecciona tu rol</string>
+    <string name="btn_continue">Continuar</string>
+
+    <string name="label_policy_1">Política fiscal</string>
+    <string name="label_policy_2">Mercado laboral</string>
+    <string name="label_policy_3">Política Tributaria</string>
+    <string name="label_policy_4">Salud</string>
+    <string name="label_policy_5">Educación</string>
+    <string name="label_policy_6">Comercio exterior</string>
+    <string name="label_policy_7">Inmigración</string>
+    <string name="description_working_class">Pagas el Impuesto sobre la Renta, que depende de la combinación de las políticas actuales de Mercado Laboral (#2) y Fiscalidad (#3). Consiste en una cantidad que debes pagar por cada habitante.</string>
+    <string name="description_capitalist_class">Pagas el Impuesto al Empleo y el impuesto corporativo. El primero depende del número de empresas operativas que poseas, mientras que el segundo se basa en los beneficios obtenidos de las actividades empresariales.</string>
+    <string name="description_middle_class">Pagas el Impuesto sobre la Renta y el Impuesto al Empleo. El primero se basa en las rentas que obtienes de empresas que no son de tu propiedad y en las que tienes trabajadores, mientras que el segundo se basa en las empresas que gestionas tú mismo.</string>
+    <string name="description_state">Recibes diferentes impuestos de cada una de las demás clases: \nClase obrera: Impuesto sobre la Renta, basado en su población. \nClase media: Impuesto sobre la Renta e Impuesto al Empleo. \nClase capitalista: Impuesto al Empleo e impuesto corporativo.</string>
+    <string name="name_working_class">CLASE OBRERA</string>
+    <string name="name_capitalist_class">CLASE CAPITALISTA</string>
+    <string name="name_middle_class">CLASE MEDIA</string>
+    <string name="name_state">ESTADO</string>
+</resources>

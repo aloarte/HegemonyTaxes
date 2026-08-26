@@ -1,5 +1,7 @@
 package com.p4r4d0x.hegemonytaxes.presenter.ui.utils
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
@@ -71,9 +73,9 @@ object Utils {
     ) =    tryNumberParse(numberInput) in intRange
 
 
-
+    @Composable
     fun buildRoleUiData(role: HegemonyRole) = RoleUiData(
-        title = role.value.uppercase(Locale.ROOT),
+        title = getRoleName(role),
         mainColor = getRoleMainColor(role),
         backgroundColor = getRoleBackground(role),
         description = getRoleDescription(role),
@@ -81,14 +83,20 @@ object Utils {
     )
 
 
+    @Composable
     private fun getRoleDescription(role: HegemonyRole) = when (role) {
-        HegemonyRole.WorkingClass -> "You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population."
-        HegemonyRole.MiddleClass -> "You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself."
-        HegemonyRole.CapitalistClass -> "You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of operational Companies that you own, and the second one is based on the profit you made from the business activities."
-        HegemonyRole.State -> "You receive different taxes from each other class: \n" +
-                "Working Class: Income Tax, based on their population. \n" +
-                "Middle Class: Income Tax and Employment Tax. \n" +
-                "Capitalist Class: Employment Tax and Corporate tax."
+        HegemonyRole.WorkingClass -> stringResource(R.string.description_working_class)
+        HegemonyRole.MiddleClass -> stringResource(R.string.description_middle_class)
+        HegemonyRole.CapitalistClass -> stringResource(R.string.description_capitalist_class)
+        HegemonyRole.State -> stringResource(R.string.description_state)
+    }
+
+    @Composable
+    private fun getRoleName(role: HegemonyRole) = when (role) {
+        HegemonyRole.WorkingClass -> stringResource(R.string.name_working_class)
+        HegemonyRole.MiddleClass -> stringResource(R.string.name_middle_class)
+        HegemonyRole.CapitalistClass -> stringResource(R.string.name_capitalist_class)
+        HegemonyRole.State -> stringResource(R.string.name_state)
     }
 
     fun getRoleBackground(role: HegemonyRole) = when (role) {
@@ -97,7 +105,6 @@ object Utils {
         HegemonyRole.CapitalistClass -> LighterBlue
         HegemonyRole.State -> LighterGrey
     }
-
 
     fun getRoleAvatar(role: HegemonyRole) = when (role) {
         HegemonyRole.WorkingClass -> R.drawable.avatar_working_class

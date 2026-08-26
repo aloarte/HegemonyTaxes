@@ -14,9 +14,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
@@ -43,6 +45,7 @@ fun CapitalistClassScreenScrollable(
     HegemonyTaxesCalculatorTheme {
         var companies by remember { mutableStateOf(uiState.ccSelection.companies.toString()) }
         var profit by remember { mutableStateOf("0") }
+        val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
 
         LazyColumn(
             modifier = modifier
@@ -52,7 +55,6 @@ fun CapitalistClassScreenScrollable(
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
             item { RoleTitleSection(roleUi) }
             item { Divider(thickness = 20.dp, color = Color.Transparent) }
             item { CapitalistClassTaxesDescription() }
@@ -60,7 +62,7 @@ fun CapitalistClassScreenScrollable(
             item {
                 RoleInputText(
                     roleUi = roleUi,
-                    labelText = "Companies",
+                    labelText = stringResource(R.string.capitalist_class_screen_companies),
                     inputText = companies,
                     maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
                     imeAction = ImeAction.Next
@@ -71,7 +73,7 @@ fun CapitalistClassScreenScrollable(
             item {
                 RoleInputText(
                     roleUi = roleUi,
-                    labelText = "Revenue",
+                    labelText = stringResource(R.string.capitalist_class_screen_revenue),
                     inputText = profit,
                     maxValue = Integer.MAX_VALUE
                 ) {
@@ -99,15 +101,25 @@ fun CapitalistClassTaxesDescription() {
         modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
         textStyleList = listOf(
             MultipleText(
-                "Add your companies (", false
-            ),
-            MultipleText(CAPITALIST_CLASS_MAX_COMPANIES.toString(), true),
-            MultipleText(
-                " max) and your revenue. This tool will calculate the Employment Tax and then, with the remaining revenue, the Corporate Tax. Just add here your",
+                stringResource(R.string.capitalist_class_screen_description_start),
                 false
             ),
-            MultipleText(" current revenue before both tax payments", true),
-            MultipleText(".", false)
+            MultipleText(
+                CAPITALIST_CLASS_MAX_COMPANIES.toString(),
+                true
+            ),
+            MultipleText(
+                stringResource(R.string.capitalist_class_screen_description_max),
+                false
+            ),
+            MultipleText(
+                stringResource(R.string.capitalist_class_screen_current_revenue_before_taxes),
+                true
+            ),
+            MultipleText(
+                stringResource(R.string.capitalist_class_screen_period),
+                false
+            )
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
         regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
@@ -127,7 +139,7 @@ fun CalculateEmploymentAndCorporateTaxesButton(
 
     HegemonyButton(
         modifier = Modifier.padding(horizontal = 20.dp),
-        text = "Calculate total taxes"
+        text = stringResource(R.string.capitalist_class_screen_calculate_total_taxes)
     ) {
         if (Utils.verifyIntInputsSelection(inputs)) {
             onEventTriggered(
@@ -148,22 +160,37 @@ fun EmploymentAndCorporateTaxesResult(uiState: UiState) {
         MultiStyleText(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = buildList {
-                add(MultipleText("You pay the Employment Tax first: ", false))
+                add(
+                    MultipleText(
+                        stringResource(R.string.capitalist_class_screen_employment_tax_first),
+                        false
+                    )
+                )
                 add(MultipleText("${taxes.employmentTaxResult}₳", true))
-                add(MultipleText(", leaving ", false))
+                add(
+                    MultipleText(
+                        stringResource(R.string.capitalist_class_screen_leaving),
+                        false
+                    )
+                )
                 add(MultipleText("${taxes.reducedFromRevenue}₳", true))
                 add(
                     MultipleText(
-                        " of Revenue. The Corporate Tax is then calculated from this remaining amount and is ",
+                        stringResource(R.string.capitalist_class_screen_of_revenue),
                         false
                     )
                 )
                 add(MultipleText("${taxes.corporateTaxResult}₳", true))
-                add(MultipleText(". Total taxes: ", false))
+                add(
+                    MultipleText(
+                        stringResource(R.string.capitalist_class_screen_total_taxes),
+                        false
+                    )
+                )
                 add(MultipleText("${taxes.totalTaxes}₳", true))
                 add(
                     MultipleText(
-                        ". Both taxes are combined into a single payment for convenience.",
+                        stringResource(R.string.capitalist_class_screen_combined_payment),
                         false
                     )
                 )

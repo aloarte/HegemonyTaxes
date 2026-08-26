@@ -1,3 +1,102 @@
 <resources>
     <string name="app_name">Hegemony Taxes</string>
+
+
+    <!-- Welcome screen -->
+    <string name="welcome_screen_1">This app is intended to be used while playing the&#160;</string>
+    <string name="welcome_screen_2">Hegemony</string>
+    <string name="welcome_screen_3">&#160;board game. It\'s designed to help you calculate all the taxes that each class must pay or receive. I don\'t own any rights to the assets used, and this app is only intended to enhance your enjoyment of the game.</string>
+
+    <!-- working class screen -->
+    <string name="working_class_population_title">Population</string>
+    <string name="working_class_population_descr_1">Enter your current population. Remember that the value must be between&#160;</string>
+    <string name="working_class_population_descr_2">&#160;to&#160;</string>
+    <string name="working_class_calculate_btn">Calculate total taxes</string>
+    <string name="working_class_screen_tax_result1">The calculated Income Tax is&#160;</string>
+    <string name="working_class_screen_tax_result2">. Remember that this amount must be paid to the State.</string>
+
+    <!-- state class screen -->
+    <string name="state_class_screen_input_data">Input data</string>
+    <string name="state_class_screen_classes_data">CLASSES DATA</string>
+    <string name="state_class_screen_wc_population">WC population</string>
+    <string name="state_class_screen_mc_external_worked_companies">MC external worked companies</string>
+    <string name="state_class_screen_mc_companies">MC companies</string>
+    <string name="state_class_screen_cc_companies">CC companies</string>
+    <string name="state_class_screen_cc_revenue">CC Revenue</string>
+    <string name="state_class_screen_calculate_total_taxes">Calculate total taxes</string>
+    <string name="state_class_screen_inputs_description_start">Add the following inputs from the other classes: \n</string>
+    <string name="state_class_screen_working_class_population">Working class: Population (</string>
+    <string name="state_class_screen_to">&#160;to&#160;</string>
+    <string name="state_class_screen_middle_class_external_worked_companies">)\nMiddle class: External companies with workers (</string>
+    <string name="state_class_screen_middle_class_own_companies">) and own companies (</string>
+    <string name="state_class_screen_capitalist_class_companies">)\nCapitalist class: Companies (</string>
+    <string name="state_class_screen_capitalist_class_profit">) and profit.</string>
+    <string name="state_class_screen_total_taxes_received">The total taxes received will be&#160;</string>
+    <string name="state_class_screen_total_taxes">%.0f₳</string>
+    <string name="state_class_screen_tax_separator">. \n - </string>
+    <string name="state_class_screen_working_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_working_class">&#160;from the Working Class \n - </string>
+    <string name="state_class_screen_middle_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_middle_class">&#160;from the Middle Class \n - </string>
+    <string name="state_class_screen_capitalist_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_capitalist_class">&#160;from the Capitalist Class</string>
+
+    <!-- middle class screen -->
+    <string name="middle_class_screen_external_companies_with_workers">External companies with workers</string>
+    <string name="middle_class_screen_own_companies">Own companies</string>
+    <string name="middle_class_screen_description_start">Add the companies that aren\'t yours where you have workers (</string>
+    <string name="middle_class_screen_max">&#160;max)</string>
+    <string name="middle_class_screen_and_your_companies">&#160;and your companies (</string>
+    <string name="middle_class_screen_calculate_total_taxes">Calculate total taxes</string>
+    <string name="middle_class_screen_income_tax_calculated">The calculated Income Tax is&#160;</string>
+    <string name="middle_class_screen_while_employment_tax">, while the Employment Tax is&#160;</string>
+    <string name="middle_class_screen_total_of">. This gives a total of&#160;</string>
+    <string name="middle_class_screen_remember_state_payment">. Remember that this amount must be paid to the State.</string>
+
+    <!-- capitalist class screen -->
+    <string name="capitalist_class_screen_companies">Companies</string>
+    <string name="capitalist_class_screen_revenue">Revenue</string>
+    <string name="capitalist_class_screen_description_start">Add your companies (</string>
+    <string name="capitalist_class_screen_description_max">&#160;max) and your revenue. This tool will first calculate the Employment Tax and then the Corporate Tax using the remaining revenue. Enter your</string>
+    <string name="capitalist_class_screen_current_revenue_before_taxes">&#160;current revenue before either tax is paid</string>
+    <string name="capitalist_class_screen_period">.</string>
+    <string name="capitalist_class_screen_calculate_total_taxes">Calculate total taxes</string>
+    <string name="capitalist_class_screen_employment_tax_first">You pay the Employment Tax first:&#160;</string>
+    <string name="capitalist_class_screen_leaving">, leaving&#160;</string>
+    <string name="capitalist_class_screen_of_revenue">&#160;of Revenue. The Corporate Tax is then calculated from this remaining amount and is&#160;</string>
+    <string name="capitalist_class_screen_total_taxes">. Total taxes:&#160;</string>
+    <string name="capitalist_class_screen_combined_payment">. Both taxes are combined into a single payment for convenience.</string>
+
+    <!-- roles picker -->
+    <string name="roles_description_tax_multiplier">Based on the current policies, the tax multiplier is&#160;</string>
+    <string name="roles_description_taxation_labor_policies">. The taxation and labor market policies are currently set to&#160;</string>
+    <string name="roles_description_next_tax_calculations">. These values will be used in the next tax calculations.\n\n</string>
+    <string name="roles_description_pick_role">Pick your role to start simulating how much tax you will pay or receive:</string>
+    <string name="roles_description_button_image">button image</string>
+
+    <string name="tax_row_tax_multiplier">Tax Multiplier:&#160;</string>
+    <string name="tax_row_income_tax">Income Tax:&#160;</string>
+    <string name="tax_multiplier_income_tax">Tax Multiplier: %d - Income Tax: %d</string>
+
+    <string name="pick_roles_row_pick_roles">Pick roles</string>
+    <string name="btn_continue">Continue</string>
+
+    <string name="label_policy_1">Fiscal Policy</string>
+    <string name="label_policy_2">Labor Market</string>
+    <string name="label_policy_3">Taxation</string>
+    <string name="label_policy_4">Healthcare &amp; benefits</string>
+    <string name="label_policy_5">Education</string>
+    <string name="label_policy_6">Foreign Trade</string>
+    <string name="label_policy_7">Immigration</string>
+    <string name="description_working_class">You pay the Income Tax, which depends on the combination of the current Labor Market (#2) and Taxation (#3) Policies. It consist on an amount that you need to pay per population.</string>
+    <string name="description_capitalist_class">You pay the Employment Tax and the Corporate Tax. The first one it depends on the number of operational Companies that you own, and the second one is based on the profit you made from the business activities.</string>
+    <string name="description_middle_class">You pay the Income Tax and the Employment Tax. The first one is based onf your income from companies other than you own in which you have Workers and the other is based on the Companies you run yourself.</string>
+    <string name="description_state">You receive different taxes from each other class: \nWorking Class: Income Tax, based on their population. \n"Middle Class: Income Tax and Employment Tax. \nCapitalist Class: Employment Tax and Corporate tax.</string>
+    <string name="name_working_class">WORKING CLASS</string>
+    <string name="name_capitalist_class">CAPITALIST CLASS</string>
+    <string name="name_middle_class">MIDDLE CLASS</string>
+    <string name="name_state">STATE</string>
+
+
+
 </resources>

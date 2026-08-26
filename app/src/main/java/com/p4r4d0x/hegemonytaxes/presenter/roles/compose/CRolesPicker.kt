@@ -14,7 +14,9 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.utils.getInvolvedTaxPoliciesSummary
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
@@ -37,13 +39,24 @@ fun RolesDescription(state: UiState) {
             MultiStyleText(
                 modifier = Modifier,
                 textStyleList = listOf(
-                    MultipleText("Based on the current policies the tax multiplier is ", false),
+                    MultipleText(
+                        stringResource(R.string.roles_description_tax_multiplier),
+                        false
+                    ),
                     MultipleText(state.taxMultiplier.toString(), true),
-                    MultipleText(". The taxation and labor market policies stays at ", false),
+                    MultipleText(
+                        stringResource(R.string.roles_description_taxation_labor_policies),
+                        false
+                    ),
                     MultipleText(policiesSummary, true),
-                    MultipleText(". This values will be used in the next tax calculations.\n\n", false),
-                    MultipleText("Pick your role to begin simulating how many taxes you will pay / receive:", false)
-
+                    MultipleText(
+                        stringResource(R.string.roles_description_next_tax_calculations),
+                        false
+                    ),
+                    MultipleText(
+                        stringResource(R.string.roles_description_pick_role),
+                        false
+                    )
                 ),
                 highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
                 regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
@@ -67,7 +80,7 @@ fun RoleSection(role: HegemonyRole, onRoleSelected: () -> Unit) {
 
         Image(
             painterResource(id = getRoleAvatar(role)),
-            contentDescription = "button image",
+            contentDescription = stringResource(R.string.roles_description_button_image),
             modifier = Modifier.size(80.dp)
         )
 

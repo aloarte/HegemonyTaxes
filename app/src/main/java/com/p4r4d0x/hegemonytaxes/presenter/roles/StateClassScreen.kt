@@ -22,12 +22,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassTaxes
@@ -80,7 +82,7 @@ fun StateClassScreenScrollable(
             item {
                 HegemonyButton(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    text = "Input data"
+                    text = stringResource(R.string.state_class_screen_input_data)
                 ) {
                     showDialog = true
                 }
@@ -91,119 +93,7 @@ fun StateClassScreenScrollable(
 }
 
 @Composable
-fun InputsDialog(
-    uiState: UiState,
-    roleUi: RoleUiData,
-    onEventTriggered: (UiEvent) -> Unit,
-    onDismissed: () -> Unit
-) {
-    var wcPopulation by remember { mutableStateOf(uiState.stateSelection.wcPopulation.toString()) }
-    var mcExternalWorkedCompanies by remember { mutableStateOf(uiState.stateSelection.mcExternalCompaniesWithWorkers.toString()) }
-    var mcOwnCompanies by remember { mutableStateOf(uiState.stateSelection.mcOwnCompanies.toString()) }
-    var ccCompanies by remember { mutableStateOf(uiState.stateSelection.ccCompanies.toString()) }
-    var ccProfit by remember { mutableStateOf(uiState.stateSelection.ccProfit.toString()) }
-
-    Dialog(
-        onDismissRequest = onDismissed,
-        content = {
-            OutlinedCard(
-                border = BorderStroke(1.dp, White),
-                colors = CardDefaults.outlinedCardColors(
-                    contentColor = DarkGrey,
-                    containerColor = DarkGrey
-                ),
-                modifier = Modifier
-                    .fillMaxHeight(0.80f)
-                    .fillMaxWidth(1f),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        color = White,
-                        text = "CLASSES DATA",
-                        fontSize = 16.sp,
-                        style = MaterialTheme.typography.labelMedium,
-                        textAlign = TextAlign.Center
-                    )
-                }
-
-
-                Divider(thickness = 10.dp, color = Color.Transparent)
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = "WC population",
-                    inputText = wcPopulation,
-                    maxValue = 10,
-                    imeAction = ImeAction.Next
-                ) {
-                    wcPopulation = it
-                }
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = "MC external worked companies",
-                    inputText = mcExternalWorkedCompanies,
-                    maxValue = (STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES),
-                    imeAction = ImeAction.Next
-                ) {
-                    mcExternalWorkedCompanies = it
-                }
-
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = "MC companies",
-                    inputText = mcOwnCompanies,
-                    maxValue = MIDDLE_CLASS_MAX_COMPANIES,
-                    imeAction = ImeAction.Next
-                ) {
-                    mcOwnCompanies = it
-                }
-
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = "CC companies",
-                    inputText = ccCompanies,
-                    maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
-                    imeAction = ImeAction.Next
-                ) {
-                    ccCompanies = it
-                }
-
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = "CC Revenue",
-                    inputText = ccProfit,
-                    maxValue = Int.MAX_VALUE
-                ) {
-                    ccProfit = it
-                }
-
-                Divider(thickness = 20.dp, color = Color.Transparent)
-                StateCalculateTotalTaxesButton(
-                    wcPopulation,
-                    mcExternalWorkedCompanies,
-                    mcOwnCompanies,
-                    ccCompanies,
-                    ccProfit,
-                    onEventTriggered,
-                    onDismissed
-                )
-            }
-        },
-        properties = DialogProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
-        )
-    )
-}
-
-@Composable
-fun InputsDialogScrollable(
+private fun InputsDialogScrollable(
     uiState: UiState,
     roleUi: RoleUiData,
     onEventTriggered: (UiEvent) -> Unit,
@@ -239,19 +129,18 @@ fun InputsDialogScrollable(
                         ) {
                             Text(
                                 color = White,
-                                text = "CLASSES DATA",
+                                text = stringResource(R.string.state_class_screen_classes_data),
                                 fontSize = 16.sp,
                                 style = MaterialTheme.typography.labelMedium,
                                 textAlign = TextAlign.Center
                             )
                         }
                     }
-
                     item { Divider(thickness = 10.dp, color = Color.Transparent) }
                     item {
                         RoleInputText(
                             roleUi = roleUi,
-                            labelText = "WC population",
+                            labelText = stringResource(R.string.state_class_screen_wc_population),
                             inputText = wcPopulation,
                             maxValue = 10,
                             imeAction = ImeAction.Next
@@ -262,7 +151,7 @@ fun InputsDialogScrollable(
                     item {
                         RoleInputText(
                             roleUi = roleUi,
-                            labelText = "MC external worked companies",
+                            labelText = stringResource(R.string.state_class_screen_mc_external_worked_companies),
                             inputText = mcExternalWorkedCompanies,
                             maxValue = (STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES),
                             imeAction = ImeAction.Next
@@ -270,11 +159,10 @@ fun InputsDialogScrollable(
                             mcExternalWorkedCompanies = it
                         }
                     }
-
                     item {
                         RoleInputText(
                             roleUi = roleUi,
-                            labelText = "MC companies",
+                            labelText = stringResource(R.string.state_class_screen_mc_companies),
                             inputText = mcOwnCompanies,
                             maxValue = MIDDLE_CLASS_MAX_COMPANIES,
                             imeAction = ImeAction.Next
@@ -282,11 +170,10 @@ fun InputsDialogScrollable(
                             mcOwnCompanies = it
                         }
                     }
-
                     item {
                         RoleInputText(
                             roleUi = roleUi,
-                            labelText = "CC companies",
+                            labelText = stringResource(R.string.state_class_screen_cc_companies),
                             inputText = ccCompanies,
                             maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
                             imeAction = ImeAction.Next
@@ -294,18 +181,16 @@ fun InputsDialogScrollable(
                             ccCompanies = it
                         }
                     }
-
                     item {
                         RoleInputText(
                             roleUi = roleUi,
-                            labelText = "CC Revenue",
+                            labelText = stringResource(R.string.state_class_screen_cc_revenue),
                             inputText = ccProfit,
                             maxValue = Int.MAX_VALUE
                         ) {
                             ccProfit = it
                         }
                     }
-
                     item { Divider(thickness = 20.dp, color = Color.Transparent) }
                     item {
                         StateCalculateTotalTaxesButton(
@@ -319,8 +204,6 @@ fun InputsDialogScrollable(
                         )
                     }
                 }
-
-
             }
         },
         properties = DialogProperties(
@@ -331,7 +214,7 @@ fun InputsDialogScrollable(
 }
 
 @Composable
-fun StateCalculateTotalTaxesButton(
+private fun StateCalculateTotalTaxesButton(
     wcPopulation: String,
     mcExternalWorkedCompanies: String,
     mcOwnCompanies: String,
@@ -349,7 +232,7 @@ fun StateCalculateTotalTaxesButton(
     )
     HegemonyButton(
         modifier = Modifier.padding(horizontal = 20.dp),
-        text = "Calculate total taxes"
+        text = stringResource(R.string.state_class_screen_calculate_total_taxes)
     ) {
         if (Utils.verifyIntInputsSelection(inputs)) {
             onEventTriggered(
@@ -369,28 +252,65 @@ fun StateCalculateTotalTaxesButton(
 }
 
 @Composable
-fun StateInputsDescription() {
+private fun StateInputsDescription() {
     MultiStyleText(
         modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
         textStyleList = listOf(
-            MultipleText("Add the following inputs from other classes: \n", false),
-            MultipleText("Working class: Population (", false),
+            MultipleText(
+                stringResource(R.string.state_class_screen_inputs_description_start),
+                false
+            ),
+            MultipleText(
+                stringResource(R.string.state_class_screen_working_class_population),
+                false
+            ),
             MultipleText(3.toString(), true),
-            MultipleText(" to ", false),
+            MultipleText(
+                stringResource(R.string.state_class_screen_to),
+                false
+            ),
             MultipleText(10.toString(), true),
-            MultipleText(")\nMiddle class: External worked companies (", false),
+            MultipleText(
+                stringResource(R.string.state_class_screen_middle_class_external_worked_companies),
+                false
+            ),
             MultipleText(0.toString(), true),
-            MultipleText(" to ", false),
-            MultipleText((STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES).toString(), true),
-            MultipleText(") and own ompanies (", false),
+            MultipleText(
+                stringResource(R.string.state_class_screen_to),
+                false
+            ),
+            MultipleText(
+                (STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES).toString(),
+                true
+            ),
+            MultipleText(
+                stringResource(R.string.state_class_screen_middle_class_own_companies),
+                false
+            ),
             MultipleText(0.toString(), true),
-            MultipleText(" to ", false),
-            MultipleText(MIDDLE_CLASS_MAX_COMPANIES.toString(), true),
-            MultipleText(")\nCapitalist class: Companies (", false),
+            MultipleText(
+                stringResource(R.string.state_class_screen_to),
+                false
+            ),
+            MultipleText(
+                MIDDLE_CLASS_MAX_COMPANIES.toString(),
+                true
+            ),
+            MultipleText(
+                stringResource(R.string.state_class_screen_capitalist_class_companies),
+                false
+            ),
             MultipleText(0.toString(), true),
-            MultipleText(" to ", false),
-            MultipleText(CAPITALIST_CLASS_MAX_COMPANIES.toString(), true),
-            MultipleText(") and profit.", false),
+            MultipleText(
+                stringResource(R.string.state_class_screen_to), false
+            ),
+            MultipleText(
+                CAPITALIST_CLASS_MAX_COMPANIES.toString(), true
+            ),
+            MultipleText(
+                stringResource(R.string.state_class_screen_capitalist_class_profit),
+                false
+            )
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
         regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
@@ -398,24 +318,48 @@ fun StateInputsDescription() {
 }
 
 @Composable
-fun TotalReceivedTaxes(uiState: UiState) {
+private fun TotalReceivedTaxes(uiState: UiState) {
     (uiState.resultTaxes as? StateClassTaxes)?.let {
         MultiStyleText(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
-                MultipleText("The total taxes received will be ", false),
-                MultipleText("${uiState.resultTaxes.totalTaxes}₳", true),
-                MultipleText(". \n - ", false),
-                MultipleText("${uiState.resultTaxes.wcTaxes}₳", true),
-                MultipleText(" from the Working Class \n - ", false),
-                MultipleText("${uiState.resultTaxes.mcTaxes}₳", true),
-                MultipleText(" from the Middle Class \n - ", false),
+                MultipleText(
+                    stringResource(R.string.state_class_screen_total_taxes_received),
+                    false
+                ),
+                MultipleText(
+                    "${uiState.resultTaxes.totalTaxes}₳",
+                    true
+                ),
+                MultipleText(
+                    stringResource(R.string.state_class_screen_tax_separator),
+                    false
+                ),
+                MultipleText(
+                    "${uiState.resultTaxes.wcTaxes}₳",
+                    true
+                ),
+                MultipleText(
+                    stringResource(R.string.state_class_screen_from_working_class),
+                    false
+                ),
+                MultipleText(
+                    "${uiState.resultTaxes.mcTaxes}₳",
+                    true
+                ),
+                MultipleText(
+                    stringResource(
+                        R.string.state_class_screen_from_middle_class
+                    ), false
+                ),
                 MultipleText("${uiState.resultTaxes.ccTaxes}₳", true),
-                MultipleText(" from the Capitalist Class", false)
+                MultipleText(
+                    stringResource(R.string.state_class_screen_from_capitalist_class),
+                    false
+                )
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
             regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
         )
     }
-
 }

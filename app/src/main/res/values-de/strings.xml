@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">Hegemony Taxes</string>
+
+
+    <!-- Welcome screen -->
+    <string name="welcome_screen_1">Diese App ist für die Verwendung während des Spiels&#160;</string>
+    <string name="welcome_screen_2">Hegemony</string>
+    <string name="welcome_screen_3">&#160;gedacht. Sie soll dir dabei helfen, alle Steuern zu berechnen, die von den einzelnen Klassen gezahlt oder erhalten werden. Ich besitze keine Rechte an den verwendeten Grafiken und diese App dient ausschließlich dazu, dein Spielerlebnis zu verbessern.</string>
+
+    <!-- working class screen -->
+    <string name="working_class_population_title">Bevölkerungszahl</string>
+    <string name="working_class_population_descr_1">Gib deine aktuelle Bevölkerungszahl ein. Denke daran, dass der Wert zwischen&#160;</string>
+    <string name="working_class_population_descr_2">&#160;und&#160;</string>
+    <string name="working_class_calculate_btn">Steuern berechnen</string>
+    <string name="working_class_screen_tax_result1">Die berechnete Einkommensteuer beträgt&#160;</string>
+    <string name="working_class_screen_tax_result2">. Denke daran, dass dieser Betrag an den Staat gezahlt werden muss.</string>
+
+    <!-- state class screen -->
+    <string name="state_class_screen_input_data">Daten eingeben</string>
+    <string name="state_class_screen_classes_data">KLASSENDATEN</string>
+    <string name="state_class_screen_wc_population">Bevölkerungszahl der Arbeiterklasse</string>
+    <string name="state_class_screen_mc_external_worked_companies">Fremde Unternehmen mit Arbeitskräften der Mittelschicht</string>
+    <string name="state_class_screen_mc_companies">Unternehmen der Mittelschicht</string>
+    <string name="state_class_screen_cc_companies">Unternehmen der Kapitalistenklasse</string>
+    <string name="state_class_screen_cc_revenue">Einnahmen der Kapitalistenklasse</string>
+    <string name="state_class_screen_calculate_total_taxes">Steuern insgesamt berechnen</string>
+    <string name="state_class_screen_inputs_description_start">Gib die folgenden Angaben der anderen Klassen ein: \n</string>
+    <string name="state_class_screen_working_class_population">Arbeiterklasse: Bevölkerungszahl (</string>
+    <string name="state_class_screen_to">&#160;bis&#160;</string>
+    <string name="state_class_screen_middle_class_external_worked_companies">)\nMittelschicht: Fremde Unternehmen mit Arbeitskräften (</string>
+    <string name="state_class_screen_middle_class_own_companies">) und eigene Unternehmen (</string>
+    <string name="state_class_screen_capitalist_class_companies">)\nKapitalistenklasse: Unternehmen (</string>
+    <string name="state_class_screen_capitalist_class_profit">) und Einnahmen.</string>
+    <string name="state_class_screen_total_taxes_received">Die insgesamt erhaltenen Steuern betragen&#160;</string>
+    <string name="state_class_screen_total_taxes">%.0f₳</string>
+    <string name="state_class_screen_tax_separator">. \n - </string>
+    <string name="state_class_screen_working_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_working_class">&#160;von der Arbeiterklasse \n - </string>
+    <string name="state_class_screen_middle_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_middle_class">&#160;von der Mittelschicht \n - </string>
+    <string name="state_class_screen_capitalist_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_capitalist_class">&#160;von der Kapitalistenklasse</string>
+
+    <!-- middle class screen -->
+    <string name="middle_class_screen_external_companies_with_workers">Fremde Unternehmen mit eigenen Arbeitskräften</string>
+    <string name="middle_class_screen_own_companies">Eigene Unternehmen</string>
+    <string name="middle_class_screen_description_start">Zähle die Unternehmen, die nicht dir gehören, in denen du aber Arbeitskräfte hast (</string>
+    <string name="middle_class_screen_max">&#160;max.)</string>
+    <string name="middle_class_screen_and_your_companies">&#160;und deine eigenen Unternehmen (</string>
+    <string name="middle_class_screen_calculate_total_taxes">Steuern insgesamt berechnen</string>
+    <string name="middle_class_screen_income_tax_calculated">Die berechnete Einkommensteuer beträgt&#160;</string>
+    <string name="middle_class_screen_while_employment_tax">, während die Lohnsteuer&#160;</string>
+    <string name="middle_class_screen_total_of">beträgt. Insgesamt ergibt das&#160;</string>
+    <string name="middle_class_screen_remember_state_payment">. Denke daran, dass dieser Betrag an den Staat gezahlt werden muss.</string>
+
+    <!-- capitalist class screen -->
+    <string name="capitalist_class_screen_companies">Unternehmen</string>
+    <string name="capitalist_class_screen_revenue">Einnahmen</string>
+    <string name="capitalist_class_screen_description_start">Gib deine Unternehmen (</string>
+    <string name="capitalist_class_screen_description_max">&#160;max.) und deine Einnahmen ein. Dieses Tool berechnet zuerst die Lohnsteuer und anschließend anhand der verbleibenden Einnahmen die Körperschaftssteuer. Gib deine</string>
+    <string name="capitalist_class_screen_current_revenue_before_taxes">&#160;aktuellen Einnahmen vor der Zahlung der Steuern ein</string>
+    <string name="capitalist_class_screen_period">.</string>
+    <string name="capitalist_class_screen_calculate_total_taxes">Steuern insgesamt berechnen</string>
+    <string name="capitalist_class_screen_employment_tax_first">Du zahlst zuerst die Lohnsteuer:&#160;</string>
+    <string name="capitalist_class_screen_leaving">, sodass&#160;</string>
+    <string name="capitalist_class_screen_of_revenue">&#160;an Einnahmen verbleiben. Die Körperschaftssteuer wird anschließend aus diesem verbleibenden Betrag berechnet und beträgt&#160;</string>
+    <string name="capitalist_class_screen_total_taxes">. Steuern insgesamt:&#160;</string>
+    <string name="capitalist_class_screen_combined_payment">. Beide Steuern werden der Einfachheit halber zu einer einzigen Zahlung zusammengefasst.</string>
+
+    <!-- roles picker -->
+    <string name="roles_description_tax_multiplier">Auf Grundlage der aktuellen Politik beträgt der Steuermultiplikator&#160;</string>
+    <string name="roles_description_taxation_labor_policies">. Die Steuerpolitik und die Arbeitsmarktpolitik stehen derzeit auf&#160;</string>
+    <string name="roles_description_next_tax_calculations">. Diese Werte werden bei der nächsten Steuerberechnung verwendet.\n\n</string>
+    <string name="roles_description_pick_role">Wähle deine Klasse, um zu berechnen, wie viele Steuern du zahlen oder erhalten wirst:</string>
+    <string name="roles_description_button_image">Schaltflächenbild</string>
+
+    <string name="tax_row_tax_multiplier">Steuermultiplikator:&#160;</string>
+    <string name="tax_row_income_tax">Einkommensteuer:&#160;</string>
+    <string name="tax_multiplier_income_tax">Steuermultiplikator: %d – Einkommensteuer: %d</string>
+
+    <string name="pick_roles_row_pick_roles">Klassen auswählen</string>
+    <string name="btn_continue">Weiter</string>
+
+    <string name="label_policy_1">Fiskalpolitik</string>
+    <string name="label_policy_2">Arbeitsmarkt</string>
+    <string name="label_policy_3">Steuerpolitik</string>
+    <string name="label_policy_4">Wohlfahrtsstaat: Gesundheit</string>
+    <string name="label_policy_5">Wohlfahrtsstaat: Bildung</string>
+    <string name="label_policy_6">Außenhandel</string>
+    <string name="label_policy_7">Einwanderung</string>
+
+    <string name="description_working_class">Du zahlst die Einkommensteuer. Sie hängt von der Kombination aus der aktuellen Arbeitsmarktpolitik (Politikbereich 2) und Steuerpolitik (Politikbereich 3) ab. Der entsprechende Betrag wird pro Bevölkerungszahl gezahlt.</string>
+
+    <string name="description_capitalist_class">Du zahlst die Lohnsteuer und die Körperschaftssteuer. Die Lohnsteuer hängt von der Anzahl deiner betriebsfähigen Unternehmen und dem aktuellen Steuermultiplikator ab. Die Körperschaftssteuer richtet sich nach den Einnahmen aus deinen Geschäftsaktivitäten.</string>
+
+    <string name="description_middle_class">Du zahlst die Einkommensteuer und die Lohnsteuer. Die Einkommensteuer richtet sich nach der Anzahl der fremden Unternehmen, in denen deine Arbeitskräfte beschäftigt sind. Die Lohnsteuer richtet sich nach der Anzahl deiner eigenen betriebsfähigen Unternehmen.</string>
+
+    <string name="description_state">Du erhältst Steuern von den anderen Klassen: \nArbeiterklasse: Einkommensteuer, abhängig von der Bevölkerungszahl. \nMittelschicht: Einkommensteuer und Lohnsteuer. \nKapitalistenklasse: Lohnsteuer und Körperschaftssteuer.</string>
+
+    <string name="name_working_class">ARBEITERKLASSE</string>
+    <string name="name_capitalist_class">KAPITALISTENKLASSE</string>
+    <string name="name_middle_class">MITTELSCHICHT</string>
+    <string name="name_state">STAAT</string>
+
+
+</resources>
