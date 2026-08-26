@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
@@ -44,7 +45,6 @@ fun WelcomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Image(
                 modifier = Modifier
                     .height(150.dp)
@@ -60,14 +60,12 @@ fun WelcomeScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-
                 MultiStyleText(
                     modifier = Modifier,
                     textStyleList = listOf(
-                        MultipleText("This app is intended to be used while playing the ", false),
-                        MultipleText("Hegemony", true),
-                        MultipleText(" board game. It's useful in calculating all the taxes that every class must pay / receive.\n\n" +
-                                "I don't own any right on the assets used and the purpose of this app is just to improve the enjoyment of the game.", false)
+                        MultipleText(stringResource(R.string.welcome_screen_1), false),
+                        MultipleText(stringResource(R.string.welcome_screen_1), true),
+                        MultipleText(stringResource(R.string.welcome_screen_3), false)
                     ),
                     highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
                     regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
@@ -81,7 +79,7 @@ fun WelcomeScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                HegemonyButton(modifier = Modifier, text = "Continue") {
+                HegemonyButton(modifier = Modifier, text = stringResource(R.string.btn_continue)) {
                     preferences.edit()?.let {
                         it.putBoolean(PREFERENCE_WELCOME, true)?.apply()
                     }
@@ -89,8 +87,6 @@ fun WelcomeScreen(
                 }
             }
         }
-
-
     }
 }
 

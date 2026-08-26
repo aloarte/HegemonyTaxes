@@ -14,8 +14,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
@@ -62,7 +64,9 @@ fun MiddleClassScreenScrollable(
             item {
                 RoleInputText(
                     roleUi = roleUi,
-                    labelText = "External companies with workers",
+                    labelText = stringResource(
+                        R.string.middle_class_screen_external_companies_with_workers
+                    ),
                     inputText = companiesWithWorkers,
                     maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
                     imeAction = ImeAction.Next
@@ -73,7 +77,9 @@ fun MiddleClassScreenScrollable(
             item {
                 RoleInputText(
                     roleUi = roleUi,
-                    labelText = "Own Companies",
+                    labelText = stringResource(
+                        R.string.middle_class_screen_own_companies
+                    ),
                     inputText = ownCompanies,
                     maxValue = MIDDLE_CLASS_MAX_COMPANIES
                 ) {
@@ -95,17 +101,36 @@ fun MiddleClassScreenScrollable(
 }
 
 @Composable
-fun MiddleClassTaxesDescription() {
+private fun MiddleClassTaxesDescription() {
     MultiStyleText(
         modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
         textStyleList = listOf(
             MultipleText(
-                "Add the companies that aren't yours where you have workers (", false
+                stringResource(R.string.middle_class_screen_description_start),
+                false
             ),
-            MultipleText((CAPITALIST_CLASS_MAX_COMPANIES + STATE_MAX_COMPANIES).toString(), true),
-            MultipleText(" max) and your companies (", false),
-            MultipleText(MIDDLE_CLASS_MAX_COMPANIES.toString(), true),
-            MultipleText(" max).", false)
+            MultipleText(
+                (CAPITALIST_CLASS_MAX_COMPANIES + STATE_MAX_COMPANIES).toString(),
+                true
+            ),
+            MultipleText(
+                stringResource(R.string.middle_class_screen_max),
+                false
+            ),
+            MultipleText(
+                stringResource(R.string.middle_class_screen_and_your_companies),
+                false
+            ),
+            MultipleText(
+                MIDDLE_CLASS_MAX_COMPANIES.toString(),
+                true
+            ),
+            MultipleText(
+                stringResource(
+                    R.string.middle_class_screen_max
+                ),
+                false
+            )
         ),
         highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
         regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)
@@ -113,7 +138,7 @@ fun MiddleClassTaxesDescription() {
 }
 
 @Composable
-fun CalculateIncomeAndEmploymentTaxesButton(
+private fun CalculateIncomeAndEmploymentTaxesButton(
     companiesWithWorkers: String,
     ownCompanies: String,
     onEventTriggered: (UiEvent) -> Unit
@@ -125,7 +150,7 @@ fun CalculateIncomeAndEmploymentTaxesButton(
 
     HegemonyButton(
         modifier = Modifier.padding(horizontal = 20.dp),
-        text = "Calculate total taxes"
+        text = stringResource(R.string.middle_class_screen_calculate_total_taxes)
     ) {
         if (verifyIntInputsSelection(inputs)) {
             onEventTriggered(
@@ -141,18 +166,30 @@ fun CalculateIncomeAndEmploymentTaxesButton(
 }
 
 @Composable
-fun IncomeAndEmploymentTaxesResult(uiState: UiState) {
+private fun IncomeAndEmploymentTaxesResult(uiState: UiState) {
     (uiState.resultTaxes as? MiddleClassTaxes)?.let { taxes ->
         MultiStyleText(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
             textStyleList = listOf(
-                MultipleText("The Income Tax calculated is ", false),
+                MultipleText(
+                    stringResource(R.string.middle_class_screen_income_tax_calculated),
+                    false
+                ),
                 MultipleText("${taxes.incomeTaxResult}₳", true),
-                MultipleText(", while the Employment Tax is ", false),
+                MultipleText(
+                    stringResource(R.string.middle_class_screen_while_employment_tax),
+                    false
+                ),
                 MultipleText("${taxes.employmentTaxResult}₳", true),
-                MultipleText(". This is a total of ", false),
+                MultipleText(
+                    stringResource(R.string.middle_class_screen_total_of),
+                    false
+                ),
                 MultipleText("${taxes.totalTaxes}₳", true),
-                MultipleText(". Remember that this amount has to be payed to the State.", false)
+                MultipleText(
+                    stringResource(R.string.middle_class_screen_remember_state_payment),
+                    false
+                )
             ),
             highlightedStyle = Utils.getHighlightedSpanStyle(DESCRIPTION_TEXT_SIZE),
             regularStyle = Utils.getBoldSpanStyle(DESCRIPTION_TEXT_SIZE)

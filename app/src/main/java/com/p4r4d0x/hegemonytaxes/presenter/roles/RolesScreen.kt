@@ -50,7 +50,6 @@ fun RolesScreenScrollable(
                         RoleSection(HegemonyRole.WorkingClass) {
                             onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.WorkingClass))
                         }
-
                         Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
                         RoleSection(HegemonyRole.MiddleClass) {
                             onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.MiddleClass))
@@ -62,17 +61,13 @@ fun RolesScreenScrollable(
                             onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.CapitalistClass))
                         }
                         Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
-
                         RoleSection(HegemonyRole.State) {
                             onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.State))
                         }
                     }
                 }
             }
-
             item { Divider(thickness = 5.dp, color = Color.Transparent) }
-
-
         }
     }
 }
