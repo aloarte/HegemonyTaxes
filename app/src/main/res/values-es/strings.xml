@@ -70,7 +70,7 @@
 
     <string name="tax_row_tax_multiplier">Multiplicador Impositivo:&#160;</string>
     <string name="tax_row_income_tax">Impuesto sobre la Renta:&#160;</string>
-    <string name="tax_multiplier_income_tax">M. Impositivo: %d - Imp. sobre la Renta: %d</string>
+    <string name="tax_multiplier_income_tax">Multiplicador Impositivo: %d \nImp. sobre la Renta: %d</string>
 
     <string name="pick_roles_row_pick_roles">Selecciona tu rol</string>
     <string name="btn_continue">Continuar</string>

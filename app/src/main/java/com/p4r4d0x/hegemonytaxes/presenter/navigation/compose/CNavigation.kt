@@ -97,9 +97,9 @@ fun AppBarTaxes(uiState: UiState) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            maxLines = 1,
+            maxLines = 2,
             text = stringResource(R.string.tax_multiplier_income_tax,uiState.taxMultiplier,uiState.incomeTax),
-            fontSize = 14.sp,
+            fontSize = 10.sp,
             style = MaterialTheme.typography.labelLarge,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
