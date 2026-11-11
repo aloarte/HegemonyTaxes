@@ -76,7 +76,7 @@
 
     <string name="tax_row_tax_multiplier">Steuermultiplikator:&#160;</string>
     <string name="tax_row_income_tax">Einkommensteuer:&#160;</string>
-    <string name="tax_multiplier_income_tax">Steuermultiplikator: %d – Einkommensteuer: %d</string>
+    <string name="tax_multiplier_income_tax">Steuermultiplikator: %d \nEinkommensteuer: %d</string>
 
     <string name="pick_roles_row_pick_roles">Klassen auswählen</string>
     <string name="btn_continue">Weiter</string>

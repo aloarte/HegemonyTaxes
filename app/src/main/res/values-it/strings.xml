@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_screen_1">Questa app è pensata per essere utilizzata durante una partita al&#160;</string>
+    <string name="welcome_screen_2">Hegemony</string>
+    <string name="welcome_screen_3">&#160;gioco da tavolo. È stata progettata per aiutarti a calcolare tutte le tasse che ogni classe deve pagare o ricevere. Non detengo alcun diritto sui materiali utilizzati e questa app ha il solo scopo di migliorare la tua esperienza di gioco.</string>
+
+    <!-- working class screen -->
+    <string name="working_class_population_title">Popolazione</string>
+    <string name="working_class_population_descr_1">Inserisci la popolazione attuale. Ricorda che il valore deve essere compreso tra&#160;</string>
+    <string name="working_class_population_descr_2">&#160;e&#160;</string>
+    <string name="working_class_calculate_btn">Calcola il totale delle tasse</string>
+    <string name="working_class_screen_tax_result1">La Tassa sul Reddito calcolata è pari a&#160;</string>
+    <string name="working_class_screen_tax_result2">. Ricorda che questo importo deve essere versato allo Stato.</string>
+
+    <!-- state class screen -->
+    <string name="state_class_screen_input_data">Dati da inserire</string>
+    <string name="state_class_screen_classes_data">DATI DELLE CLASSI</string>
+    <string name="state_class_screen_wc_population">Popolazione WC</string>
+    <string name="state_class_screen_mc_external_worked_companies">Aziende esterne con lavoratori MC</string>
+    <string name="state_class_screen_mc_companies">Aziende MC</string>
+    <string name="state_class_screen_cc_companies">Aziende CC</string>
+    <string name="state_class_screen_cc_revenue">Entrate CC</string>
+    <string name="state_class_screen_calculate_total_taxes">Calcola il totale delle tasse</string>
+    <string name="state_class_screen_inputs_description_start">Inserisci i seguenti dati forniti dalle altre classi: \n</string>
+    <string name="state_class_screen_working_class_population">Classe Operaia: Popolazione (</string>
+    <string name="state_class_screen_to">&#160;a&#160;</string>
+    <string name="state_class_screen_middle_class_external_worked_companies">)\nClasse Media: Aziende esterne in cui lavorano membri della classe (</string>
+    <string name="state_class_screen_middle_class_own_companies">) e aziende di proprietà (</string>
+    <string name="state_class_screen_capitalist_class_companies">)\nClasse Capitalista: Aziende (</string>
+    <string name="state_class_screen_capitalist_class_profit">) e profitti.</string>
+    <string name="state_class_screen_total_taxes_received">Il totale delle tasse riscosse sarà pari a&#160;</string>
+    <string name="state_class_screen_total_taxes">%.0f₳</string>
+    <string name="state_class_screen_tax_separator">. \n - </string>
+    <string name="state_class_screen_working_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_working_class">&#160;dalla Classe Operaia \n - </string>
+    <string name="state_class_screen_middle_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_middle_class">&#160;dalla Classe Media \n - </string>
+    <string name="state_class_screen_capitalist_class_taxes">%.0f₳</string>
+    <string name="state_class_screen_from_capitalist_class">&#160;dalla Classe Capitalista</string>
+
+    <!-- middle class screen -->
+    <string name="middle_class_screen_external_companies_with_workers">Aziende esterne in cui lavori</string>
+    <string name="middle_class_screen_own_companies">Aziende di proprietà</string>
+    <string name="middle_class_screen_description_start">Inserisci le aziende che non sono di tua proprietà e in cui lavori (</string>
+    <string name="middle_class_screen_max">&#160;max)</string>
+    <string name="middle_class_screen_and_your_companies">&#160;e le tue aziende (</string>
+    <string name="middle_class_screen_calculate_total_taxes">Calcola il totale delle tasse</string>
+    <string name="middle_class_screen_income_tax_calculated">La Tassa sul Fatturato calcolata è pari a&#160;</string>
+    <string name="middle_class_screen_while_employment_tax">, mentre la Tassa sul Lavoro è pari a&#160;</string>
+    <string name="middle_class_screen_total_of">. Il totale ammonta quindi a&#160;</string>
+    <string name="middle_class_screen_remember_state_payment">. Ricorda che questo importo deve essere versato allo Stato.</string>
+
+    <!-- capitalist class screen -->
+    <string name="capitalist_class_screen_companies">Aziende</string>
+    <string name="capitalist_class_screen_revenue">Entrate</string>
+    <string name="capitalist_class_screen_description_start">Inserisci le tue aziende (</string>
+    <string name="capitalist_class_screen_description_max">&#160;max) e le tue Entrate. Questo strumento calcolerà prima la Tassa sul Lavoro e successivamente la Tassa sulla Corporazione utilizzando le Entrate rimanenti. Inserisci le tue</string>
+    <string name="capitalist_class_screen_current_revenue_before_taxes">&#160;Entrate attuali prima del pagamento di entrambe le tasse</string>
+    <string name="capitalist_class_screen_period">.</string>
+    <string name="capitalist_class_screen_calculate_total_taxes">Calcola il totale delle tasse</string>
+    <string name="capitalist_class_screen_employment_tax_first">Per prima cosa paghi la Tassa sul Lavoro:&#160;</string>
+    <string name="capitalist_class_screen_leaving">, lasciando&#160;</string>
+    <string name="capitalist_class_screen_of_revenue">&#160;di Entrate. La Tassa sulla Corporazione viene quindi calcolata su questo importo residuo ed è pari a&#160;</string>
+    <string name="capitalist_class_screen_total_taxes">. Totale delle tasse:&#160;</string>
+    <string name="capitalist_class_screen_combined_payment">. Per comodità, entrambe le tasse vengono sommate in un unico pagamento.</string>
+
+    <!-- roles picker -->
+    <string name="roles_description_tax_multiplier">In base alle politiche attualmente in vigore, il Moltiplicatore Tasse è pari a&#160;</string>
+    <string name="roles_description_taxation_labor_policies">. Le politiche relative alla Tassazione e al Mercato del Lavoro sono attualmente impostate su&#160;</string>
+    <string name="roles_description_next_tax_calculations">. Questi valori verranno utilizzati nei prossimi calcoli delle tasse.\n\n</string>
+    <string name="roles_description_pick_role">Scegli il tuo ruolo per iniziare a simulare quante tasse dovrai pagare o ricevere:</string>
+    <string name="roles_description_button_image">immagine del pulsante</string>
+
+    <string name="tax_row_tax_multiplier">Moltiplicatore Tasse:&#160;</string>
+    <string name="tax_row_income_tax">Tassa sul Reddito:&#160;</string>
+    <string name="tax_multiplier_income_tax">Moltiplicatore Tasse: %d \nTassa sul Reddito: %d</string>
+
+    <string name="pick_roles_row_pick_roles">Scegli i ruoli</string>
+    <string name="btn_continue">Continua</string>
+
+    <string name="label_policy_1">Politica Fiscale</string>
+    <string name="label_policy_2">Mercato del Lavoro</string>
+    <string name="label_policy_3">Tassazione</string>
+    <string name="label_policy_4">Welfare Statale: Salute &amp; Benefit</string>
+    <string name="label_policy_5">Welfare Statale: Istruzione</string>
+    <string name="label_policy_6">Commercio Estero</string>
+    <string name="label_policy_7">Immigrazione</string>
+
+    <string name="description_working_class">Paghi la Tassa sul Reddito, che dipende dalla combinazione delle politiche attualmente in vigore sul Mercato del Lavoro (#2) e sulla Tassazione (#3). Si tratta di un importo da pagare per ogni membro della popolazione.</string>
+    <string name="description_capitalist_class">Paghi la Tassa sul Lavoro e la Tassa sulla Corporazione. La prima dipende dal numero di aziende operative di tua proprietà, mentre la seconda si basa sui profitti generati dalle attività aziendali.</string>
+    <string name="description_middle_class">Paghi la Tassa sul Fatturato e la Tassa sul Lavoro. La prima si basa sulle Entrate che percepisci dalle aziende di altri proprietari presso cui lavori, mentre la seconda dipende dalle aziende che gestisci direttamente.</string>
+    <string name="description_state">Ricevi diverse tasse da ciascuna delle altre classi: \nClasse Operaia: Tassa sul Reddito, basata sulla popolazione. \nClasse Media: Tassa sul Fatturato e Tassa sul Lavoro. \nClasse Capitalista: Tassa sul Lavoro e Tassa sulla Corporazione.</string>
+
+    <string name="name_working_class">CLASSE OPERAIA</string>
+    <string name="name_capitalist_class">CLASSE CAPITALISTA</string>
+    <string name="name_middle_class">CLASSE MEDIA</string>
+    <string name="name_state">STATO</string>
+</resources>
