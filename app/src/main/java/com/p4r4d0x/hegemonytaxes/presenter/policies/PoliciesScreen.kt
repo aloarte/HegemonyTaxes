@@ -41,7 +41,7 @@ fun PoliciesScreenScrollable(
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
-                .padding(horizontal = 2.dp, vertical = 10.dp)
+                .padding(horizontal = 5.dp, vertical = 10.dp)
         ) {
             if (uiState.policies.size > 5) {
                 item { Divider(thickness = 20.dp, color = Color.Transparent) }
@@ -86,7 +86,7 @@ private fun TaxRow(uiState: UiState) {
         MultiStyleText(
             textStyleList = listOf(
                 MultipleText(
-                    stringResource(R.string.tax_row_tax_multiplier),
+                    stringResource(R.string.tax_row_tax_multiplier)+": ",
                     false
                 ),
                 MultipleText("${uiState.taxMultiplier}", true),
@@ -97,7 +97,7 @@ private fun TaxRow(uiState: UiState) {
         MultiStyleText(
             textStyleList = listOf(
                 MultipleText(
-                    stringResource(R.string.tax_row_income_tax),
+                    stringResource(R.string.tax_row_income_tax)+": ",
                     false
                 ),
                 MultipleText("${uiState.incomeTax}", true)

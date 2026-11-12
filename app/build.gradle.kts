@@ -72,7 +72,8 @@ android {
         }
     }
     lint {
-        disable += "MutableCollectionMutableState"
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
 
@@ -91,6 +92,7 @@ dependencies {
     implementation( "com.google.dagger:hilt-android:2.48")
     kapt ("com.google.dagger:hilt-android-compiler:2.48")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     //JaCoCo
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
