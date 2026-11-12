@@ -37,11 +37,11 @@ fun RolesScreenScrollable(
                 .background(DarkGrey)
         ) {
             TaxSubToolbar(uiState)
-            Divider(thickness = 10.dp, color = Color.Transparent)
             LazyColumn(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth()
+                    .padding(20.dp)
             ) {
                 item { Divider(thickness = 20.dp, color = Color.Transparent) }
                 item { RolesDescription(uiState) }

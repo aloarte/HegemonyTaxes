@@ -2,6 +2,8 @@ package com.p4r4d0x.hegemonytaxes.presenter.navigation
 
 import android.content.SharedPreferences
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,32 +37,45 @@ fun NavigationComponent(
     val onInnerEventTriggered: (UiEvent) -> Unit =
         { manageNavigationEvent(it, navController, onEventTriggered) }
 
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    val handleBackAction: () -> Unit = {
+        when (currentRoute) {
+            Screen.PoliciesScreen.route -> {
+                // Do nothing
+            }
+            Screen.RoleSelectorScreen.route -> {
+                onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(true))
+                navController.navigate(Screen.PoliciesScreen.route)
+            }
+            Screen.WorkingClassScreen.route,
+            Screen.MiddleClassScreen.route,
+            Screen.CapitalistClassScreen.route,
+            Screen.StateScreen.route -> {
+                onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(false))
+                navController.popBackStack()
+            }
+            else -> {
+                navController.popBackStack()
+            }
+        }
+    }
+
     HegemonyTopAppBar(
         uiState = uiState,
-        onBackPressed = {
-            onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(true))
-            navController.navigate(Screen.PoliciesScreen.route)
-        }
+        onBackPressed = handleBackAction
     ) { paddingValues ->
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
         BackHandler {
-            when (navBackStackEntry?.destination?.route) {
-                Screen.PoliciesScreen.route -> {
-                }
-
-                Screen.RoleSelectorScreen.route -> {
-                    onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(true))
-                    navController.popBackStack()
-                }
-
-                else -> {
-                    navController.popBackStack()
-                }
-            }
+            handleBackAction()
         }
         NavHost(
             navController = navController,
-            startDestination = getStartDestination(preferences)
+            startDestination = getStartDestination(preferences),
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None },
+            popEnterTransition = { EnterTransition.None },
+            popExitTransition = { ExitTransition.None }
         ) {
             composable(route = Screen.WelcomeScreen.route) {
                 WelcomeScreen(

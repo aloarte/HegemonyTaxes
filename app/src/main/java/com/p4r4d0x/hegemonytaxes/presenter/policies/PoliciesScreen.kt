@@ -41,7 +41,7 @@ fun PoliciesScreenScrollable(
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
-                .padding(horizontal = 2.dp, vertical = 10.dp)
+                .padding(horizontal = 5.dp, vertical = 10.dp)
         ) {
             if (uiState.policies.size > 5) {
                 item { Divider(thickness = 20.dp, color = Color.Transparent) }
