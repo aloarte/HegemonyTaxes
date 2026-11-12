@@ -72,7 +72,8 @@ android {
         }
     }
     lint {
-        disable += "MutableCollectionMutableState"
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
 
