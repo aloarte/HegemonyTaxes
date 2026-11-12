@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,12 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.hegemonytaxes.R
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.Orange
@@ -41,19 +40,13 @@ fun HegemonyTopAppBar(
             .statusBarsPadding()
             .background(Orange),
         topBar = {
-            androidx.compose.material3.CenterAlignedTopAppBar(
+            CenterAlignedTopAppBar(
                 modifier = Modifier.height(45.dp),
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = Orange,
                     titleContentColor = DarkGrey,
                 ),
-                title = {
-                    if (uiState.displayTitleOnAppBar) {
-                        AppBarTitle()
-                    } else {
-                        AppBarTaxes(uiState)
-                    }
-                },
+                title = { AppBarTitle() },
                 navigationIcon = {
                     if (!uiState.displayTitleOnAppBar) {
                         IconButton(onClick = onBackPressed) {
@@ -82,24 +75,6 @@ fun AppBarTitle() {
             maxLines = 1,
             text = "HEGEMONY TAXES",
             fontSize = 16.sp,
-            style = MaterialTheme.typography.labelLarge,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
-}
-
-@Composable
-fun AppBarTaxes(uiState: UiState) {
-    Column(
-        Modifier
-            .fillMaxHeight(),
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            maxLines = 2,
-            text = stringResource(R.string.tax_multiplier_income_tax,uiState.taxMultiplier,uiState.incomeTax),
-            fontSize = 10.sp,
             style = MaterialTheme.typography.labelLarge,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,

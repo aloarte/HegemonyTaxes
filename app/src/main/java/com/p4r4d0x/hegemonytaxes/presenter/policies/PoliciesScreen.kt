@@ -86,7 +86,7 @@ private fun TaxRow(uiState: UiState) {
         MultiStyleText(
             textStyleList = listOf(
                 MultipleText(
-                    stringResource(R.string.tax_row_tax_multiplier),
+                    stringResource(R.string.tax_row_tax_multiplier)+": ",
                     false
                 ),
                 MultipleText("${uiState.taxMultiplier}", true),
@@ -97,7 +97,7 @@ private fun TaxRow(uiState: UiState) {
         MultiStyleText(
             textStyleList = listOf(
                 MultipleText(
-                    stringResource(R.string.tax_row_income_tax),
+                    stringResource(R.string.tax_row_income_tax)+": ",
                     false
                 ),
                 MultipleText("${uiState.incomeTax}", true)

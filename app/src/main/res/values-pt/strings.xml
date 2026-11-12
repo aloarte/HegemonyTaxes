@@ -72,8 +72,8 @@
     <string name="roles_description_pick_role">Escolhe o teu papel para começares a simular quanto terás de pagar ou receber em impostos:</string>
     <string name="roles_description_button_image">imagem do botão</string>
 
-    <string name="tax_row_tax_multiplier">Multiplicador de Impostos:&#160;</string>
-    <string name="tax_row_income_tax">Imposto de Renda:&#160;</string>
+    <string name="tax_row_tax_multiplier">Multiplicador de Impostos</string>
+    <string name="tax_row_income_tax">Imposto de Renda</string>
     <string name="tax_multiplier_income_tax">Multiplicador de Impostos: %d \nImposto de Renda: %d</string>
 
     <string name="pick_roles_row_pick_roles">Escolher papéis</string>

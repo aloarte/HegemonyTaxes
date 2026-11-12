@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
+import com.p4r4d0x.hegemonytaxes.presenter.common.TaxSubToolbar
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleSection
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RolesDescription
 import com.p4r4d0x.hegemonytaxes.presenter.ui.theme.DarkGrey
@@ -29,45 +30,52 @@ fun RolesScreenScrollable(
     onEventTriggered: (UiEvent) -> Unit
 ) {
     HegemonyTaxesCalculatorTheme {
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .background(DarkGrey)
-                .padding(20.dp)
         ) {
-            item { Divider(thickness = 50.dp, color = Color.Transparent) }
-            item { RolesDescription(uiState) }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item {
-                Column(
-                    Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                        .padding(30.dp)
-                ) {
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                        RoleSection(HegemonyRole.WorkingClass) {
-                            onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.WorkingClass))
+            TaxSubToolbar(uiState)
+            Divider(thickness = 10.dp, color = Color.Transparent)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+            ) {
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item { RolesDescription(uiState) }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item {
+                    Column(
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                            .padding(30.dp)
+                    ) {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                            RoleSection(HegemonyRole.WorkingClass) {
+                                onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.WorkingClass))
+                            }
+                            Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
+                            RoleSection(HegemonyRole.MiddleClass) {
+                                onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.MiddleClass))
+                            }
                         }
-                        Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
-                        RoleSection(HegemonyRole.MiddleClass) {
-                            onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.MiddleClass))
-                        }
-                    }
-                    Divider(thickness = 20.dp, color = Color.Transparent)
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                        RoleSection(HegemonyRole.CapitalistClass) {
-                            onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.CapitalistClass))
-                        }
-                        Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
-                        RoleSection(HegemonyRole.State) {
-                            onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.State))
+                        Divider(thickness = 20.dp, color = Color.Transparent)
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                            RoleSection(HegemonyRole.CapitalistClass) {
+                                onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.CapitalistClass))
+                            }
+                            Divider(color = Color.Transparent, modifier = Modifier.width(20.dp))
+                            RoleSection(HegemonyRole.State) {
+                                onEventTriggered.invoke(UiEvent.GoRole(HegemonyRole.State))
+                            }
                         }
                     }
                 }
+                item { Divider(thickness = 5.dp, color = Color.Transparent) }
             }
-            item { Divider(thickness = 5.dp, color = Color.Transparent) }
         }
     }
 }

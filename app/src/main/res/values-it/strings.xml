@@ -72,8 +72,8 @@
     <string name="roles_description_pick_role">Scegli il tuo ruolo per iniziare a simulare quante tasse dovrai pagare o ricevere:</string>
     <string name="roles_description_button_image">immagine del pulsante</string>
 
-    <string name="tax_row_tax_multiplier">Moltiplicatore Tasse:&#160;</string>
-    <string name="tax_row_income_tax">Tassa sul Reddito:&#160;</string>
+    <string name="tax_row_tax_multiplier">Moltiplicatore Tasse</string>
+    <string name="tax_row_income_tax">Tassa sul Reddito</string>
     <string name="tax_multiplier_income_tax">Moltiplicatore Tasse: %d \nTassa sul Reddito: %d</string>
 
     <string name="pick_roles_row_pick_roles">Scegli i ruoli</string>

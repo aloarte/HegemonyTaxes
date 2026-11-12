@@ -74,8 +74,8 @@
     <string name="roles_description_pick_role">Pick your role to start simulating how much tax you will pay or receive:</string>
     <string name="roles_description_button_image">button image</string>
 
-    <string name="tax_row_tax_multiplier">Tax Multiplier:&#160;</string>
-    <string name="tax_row_income_tax">Income Tax:&#160;</string>
+    <string name="tax_row_tax_multiplier">Tax Multiplier</string>
+    <string name="tax_row_income_tax">Income Tax</string>
     <string name="tax_multiplier_income_tax">Tax Multiplier: %d \nIncome Tax: %d</string>
 
     <string name="pick_roles_row_pick_roles">Pick roles</string>
