@@ -1,6 +1,7 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,6 +25,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
+import com.p4r4d0x.hegemonytaxes.presenter.common.TaxSubToolbar
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
@@ -43,29 +45,39 @@ fun WorkingClassScreenScrollable(
     HegemonyTaxesCalculatorTheme {
         var population by remember { mutableStateOf(uiState.wcSelection.population.toString()) }
         val roleUi = buildRoleUiData(HegemonyRole.WorkingClass)
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
+                .background(DarkGrey),
+
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            item { RoleTitleSection(roleUi) }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item { PopulationInputDescription() }
-            item { Divider(thickness = 10.dp, color = Color.Transparent) }
-            item {
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = stringResource(R.string.working_class_population_title),
-                    inputText = population,
-                    maxValue = 10
-                ) { population = it }
+            TaxSubToolbar(uiState)
+            Divider(thickness = 10.dp, color = Color.Transparent)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item { RoleTitleSection(roleUi) }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item { PopulationInputDescription() }
+                item { Divider(thickness = 10.dp, color = Color.Transparent) }
+                item {
+                    RoleInputText(
+                        roleUi = roleUi,
+                        labelText = stringResource(R.string.working_class_population_title),
+                        inputText = population,
+                        maxValue = 10
+                    ) { population = it }
+                }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item { CalculateIncomeTaxButton(population, onEventTriggered) }
+                item { IncomeTaxResult(uiState) }
             }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item { CalculateIncomeTaxButton(population, onEventTriggered) }
-            item { IncomeTaxResult(uiState) }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,6 +29,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
+import com.p4r4d0x.hegemonytaxes.presenter.common.TaxSubToolbar
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
@@ -48,48 +50,57 @@ fun MiddleClassScreenScrollable(
         var companiesWithWorkers by remember { mutableStateOf(uiState.mcSelection.externalCompaniesWithWorkers.toString()) }
         var ownCompanies by remember { mutableStateOf(uiState.mcSelection.ownCompanies.toString()) }
         val roleUi = buildRoleUiData(HegemonyRole.MiddleClass)
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
+                .background(DarkGrey),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            item { RoleTitleSection(roleUi) }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item { MiddleClassTaxesDescription() }
-            item { Divider(thickness = 10.dp, color = Color.Transparent) }
-            item {
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = stringResource(
-                        R.string.middle_class_screen_external_companies_with_workers
-                    ),
-                    inputText = companiesWithWorkers,
-                    maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
-                    imeAction = ImeAction.Next
-                ) { companiesWithWorkers = it }
+            TaxSubToolbar(uiState)
+            Divider(thickness = 10.dp, color = Color.Transparent)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item { RoleTitleSection(roleUi) }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item { MiddleClassTaxesDescription() }
+                item { Divider(thickness = 10.dp, color = Color.Transparent) }
+                item {
+                    RoleInputText(
+                        roleUi = roleUi,
+                        labelText = stringResource(
+                            R.string.middle_class_screen_external_companies_with_workers
+                        ),
+                        inputText = companiesWithWorkers,
+                        maxValue = STATE_MAX_COMPANIES + CAPITALIST_CLASS_MAX_COMPANIES,
+                        imeAction = ImeAction.Next
+                    ) { companiesWithWorkers = it }
+                }
+                item {
+                    RoleInputText(
+                        roleUi = roleUi,
+                        labelText = stringResource(
+                            R.string.middle_class_screen_own_companies
+                        ),
+                        inputText = ownCompanies,
+                        maxValue = MIDDLE_CLASS_MAX_COMPANIES
+                    ) { ownCompanies = it }
+                }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item {
+                    CalculateIncomeAndEmploymentTaxesButton(
+                        companiesWithWorkers,
+                        ownCompanies,
+                        onEventTriggered
+                    )
+                }
+                item { IncomeAndEmploymentTaxesResult(uiState) }
             }
-            item {
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = stringResource(
-                        R.string.middle_class_screen_own_companies
-                    ),
-                    inputText = ownCompanies,
-                    maxValue = MIDDLE_CLASS_MAX_COMPANIES
-                ) { ownCompanies = it }
-            }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item {
-                CalculateIncomeAndEmploymentTaxesButton(
-                    companiesWithWorkers,
-                    ownCompanies,
-                    onEventTriggered
-                )
-            }
-            item { IncomeAndEmploymentTaxesResult(uiState) }
         }
     }
 }

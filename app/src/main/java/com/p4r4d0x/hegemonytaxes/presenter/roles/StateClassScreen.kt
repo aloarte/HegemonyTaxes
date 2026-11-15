@@ -3,6 +3,7 @@ package com.p4r4d0x.hegemonytaxes.presenter.roles
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,6 +41,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
+import com.p4r4d0x.hegemonytaxes.presenter.common.TaxSubToolbar
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
@@ -67,27 +69,36 @@ fun StateClassScreenScrollable(
             }
         }
 
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
+                .background(DarkGrey),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            item { RoleTitleSection(roleUi) }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item { StateInputsDescription() }
-            item { Divider(thickness = 10.dp, color = Color.Transparent) }
-            item {
-                HegemonyButton(
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    text = stringResource(R.string.state_class_screen_input_data)
-                ) {
-                    showDialog = true
+            TaxSubToolbar(uiState)
+            Divider(thickness = 10.dp, color = Color.Transparent)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item { RoleTitleSection(roleUi) }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item { StateInputsDescription() }
+                item { Divider(thickness = 10.dp, color = Color.Transparent) }
+                item {
+                    HegemonyButton(
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        text = stringResource(R.string.state_class_screen_input_data)
+                    ) {
+                        showDialog = true
+                    }
                 }
+                item { TotalReceivedTaxes(uiState) }
             }
-            item { TotalReceivedTaxes(uiState) }
         }
     }
 }

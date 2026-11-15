@@ -1,6 +1,7 @@
 package com.p4r4d0x.hegemonytaxes.presenter.roles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
 import com.p4r4d0x.hegemonytaxes.presenter.common.HegemonyButton
 import com.p4r4d0x.hegemonytaxes.presenter.common.MultiStyleText
+import com.p4r4d0x.hegemonytaxes.presenter.common.TaxSubToolbar
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleInputText
 import com.p4r4d0x.hegemonytaxes.presenter.roles.compose.RoleTitleSection
 import com.p4r4d0x.hegemonytaxes.presenter.ui.data.MultipleText
@@ -47,49 +49,57 @@ fun CapitalistClassScreenScrollable(
         var profit by remember { mutableStateOf("0") }
         val roleUi = buildRoleUiData(HegemonyRole.CapitalistClass)
 
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .background(DarkGrey)
-                .padding(20.dp),
+                .background(DarkGrey),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            item { RoleTitleSection(roleUi) }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item { CapitalistClassTaxesDescription() }
-            item { Divider(thickness = 10.dp, color = Color.Transparent) }
-            item {
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = stringResource(R.string.capitalist_class_screen_companies),
-                    inputText = companies,
-                    maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
-                    imeAction = ImeAction.Next
-                ) {
-                    companies = it
+            TaxSubToolbar(uiState)
+            Divider(thickness = 10.dp, color = Color.Transparent)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item { RoleTitleSection(roleUi) }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item { CapitalistClassTaxesDescription() }
+                item { Divider(thickness = 10.dp, color = Color.Transparent) }
+                item {
+                    RoleInputText(
+                        roleUi = roleUi,
+                        labelText = stringResource(R.string.capitalist_class_screen_companies),
+                        inputText = companies,
+                        maxValue = CAPITALIST_CLASS_MAX_COMPANIES,
+                        imeAction = ImeAction.Next
+                    ) {
+                        companies = it
+                    }
                 }
-            }
-            item {
-                RoleInputText(
-                    roleUi = roleUi,
-                    labelText = stringResource(R.string.capitalist_class_screen_revenue),
-                    inputText = profit,
-                    maxValue = Integer.MAX_VALUE
-                ) {
-                    profit = it
+                item {
+                    RoleInputText(
+                        roleUi = roleUi,
+                        labelText = stringResource(R.string.capitalist_class_screen_revenue),
+                        inputText = profit,
+                        maxValue = Integer.MAX_VALUE
+                    ) {
+                        profit = it
+                    }
                 }
+                item { Divider(thickness = 20.dp, color = Color.Transparent) }
+                item {
+                    CalculateEmploymentAndCorporateTaxesButton(
+                        companies,
+                        profit,
+                        onEventTriggered
+                    )
+                }
+                item { EmploymentAndCorporateTaxesResult(uiState) }
             }
-            item { Divider(thickness = 20.dp, color = Color.Transparent) }
-            item {
-                CalculateEmploymentAndCorporateTaxesButton(
-                    companies,
-                    profit,
-                    onEventTriggered
-                )
-            }
-            item { EmploymentAndCorporateTaxesResult(uiState) }
-
         }
     }
 }
