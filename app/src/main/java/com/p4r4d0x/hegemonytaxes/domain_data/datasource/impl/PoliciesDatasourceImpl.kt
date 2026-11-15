@@ -68,12 +68,12 @@ class PoliciesDatasourceImpl @Inject constructor() : PoliciesDatasource {
         PolicyData(
             1,
             PolicyType.FiscalPolicy,
-            PolicyState.A
+            PolicyState.C
         ),
         PolicyData(
             2,
             PolicyType.LaborMarket,
-            PolicyState.A
+            PolicyState.B
         ),
         PolicyData(
             3,
@@ -83,12 +83,12 @@ class PoliciesDatasourceImpl @Inject constructor() : PoliciesDatasource {
         PolicyData(
             4,
             PolicyType.WEHealthcare,
-            PolicyState.A
+            PolicyState.B
         ),
         PolicyData(
             5,
             PolicyType.WEEducation,
-            PolicyState.A
+            PolicyState.C
         ),
         PolicyData(
             6, PolicyType.ForeignTrade,

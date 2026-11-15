@@ -26,6 +26,8 @@ sealed interface UiEvent {
 
     object ClearTaxes : UiAction()
 
+    object ResetPolicies : UiAction()
+
     class UpdateTitleVisibility(val show:Boolean) : UiAction()
 
 

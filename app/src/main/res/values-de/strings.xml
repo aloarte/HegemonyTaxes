@@ -101,6 +101,6 @@
     <string name="name_capitalist_class">KAPITALISTENKLASSE</string>
     <string name="name_middle_class">MITTELSCHICHT</string>
     <string name="name_state">STAAT</string>
-
+    <string name="reset_policies">Richtlinien zurücksetzen</string>
 
 </resources>

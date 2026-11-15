@@ -38,6 +38,10 @@ class MainViewModel @Inject constructor(
         updateTaxes()
     }
 
+    fun resetPolicies() {
+        fetchPolicies()
+    }
+
     fun updatePolicy(updatedPolicy: PolicyData) {
         _state.value.policies.find { it.type == updatedPolicy.type }?.let { listPolicy ->
             _state.update { uiState ->
