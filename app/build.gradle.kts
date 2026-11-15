@@ -72,6 +72,8 @@ android {
         }
     }
     lint {
+        disable += "MutableCollectionMutableState"
+        disable += "AutoboxingStateCreation"
         checkReleaseBuilds = false
         abortOnError = false
     }
