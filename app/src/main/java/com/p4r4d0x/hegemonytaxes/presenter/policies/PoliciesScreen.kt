@@ -3,7 +3,6 @@ package com.p4r4d0x.hegemonytaxes.presenter.policies
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -51,7 +50,7 @@ fun PoliciesScreenScrollable(
                     }
                 }
                 item { TaxRow(uiState) }
-                item { PickRolesRow(onEventTriggered) }
+                item { PoliciesActionsRow(onEventTriggered) }
             }
         }
     }
@@ -66,9 +65,13 @@ private fun PoliciesRows(policies: List<PolicyData>, sliderCallback: (PolicyData
 
     ) {
         PolicySliderComponent(policies[0], sliderCallback)
+        Divider(thickness = 2.dp, color = Color.Transparent)
         PolicySliderComponent(policies[1], sliderCallback)
+        Divider(thickness = 2.dp, color = Color.Transparent)
         PolicySliderComponent(policies[2], sliderCallback)
+        Divider(thickness = 2.dp, color = Color.Transparent)
         PolicySliderComponent(policies[3], sliderCallback)
+        Divider(thickness = 2.dp, color = Color.Transparent)
         PolicySliderComponent(policies[4], sliderCallback)
     }
 }
@@ -109,19 +112,26 @@ private fun TaxRow(uiState: UiState) {
 }
 
 @Composable
-private fun PickRolesRow(onEventTriggered: (UiEvent) -> Unit) {
-    Row(
+private fun PoliciesActionsRow(onEventTriggered: (UiEvent) -> Unit) {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 40.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HegemonyButton(
             modifier = Modifier,
             text = stringResource(R.string.pick_roles_row_pick_roles)
         ) {
             onEventTriggered(UiEvent.GoPickRole)
+        }
+        Divider(thickness = 15.dp, color = Color.Transparent)
+        HegemonyButton(
+            modifier = Modifier,
+            text = stringResource(R.string.reset_policies)
+        ) {
+            onEventTriggered(UiEvent.ResetPolicies)
         }
     }
 }

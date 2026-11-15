@@ -43,6 +43,10 @@ class MainActivity : ComponentActivity() {
                         viewModel.updateTitleVisibility(event.show)
                     }
 
+                    is UiEvent.ResetPolicies -> {
+                        viewModel.resetPolicies()
+                    }
+
                     else -> {}
                 }
             }

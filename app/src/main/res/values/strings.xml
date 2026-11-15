@@ -96,5 +96,6 @@
     <string name="name_capitalist_class">CAPITALIST CLASS</string>
     <string name="name_middle_class">MIDDLE CLASS</string>
     <string name="name_state">STATE</string>
+    <string name="reset_policies">Reset policies</string>
 
 </resources>

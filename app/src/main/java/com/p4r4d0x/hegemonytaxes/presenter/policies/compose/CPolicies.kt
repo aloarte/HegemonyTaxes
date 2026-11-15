@@ -83,7 +83,7 @@ fun PolicySlider(
     policyData: PolicyData,
     onPolicySelected: (PolicyData) -> Unit,
 ) {
-    var sliderPosition by remember {
+    var sliderPosition by remember(policyData.state) {
         mutableStateOf(PolicyState.fromState(policyData.state))
     }
     Slider(

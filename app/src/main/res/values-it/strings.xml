@@ -96,4 +96,5 @@
     <string name="name_capitalist_class">CLASSE CAPITALISTA</string>
     <string name="name_middle_class">CLASSE MEDIA</string>
     <string name="name_state">STATO</string>
+    <string name="reset_policies">Ripristina politiche</string>
 </resources>
