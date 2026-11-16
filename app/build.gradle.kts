@@ -38,8 +38,8 @@ android {
         applicationId = "com.p4r4d0x.hegemonytaxes"
         minSdk = 24
         targetSdk = 36
-        versionCode = 7
-        versionName = "1.6"
+        versionCode = 9
+        versionName = "1.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -47,14 +47,19 @@ android {
         }
     }
 
+    androidResources {
+        localeFilters += listOf("es", "en", "de", "it", "pt")
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-//            signingConfig = signingConfigs.getByName("release")
+//            signingConfig = signingConfigs.get_by_name("release")
         }
     }
     compileOptions {
