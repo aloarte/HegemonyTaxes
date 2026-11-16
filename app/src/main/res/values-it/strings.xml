@@ -97,4 +97,8 @@
     <string name="name_middle_class">CLASSE MEDIA</string>
     <string name="name_state">STATO</string>
     <string name="reset_policies">Ripristina politiche</string>
+    <string name="info_sheet_title">Qualche problema?</string>
+    <string name="info_sheet_text_1">Se hai domande, suggerimenti o riscontri errori, puoi contattarmi tramite&#160;</string>
+    <string name="info_sheet_text_2">aloarter.dev@gmail.com</string>
+    <string name="info_sheet_text_3">. Sarò felice di aiutarti e lavorerò per risolvere qualsiasi problema il prima possibile.</string>
 </resources>
