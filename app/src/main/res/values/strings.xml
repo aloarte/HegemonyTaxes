@@ -97,5 +97,9 @@
     <string name="name_middle_class">MIDDLE CLASS</string>
     <string name="name_state">STATE</string>
     <string name="reset_policies">Reset policies</string>
+    <string name="info_sheet_title">Any issues?</string>
+    <string name="info_sheet_text_1">If you have any questions, suggestions or detect any errors, you can contact me via&#160;</string>
+    <string name="info_sheet_text_2">aloarter.dev@gmail.com</string>
+    <string name="info_sheet_text_3">. I will be happy to help you and will work to resolve any issues as soon as possible.</string>
 
 </resources>

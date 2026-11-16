@@ -102,5 +102,9 @@
     <string name="name_middle_class">MITTELSCHICHT</string>
     <string name="name_state">STAAT</string>
     <string name="reset_policies">Richtlinien zurücksetzen</string>
+    <string name="info_sheet_title">Irgendwelche Probleme?</string>
+    <string name="info_sheet_text_1">Wenn du Fragen oder Vorschläge hast oder einen Fehler entdeckst, kannst du mich kontaktieren unter&#160;</string>
+    <string name="info_sheet_text_2">aloarter.dev@gmail.com</string>
+    <string name="info_sheet_text_3">. Ich helfe dir gerne weiter und werde daran arbeiten, alle Probleme so schnell wie möglich zu lösen.</string>
 
 </resources>
