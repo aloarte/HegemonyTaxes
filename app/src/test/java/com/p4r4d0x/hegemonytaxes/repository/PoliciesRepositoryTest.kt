@@ -10,7 +10,6 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -29,14 +28,16 @@ class PoliciesRepositoryTest {
     }
 
     @Test
-    fun `test fetch policies`() {
-        val policies = listOf(PolicyData(1,PolicyType.Immigration,PolicyState.B))
+    fun `GIVEN datasource policies WHEN fetchPolicies THEN return list of policies from datasource`() {
+        // GIVEN
+        val policies = listOf(PolicyData(1, PolicyType.Immigration, PolicyState.B))
         coEvery { datasource.getPoliciesData() } returns policies
 
+        // WHEN
         val detailResult = repository.fetchPolicies()
 
+        // THEN
         coVerify { datasource.getPoliciesData() }
         Assert.assertEquals(policies, detailResult)
     }
-
 }

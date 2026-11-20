@@ -12,6 +12,13 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.PoliciesRepository
 import com.p4r4d0x.hegemonytaxes.domain_data.repository.TaxRepository
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.CalculateTaxes
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.ClearTaxes
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.FetchPolicies
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.ResetPolicies
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.UpdatePolicy
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.UpdateSelection
+import com.p4r4d0x.hegemonytaxes.presenter.main.MainAction.UpdateTitleVisibility
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,18 +38,28 @@ class MainViewModel @Inject constructor(
         .onStart { fetchPolicies() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
 
-    fun fetchPolicies() {
-        _state.update {
-            it.copy(policies = policiesRepository.fetchPolicies())
+    fun onAction(action: MainAction) {
+        when (action) {
+            FetchPolicies -> fetchPolicies()
+            ResetPolicies -> fetchPolicies()
+            is UpdatePolicy -> updatePolicy(action.policy)
+            is CalculateTaxes -> {
+                updateSelection(action.roleData)
+                calculateTaxesResult(action.roleData)
+            }
+
+            ClearTaxes -> clearTaxesResult()
+            is UpdateSelection -> updateSelection(action.roleData)
+            is UpdateTitleVisibility -> updateTitleVisibility(action.show)
         }
+    }
+
+    private fun fetchPolicies() {
+        _state.update { it.copy(policies = policiesRepository.fetchPolicies()) }
         updateTaxes()
     }
 
-    fun resetPolicies() {
-        fetchPolicies()
-    }
-
-    fun updatePolicy(updatedPolicy: PolicyData) {
+    private fun updatePolicy(updatedPolicy: PolicyData) {
         _state.value.policies.find { it.type == updatedPolicy.type }?.let { listPolicy ->
             _state.update { uiState ->
                 val index = uiState.policies.indexOf(listPolicy)
@@ -64,7 +81,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun calculateTaxesResult(data: RoleInputs) {
+    private fun calculateTaxesResult(data: RoleInputs) {
         _state.update {
             it.copy(
                 resultTaxes = taxRepository.calculateTaxes(
@@ -77,13 +94,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun clearTaxesResult() {
-        _state.update {
-            it.copy(resultTaxes = TaxesNotCalculated)
-        }
+    private fun clearTaxesResult() {
+        _state.update { it.copy(resultTaxes = TaxesNotCalculated) }
     }
 
-    fun updateSelection(roleData: RoleInputs) {
+    private fun updateSelection(roleData: RoleInputs) {
         when (roleData) {
             is CapitalistClassInputs -> _state.update {
                 it.copy(ccSelection = roleData)
@@ -103,7 +118,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updateTitleVisibility(show: Boolean) {
+    private fun updateTitleVisibility(show: Boolean) {
         _state.update {
             it.copy(displayTitleOnAppBar = show)
         }
