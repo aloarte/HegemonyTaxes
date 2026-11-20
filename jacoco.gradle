@@ -21,7 +21,43 @@ task jacocoReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     }
 
-    final fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', 'android/**/*.*']
+    final fileFilter = [
+            // Standard Android / Gradle generated files
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            'android/**/*.*',
+
+            // Application and Activities
+            '**/HegemonyTaxesApplication*.*',
+            '**/MainActivity*.*',
+
+            // Dependency Injection (Hilt / Dagger)
+            '**/di/**',
+            '**/*_HiltModules*.*',
+            '**/*_Factory*.*',
+            '**/*_MembersInjector*.*',
+            '**/Hilt_*.*',
+            '**/*Hilt*.*',
+            '**/dagger/**',
+            '**/hilt_aggregate_deps/**',
+            '**/hilt_aggregated_deps/**',
+
+            // Jetpack Compose UI, Screens & Navigation
+            '**/*Screen*.*',
+            '**/presenter/UiEvent*.*',
+            '**/presenter/common/**',
+            '**/presenter/navigation/**',
+            '**/presenter/policies/**',
+            '**/presenter/roles/**',
+            '**/presenter/welcome/**',
+            '**/presenter/ui/theme/**',
+            '**/presenter/ui/data/**',
+            '**/presenter/ui/utils/**',
+            '**/*Composable*.*',
+            '**/*$composable*.*'
+    ]
 
     final kotlinTree = fileTree(dir: "${project.buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
     final javacTree = fileTree(dir: "${project.buildDir}/intermediates/javac/debug", excludes: fileFilter)

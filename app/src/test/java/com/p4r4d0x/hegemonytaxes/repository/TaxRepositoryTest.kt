@@ -172,9 +172,36 @@ class TaxRepositoryTest {
     }
 
     @Test
+    fun `GIVEN policies list with taxation policy after other policies WHEN getTaxationPolicyState THEN return state of taxation policy`() {
+        // GIVEN
+        val testPolicies = listOf(
+            PolicyData(1, PolicyType.FiscalPolicy, PolicyState.A),
+            PolicyData(3, PolicyType.Taxation, PolicyState.C)
+        )
+
+        // WHEN
+        val state = repository.getTaxationPolicyState(testPolicies)
+
+        // THEN
+        Assert.assertEquals(PolicyState.C, state)
+    }
+
+    @Test
     fun `GIVEN policies list without taxation policy WHEN getTaxationPolicyState THEN return default policy state B`() {
         // GIVEN
         val testPolicies = listOf(PolicyData(1, PolicyType.FiscalPolicy, PolicyState.A))
+
+        // WHEN
+        val state = repository.getTaxationPolicyState(testPolicies)
+
+        // THEN
+        Assert.assertEquals(PolicyState.B, state)
+    }
+
+    @Test
+    fun `GIVEN empty policies list WHEN getTaxationPolicyState THEN return default policy state B`() {
+        // GIVEN
+        val testPolicies = emptyList<PolicyData>()
 
         // WHEN
         val state = repository.getTaxationPolicyState(testPolicies)
