@@ -7,7 +7,9 @@ import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.CapitalistClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.MiddleClassTaxes
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyData
 import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyState
+import com.p4r4d0x.hegemonytaxes.domain_data.model.PolicyType
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassInputs
 import com.p4r4d0x.hegemonytaxes.domain_data.model.StateClassTaxes
 import com.p4r4d0x.hegemonytaxes.domain_data.model.WorkingClassInputs
@@ -50,130 +52,186 @@ class TaxRepositoryTest {
     }
 
     @Test
-    fun `test calculate tax multiplier having correct policies`() {
+    fun `GIVEN correct policies WHEN getTaxMultiplier THEN return calculated tax multiplier`() {
+        // GIVEN
         val exceptionsRaisedList = listOf(false, false, false, false)
         mockGetTaxMultiplierFunctions(exceptionsRaisedList)
 
+        // WHEN
         val taxMultiplier = repository.getTaxMultiplier(policies)
 
+        // THEN
         val shouldVerifyList = listOf(true, true, true, true, true)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(TAX_MULTIPLIER, taxMultiplier)
     }
 
     @Test
-    fun `test calculate tax multiplier having correct policies but wrong state 1`() {
+    fun `GIVEN exception in base tax calculation WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN
         val exceptionsRaisedList = listOf(true, false, false, false)
         mockGetTaxMultiplierFunctions(exceptionsRaisedList)
 
+        // WHEN
         val taxMultiplier = repository.getTaxMultiplier(policies)
 
+        // THEN
         val shouldVerifyList = listOf(true, false, false, false, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
     @Test
-    fun `test calculate tax multiplier having correct policies but wrong state 2`() {
+    fun `GIVEN exception in welfare tax calculation WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN
         val exceptionsRaisedList = listOf(false, true, false, false)
         mockGetTaxMultiplierFunctions(exceptionsRaisedList)
 
+        // WHEN
         val taxMultiplier = repository.getTaxMultiplier(policies)
 
+        // THEN
         val shouldVerifyList = listOf(true, true, false, false, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
     @Test
-    fun `test calculate tax multiplier having correct policies but wrong state 3`() {
+    fun `GIVEN exception in healthcare tax calculation WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN
         val exceptionsRaisedList = listOf(false, false, true, false)
         mockGetTaxMultiplierFunctions(exceptionsRaisedList)
 
+        // WHEN
         val taxMultiplier = repository.getTaxMultiplier(policies)
 
+        // THEN
         val shouldVerifyList = listOf(true, true, true, false, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
-
     @Test
-    fun `test calculate tax multiplier having correct policies but wrong state 4`() {
+    fun `GIVEN exception in education tax calculation WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN
         val exceptionsRaisedList = listOf(false, false, false, true)
         mockGetTaxMultiplierFunctions(exceptionsRaisedList)
 
+        // WHEN
         val taxMultiplier = repository.getTaxMultiplier(policies)
 
+        // THEN
         val shouldVerifyList = listOf(true, true, true, true, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
     @Test
-    fun `test calculate tax multiplier missing taxation policy`() {
+    fun `GIVEN policies missing taxation policy WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN & WHEN
         val taxMultiplier = repository.getTaxMultiplier(policiesMissingTaxation)
 
+        // THEN
         val shouldVerifyList = listOf(false, false, false, false, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
     @Test
-    fun `test calculate tax multiplier missing healthcare policy`() {
+    fun `GIVEN policies missing healthcare policy WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN & WHEN
         val taxMultiplier = repository.getTaxMultiplier(policiesMissingHealthcare)
 
+        // THEN
         val shouldVerifyList = listOf(false, false, false, false, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
     @Test
-    fun `test calculate tax multiplier missing education policy`() {
+    fun `GIVEN policies missing education policy WHEN getTaxMultiplier THEN return invalid tax value`() {
+        // GIVEN & WHEN
         val taxMultiplier = repository.getTaxMultiplier(policiesMissingEducation)
 
+        // THEN
         val shouldVerifyList = listOf(false, false, false, false, false)
         verifyGetTaxMultiplierFunctions(shouldVerifyList)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, taxMultiplier)
     }
 
     @Test
-    fun `test get income tax`() {
+    fun `GIVEN policies list with taxation policy WHEN getTaxationPolicyState THEN return state of taxation policy`() {
+        // GIVEN
+        val testPolicies = listOf(PolicyData(3, PolicyType.Taxation, PolicyState.C))
+
+        // WHEN
+        val state = repository.getTaxationPolicyState(testPolicies)
+
+        // THEN
+        Assert.assertEquals(PolicyState.C, state)
+    }
+
+    @Test
+    fun `GIVEN policies list without taxation policy WHEN getTaxationPolicyState THEN return default policy state B`() {
+        // GIVEN
+        val testPolicies = listOf(PolicyData(1, PolicyType.FiscalPolicy, PolicyState.A))
+
+        // WHEN
+        val state = repository.getTaxationPolicyState(testPolicies)
+
+        // THEN
+        Assert.assertEquals(PolicyState.B, state)
+    }
+
+    @Test
+    fun `GIVEN correct policies WHEN getIncomeTax THEN return income tax value`() {
+        // GIVEN
         mockGetTaxIncomeFunctions(false)
+
+        // WHEN
         val taxMultiplier = repository.getIncomeTax(policies)
 
+        // THEN
         verifyGetTaxIncomeFunctions(true)
         Assert.assertEquals(INCOME_TAX, taxMultiplier)
     }
 
-
     @Test
-    fun `test get income tax getIncomeTax exception`() {
+    fun `GIVEN exception in datasource WHEN getIncomeTax THEN return invalid tax value`() {
+        // GIVEN
         mockGetTaxIncomeFunctions(true)
+
+        // WHEN
         val incomeTax = repository.getIncomeTax(policies)
 
+        // THEN
         verifyGetTaxIncomeFunctions(true)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, incomeTax)
     }
 
     @Test
-    fun `test get income tax missing labor market policy`() {
+    fun `GIVEN policies missing labor market policy WHEN getIncomeTax THEN return invalid tax value`() {
+        // GIVEN & WHEN
         val incomeTax = repository.getIncomeTax(policiesMissingLaborMarket)
 
+        // THEN
         verifyGetTaxIncomeFunctions(false)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, incomeTax)
     }
 
     @Test
-    fun `test get income tax missing taxation policy`() {
+    fun `GIVEN policies missing taxation policy WHEN getIncomeTax THEN return invalid tax value`() {
+        // GIVEN & WHEN
         val incomeTax = repository.getIncomeTax(policiesMissingTaxation)
 
+        // THEN
         verifyGetTaxIncomeFunctions(false)
         Assert.assertEquals(Constants.INVALID_TAX_VALUE, incomeTax)
     }
 
     @Test
-    fun `test calculate capitalist class taxes, final income above 0`() {
+    fun `GIVEN capitalist class inputs with positive net income WHEN calculateTaxes THEN return capitalist class taxes`() {
+        // GIVEN
         val classInput = CapitalistClassInputs(companies = 3, profit = 120)
         every {
             taxCalculator.calculateCorporateTax(
@@ -182,8 +240,10 @@ class TaxRepositoryTest {
             )
         } returns 40
 
+        // WHEN
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
 
+        // THEN
         verify {
             taxCalculator.calculateCorporateTax(
                 108, // classInput.profit - employmentTax = 120 - 12 = 108
@@ -200,37 +260,44 @@ class TaxRepositoryTest {
     }
 
     @Test
-    fun `test calculate capitalist class taxes, final income below 0`() {
+    fun `GIVEN capitalist class inputs with negative net income WHEN calculateTaxes THEN return capitalist class taxes with zero corporate tax`() {
+        // GIVEN
         val classInput = CapitalistClassInputs(companies = 3, profit = 11)
         every {
             taxCalculator.calculateCorporateTax(
-                0, // classInput.profit - employmentTax = 11 - 12 = -1
+                0, // classInput.profit - employmentTax = 11 - 12 = -1 (clamped to 0)
                 PolicyState.A
             )
         } returns 0
 
+        // WHEN
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
 
-        every {
+        // THEN
+        verify {
             taxCalculator.calculateCorporateTax(
-                0, // classInput.profit - employmentTax = 11 - 12 = -1
+                0,
                 PolicyState.A
             )
         }
         val expectedResult = CapitalistClassTaxes(
             employmentTaxResult = 12,
             corporateTaxResult = 0,
+            reducedFromRevenue = 0,
             totalTaxes = 12
         )
         Assert.assertEquals(expectedResult, taxes)
     }
 
     @Test
-    fun `test calculate middle class taxes`() {
+    fun `GIVEN middle class inputs WHEN calculateTaxes THEN return middle class taxes`() {
+        // GIVEN
         val classInput = MiddleClassInputs(ownCompanies = 6, externalCompaniesWithWorkers = 3)
 
+        // WHEN
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
 
+        // THEN
         verify(exactly = 0) { taxCalculator.calculateCorporateTax(any(), any()) }
         val expectedResult =
             MiddleClassTaxes(
@@ -242,7 +309,8 @@ class TaxRepositoryTest {
     }
 
     @Test
-    fun `test calculate state class taxes`() {
+    fun `GIVEN state class inputs WHEN calculateTaxes THEN return state class taxes`() {
+        // GIVEN
         val classInput = StateClassInputs(
             wcPopulation = 3,
             mcExternalCompaniesWithWorkers = 2,
@@ -257,8 +325,10 @@ class TaxRepositoryTest {
             )
         } returns 15
 
+        // WHEN
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.B, classInput)
 
+        // THEN
         verify {
             taxCalculator.calculateCorporateTax(
                 classInput.ccProfit - TAX_MULTIPLIER * classInput.ccCompanies,
@@ -276,15 +346,17 @@ class TaxRepositoryTest {
     }
 
     @Test
-    fun `test calculate working class taxes`() {
+    fun `GIVEN working class inputs WHEN calculateTaxes THEN return working class taxes`() {
+        // GIVEN
         val classInput = WorkingClassInputs(population = 5)
 
+        // WHEN
         val taxes = repository.calculateTaxes(TAX_MULTIPLIER, INCOME_TAX, PolicyState.A, classInput)
 
+        // THEN
         verify(exactly = 0) { taxCalculator.calculateCorporateTax(any(), any()) }
         Assert.assertEquals(WorkingClassTaxes(incomeTaxResult = 20), taxes)
     }
-
 
     private fun mockGetTaxMultiplierFunctions(excRaised: List<Boolean>) {
         if (excRaised[0]) {
@@ -310,7 +382,6 @@ class TaxRepositoryTest {
 
         every {
             taxCalculator.calculateTaxMultiplier(
-
                 Constants.BASE_TAX_INCREMENT_B,
                 Constants.WELFARE_TAX_INCREMENT_B,
                 Constants.WELFARE_TAX_INCREMENT_A,
@@ -360,8 +431,8 @@ class TaxRepositoryTest {
         }
     }
 
-    private fun verifyGetTaxIncomeFunctions(shouldVerift: Boolean) {
-        verify(exactly = if (shouldVerift) 1 else 0) {
+    private fun verifyGetTaxIncomeFunctions(shouldVerify: Boolean) {
+        verify(exactly = if (shouldVerify) 1 else 0) {
             datasource.getIncomeTax(policies[1].state, policies[2].state)
         }
     }

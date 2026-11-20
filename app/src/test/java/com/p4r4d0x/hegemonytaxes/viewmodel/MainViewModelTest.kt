@@ -86,6 +86,20 @@ class MainViewModelTest {
         }
 
     @Test
+    fun `GIVEN initial policies not fetched WHEN fetch policies action triggered THEN policies fetched once`() =
+        coroutinesTestRule.runBlockingTest {
+            // GIVEN
+            mockAndCallFetchPolicies()
+
+            // WHEN
+            viewModel.onAction(MainAction.FetchPolicies)
+
+            // THEN
+            verify(exactly = 1) { policiesRepository.fetchPolicies() }
+        }
+
+
+    @Test
     fun `GIVEN initial policies WHEN update policy action triggered THEN policy updated and taxes recalculated`() =
         coroutinesTestRule.runBlockingTest {
             // GIVEN

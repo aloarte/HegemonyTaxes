@@ -34,9 +34,13 @@ class PoliciesDatasourceTest {
     }
 
     @Test
-    fun `test get policies data`() {
+    fun `GIVEN policies datasource WHEN getPoliciesData THEN return complete list of policies`() {
+        // GIVEN datasource initialized
+
+        // WHEN
         val listResult = datasource.getPoliciesData()
 
+        // THEN
         Assert.assertTrue(listResult.any { it.type == PolicyType.FiscalPolicy })
         Assert.assertTrue(listResult.any { it.type == PolicyType.LaborMarket })
         Assert.assertTrue(listResult.any { it.type == PolicyType.Taxation })
@@ -47,7 +51,8 @@ class PoliciesDatasourceTest {
     }
 
     @Test
-    fun `test get base tax increment`() {
+    fun `GIVEN valid policy states WHEN getBaseTaxIncrement THEN return correct values or throw on Unknown`() {
+        // GIVEN, WHEN & THEN
         Assert.assertEquals(BASE_TAX_INCREMENT_A, datasource.getBaseTaxIncrement(PolicyState.A))
         Assert.assertEquals(BASE_TAX_INCREMENT_B, datasource.getBaseTaxIncrement(PolicyState.B))
         Assert.assertEquals(BASE_TAX_INCREMENT_C, datasource.getBaseTaxIncrement(PolicyState.C))
@@ -57,7 +62,8 @@ class PoliciesDatasourceTest {
     }
 
     @Test
-    fun `test get welfare tax increment`() {
+    fun `GIVEN valid policy states WHEN getWelfareIncrement THEN return correct values or throw on Unknown`() {
+        // GIVEN, WHEN & THEN
         Assert.assertEquals(WELFARE_TAX_INCREMENT_A, datasource.getWelfareIncrement(PolicyState.A))
         Assert.assertEquals(WELFARE_TAX_INCREMENT_B, datasource.getWelfareIncrement(PolicyState.B))
         Assert.assertEquals(WELFARE_TAX_INCREMENT_C, datasource.getWelfareIncrement(PolicyState.C))
@@ -67,39 +73,39 @@ class PoliciesDatasourceTest {
     }
 
     @Test
-    fun `test get income tax`() {
-        Assert.assertEquals(INCOME_TAX_2A_3A, datasource.getIncomeTax(PolicyState.A,PolicyState.A))
-        Assert.assertEquals(INCOME_TAX_2A_3B, datasource.getIncomeTax(PolicyState.A,PolicyState.B))
-        Assert.assertEquals(INCOME_TAX_2A_3C, datasource.getIncomeTax(PolicyState.A,PolicyState.C))
-        Assert.assertEquals(INCOME_TAX_2B_3A, datasource.getIncomeTax(PolicyState.B,PolicyState.A))
-        Assert.assertEquals(INCOME_TAX_2B_3B, datasource.getIncomeTax(PolicyState.B,PolicyState.B))
-        Assert.assertEquals(INCOME_TAX_2B_3C, datasource.getIncomeTax(PolicyState.B,PolicyState.C))
-        Assert.assertEquals(INCOME_TAX_2C_3A, datasource.getIncomeTax(PolicyState.C,PolicyState.A))
-        Assert.assertEquals(INCOME_TAX_2C_3B, datasource.getIncomeTax(PolicyState.C,PolicyState.B))
-        Assert.assertEquals(INCOME_TAX_2C_3C, datasource.getIncomeTax(PolicyState.C,PolicyState.C))
-
+    fun `GIVEN valid labor market and taxation states WHEN getIncomeTax THEN return correct income tax`() {
+        // GIVEN, WHEN & THEN
+        Assert.assertEquals(INCOME_TAX_2A_3A, datasource.getIncomeTax(PolicyState.A, PolicyState.A))
+        Assert.assertEquals(INCOME_TAX_2A_3B, datasource.getIncomeTax(PolicyState.A, PolicyState.B))
+        Assert.assertEquals(INCOME_TAX_2A_3C, datasource.getIncomeTax(PolicyState.A, PolicyState.C))
+        Assert.assertEquals(INCOME_TAX_2B_3A, datasource.getIncomeTax(PolicyState.B, PolicyState.A))
+        Assert.assertEquals(INCOME_TAX_2B_3B, datasource.getIncomeTax(PolicyState.B, PolicyState.B))
+        Assert.assertEquals(INCOME_TAX_2B_3C, datasource.getIncomeTax(PolicyState.B, PolicyState.C))
+        Assert.assertEquals(INCOME_TAX_2C_3A, datasource.getIncomeTax(PolicyState.C, PolicyState.A))
+        Assert.assertEquals(INCOME_TAX_2C_3B, datasource.getIncomeTax(PolicyState.C, PolicyState.B))
+        Assert.assertEquals(INCOME_TAX_2C_3C, datasource.getIncomeTax(PolicyState.C, PolicyState.C))
     }
 
     @Test
-    fun `test get income tax unknown states`() {
+    fun `GIVEN unknown policy state WHEN getIncomeTax THEN throw TaxException`() {
+        // GIVEN, WHEN & THEN
         Assert.assertThrows(TaxException::class.java) {
-            datasource.getIncomeTax(PolicyState.A,PolicyState.Unknown)
+            datasource.getIncomeTax(PolicyState.A, PolicyState.Unknown)
         }
         Assert.assertThrows(TaxException::class.java) {
-            datasource.getIncomeTax(PolicyState.B,PolicyState.Unknown)
+            datasource.getIncomeTax(PolicyState.B, PolicyState.Unknown)
         }
         Assert.assertThrows(TaxException::class.java) {
-            datasource.getIncomeTax(PolicyState.C,PolicyState.Unknown)
+            datasource.getIncomeTax(PolicyState.C, PolicyState.Unknown)
         }
         Assert.assertThrows(TaxException::class.java) {
-            datasource.getIncomeTax(PolicyState.Unknown,PolicyState.A)
+            datasource.getIncomeTax(PolicyState.Unknown, PolicyState.A)
         }
         Assert.assertThrows(TaxException::class.java) {
-            datasource.getIncomeTax(PolicyState.Unknown,PolicyState.B)
+            datasource.getIncomeTax(PolicyState.Unknown, PolicyState.B)
         }
         Assert.assertThrows(TaxException::class.java) {
-            datasource.getIncomeTax(PolicyState.Unknown,PolicyState.C)
+            datasource.getIncomeTax(PolicyState.Unknown, PolicyState.C)
         }
     }
-
 }
