@@ -13,9 +13,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole
+import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole.CapitalistClass
+import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole.MiddleClass
+import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole.State
+import com.p4r4d0x.hegemonytaxes.domain_data.model.HegemonyRole.WorkingClass
 import com.p4r4d0x.hegemonytaxes.presenter.UiEvent
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.ClearTaxes
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.GoPickRole
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.GoPolicySelector
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.GoRole
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.GoScreen
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.GoWelcome
+import com.p4r4d0x.hegemonytaxes.presenter.UiEvent.UpdateTitleVisibility
 import com.p4r4d0x.hegemonytaxes.presenter.UiState
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.CapitalistClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.MiddleClassScreen
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.PoliciesScreen
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.RoleSelectorScreen
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.StateScreen
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.WelcomeScreen
+import com.p4r4d0x.hegemonytaxes.presenter.navigation.Screen.WorkingClassScreen
 import com.p4r4d0x.hegemonytaxes.presenter.navigation.compose.HegemonyTopAppBar
 import com.p4r4d0x.hegemonytaxes.presenter.policies.PoliciesScreenScrollable
 import com.p4r4d0x.hegemonytaxes.presenter.roles.CapitalistClassScreenScrollable
@@ -42,20 +59,23 @@ fun NavigationComponent(
 
     val handleBackAction: () -> Unit = {
         when (currentRoute) {
-            Screen.PoliciesScreen.route -> {
+            PoliciesScreen.route -> {
                 // Do nothing
             }
-            Screen.RoleSelectorScreen.route -> {
-                onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(true))
-                navController.navigate(Screen.PoliciesScreen.route)
+
+            RoleSelectorScreen.route -> {
+                onEventTriggered.invoke(UpdateTitleVisibility(true))
+                navController.navigate(PoliciesScreen.route)
             }
-            Screen.WorkingClassScreen.route,
-            Screen.MiddleClassScreen.route,
-            Screen.CapitalistClassScreen.route,
-            Screen.StateScreen.route -> {
-                onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(false))
+
+            WorkingClassScreen.route,
+            MiddleClassScreen.route,
+            CapitalistClassScreen.route,
+            StateScreen.route -> {
+                onEventTriggered.invoke(UpdateTitleVisibility(false))
                 navController.popBackStack()
             }
+
             else -> {
                 navController.popBackStack()
             }
@@ -77,28 +97,28 @@ fun NavigationComponent(
             popEnterTransition = { EnterTransition.None },
             popExitTransition = { ExitTransition.None }
         ) {
-            composable(route = Screen.WelcomeScreen.route) {
+            composable(route = WelcomeScreen.route) {
                 WelcomeScreen(
                     modifier = Modifier.padding(paddingValues),
                     preferences = preferences,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
-            composable(route = Screen.PoliciesScreen.route) {
+            composable(route = PoliciesScreen.route) {
                 PoliciesScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
-            composable(route = Screen.RoleSelectorScreen.route) {
+            composable(route = RoleSelectorScreen.route) {
                 RolesScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
-            composable(route = Screen.WorkingClassScreen.route) {
+            composable(route = WorkingClassScreen.route) {
                 WorkingClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
@@ -106,7 +126,7 @@ fun NavigationComponent(
                 )
             }
 
-            composable(route = Screen.MiddleClassScreen.route) {
+            composable(route = MiddleClassScreen.route) {
                 MiddleClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
@@ -114,14 +134,14 @@ fun NavigationComponent(
                 )
             }
 
-            composable(route = Screen.CapitalistClassScreen.route) {
+            composable(route = CapitalistClassScreen.route) {
                 CapitalistClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
                     onEventTriggered = onInnerEventTriggered
                 )
             }
-            composable(route = Screen.StateScreen.route) {
+            composable(route = StateScreen.route) {
                 StateClassScreenScrollable(
                     modifier = Modifier.padding(paddingValues),
                     uiState = uiState,
@@ -134,9 +154,9 @@ fun NavigationComponent(
 
 fun getStartDestination(preferences: SharedPreferences) =
     if (preferences.getBoolean(PREFERENCE_WELCOME, false)) {
-        Screen.PoliciesScreen.route
+        PoliciesScreen.route
     } else {
-        Screen.WelcomeScreen.route
+        WelcomeScreen.route
     }
 
 fun manageNavigationEvent(
@@ -144,21 +164,21 @@ fun manageNavigationEvent(
     navController: NavHostController,
     onEventTriggered: (UiEvent) -> Unit
 ) {
-    if (event is UiEvent.GoScreen) {
-        onEventTriggered.invoke(UiEvent.UpdateTitleVisibility(event.displayTitle))
+    if (event is GoScreen) {
+        onEventTriggered.invoke(UpdateTitleVisibility(event.displayTitle))
     }
 
     when (event) {
-        UiEvent.GoWelcome -> navController.navigate(Screen.WelcomeScreen.route)
-        UiEvent.GoPolicySelector -> navController.navigate(Screen.PoliciesScreen.route)
-        UiEvent.GoPickRole -> navController.navigate(Screen.RoleSelectorScreen.route)
-        is UiEvent.GoRole -> {
-            onEventTriggered(UiEvent.ClearTaxes)
+        GoWelcome -> navController.navigate(WelcomeScreen.route)
+        GoPolicySelector -> navController.navigate(PoliciesScreen.route)
+        GoPickRole -> navController.navigate(RoleSelectorScreen.route)
+        is GoRole -> {
+            onEventTriggered(ClearTaxes)
             when (event.role) {
-                HegemonyRole.WorkingClass -> navController.navigate(Screen.WorkingClassScreen.route)
-                HegemonyRole.MiddleClass -> navController.navigate(Screen.MiddleClassScreen.route)
-                HegemonyRole.CapitalistClass -> navController.navigate(Screen.CapitalistClassScreen.route)
-                HegemonyRole.State -> navController.navigate(Screen.StateScreen.route)
+                WorkingClass -> navController.navigate(WorkingClassScreen.route)
+                MiddleClass -> navController.navigate(MiddleClassScreen.route)
+                CapitalistClass -> navController.navigate(CapitalistClassScreen.route)
+                State -> navController.navigate(StateScreen.route)
             }
         }
 
